@@ -68,7 +68,7 @@ public class MainActivity extends FragmentActivity {
                 	for (Uri uri : uris) {
                 		Log.i(TAG, " uri: " + uri);
                 		mMedia.add(uri);
-					}	
+					}
                 }
 			}
 		}
