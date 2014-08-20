@@ -11,7 +11,7 @@ Android does not provide multi-selection of images out of the box until [API 18]
 
 Features
 ==========
-* Allow taking pictures from camera as well.
+* Allows taking pictures from camera as well.
 * Multi-selection of images from gallery.
 * Preview thumbnail of selected images.
 * No dependecy. 
@@ -19,7 +19,7 @@ Features
 Getting started
 ==========
 
-Add camera permissions and required features to you AndroidManifest.xml
+Add camera permissions and required features to your AndroidManifest.xml
 
 ```xml>
 
@@ -76,5 +76,5 @@ This project is inspired by and modified from an existing project mentioned belo
 
 Alternative
 ==========
-[android-multiple-image-picker](https://github.com/giljulio/android-multiple-image-picker)
-[MultipleImagePick](https://github.com/luminousman/MultipleImagePick)
+* [android-multiple-image-picker](https://github.com/giljulio/android-multiple-image-picker)
+* [MultipleImagePick](https://github.com/luminousman/MultipleImagePick)
