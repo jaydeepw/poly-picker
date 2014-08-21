@@ -50,18 +50,19 @@ public class GalleryFragment extends Fragment {
         }
         imageCursor.close();
 
-
         mGalleryGridView.setAdapter(mGalleryAdapter);
         mGalleryGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Image image = mGalleryAdapter.getItem(i);
-                if (!mActivity.addImage(image)) {
-                    mActivity.removeImage(image);
+                if (!mActivity.containsImage(image)) {
+                	mActivity.addImage(image);
+                } else {
+                	mActivity.removeImage(image);
                 }
 
-                //refresh the view to
-                mGalleryAdapter.getView(i, view, adapterView);
+                // refresh the view to
+               mGalleryAdapter.getView(i, view, adapterView);
             }
         });
 
@@ -91,12 +92,10 @@ public class GalleryFragment extends Fragment {
                 holder = (ViewHolder) convertView.getTag();
             }
 
-
             Image image = getItem(position);
             boolean isSelected = mActivity.containsImage(image);
 
-            ((FrameLayout) convertView).setForeground(isSelected ?
-                    getResources().getDrawable(R.drawable.gallery_photo_selected) : null);
+            ((FrameLayout) convertView).setForeground(isSelected ? getResources().getDrawable(R.drawable.gallery_photo_selected) : null);
 
             if (holder.mImage == null || !holder.mImage.equals(image)) {
                 mActivity.mImageFetcher.loadImage(image.mUri, holder.mThumbnail);

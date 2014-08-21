@@ -25,17 +25,23 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class ImagePickerActivity extends FragmentActivity implements ActionBar.TabListener, View.OnClickListener {
 
     private static final String TAG = ImagePickerActivity.class.getSimpleName();
 
-    public static final String TAG_IMAGE_URI = "TAG_IMAGE_URI";
+    public static final String EXTRA_IMAGE_URIS = "nl.changer.polypicker.extra.selected_image_uris";
+    
+    /***
+     * Integer extra to limit the number of images that can be selected. 
+     * By default the user can select infinite number of images.
+     */
+    public static final String EXTRA_SELECTION_LIMIT = "nl.changer.polypicker.extra.selection_limit";
 
     private Set<Image> mSelectedImages;
     private LinearLayout mSelectedImagesContainer;
-    private FrameLayout mFrameLayout;
     private TextView mSelectedImageEmptyMessage;
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -43,17 +49,17 @@ public class ImagePickerActivity extends FragmentActivity implements ActionBar.T
     public ImageInternalFetcher mImageFetcher;
 
     private Button mCancelButtonView, mDoneButtonView;
+    
+    private int mMaxSelectionsAllowed = Integer.MAX_VALUE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         setContentView(R.layout.activity_main);
 
         mSelectedImagesContainer = (LinearLayout) findViewById(R.id.selected_photos_container);
         mSelectedImageEmptyMessage = (TextView)findViewById(R.id.selected_photos_empty);
-        mFrameLayout = (FrameLayout) findViewById(R.id.selected_photos_container_frame);
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mCancelButtonView = (Button) findViewById(R.id.action_btn_cancel);
         mDoneButtonView = (Button) findViewById(R.id.action_btn_done);
@@ -65,14 +71,16 @@ public class ImagePickerActivity extends FragmentActivity implements ActionBar.T
 
         mCancelButtonView.setOnClickListener(this);
         mDoneButtonView.setOnClickListener(this);
+        
+        mMaxSelectionsAllowed = getIntent().getIntExtra(EXTRA_SELECTION_LIMIT, Integer.MAX_VALUE);
 
         setupActionBar();
     }
 
     /**
      * Sets up the action bar, adding view page indicator
-     */
-    private void setupActionBar(){
+     ***/
+    private void setupActionBar() {
         final ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.setDisplayShowHomeEnabled(false);
@@ -90,24 +98,30 @@ public class ImagePickerActivity extends FragmentActivity implements ActionBar.T
         }
     }
 
-
     public boolean addImage(Image image) {
-        if(mSelectedImages.add(image)){
-            View rootView = LayoutInflater.from(ImagePickerActivity.this).inflate(R.layout.list_item_selected_thumbnail, null);
-            ImageView thumbnail = (ImageView)rootView.findViewById(R.id.selected_photo);
-            rootView.setTag(image.mUri);
-            mImageFetcher.loadImage(image.mUri, thumbnail);
-            mSelectedImagesContainer.addView(rootView, 0);
+    	
+    	if(mSelectedImages.size() == mMaxSelectionsAllowed) {
+    		Toast.makeText(this, mMaxSelectionsAllowed + " images selected already", Toast.LENGTH_SHORT).show();
+    		return false;
+    	} else {
+    		if(mSelectedImages.add(image)){
+                View rootView = LayoutInflater.from(ImagePickerActivity.this).inflate(R.layout.list_item_selected_thumbnail, null);
+                ImageView thumbnail = (ImageView) rootView.findViewById(R.id.selected_photo);
+                rootView.setTag(image.mUri);
+                mImageFetcher.loadImage(image.mUri, thumbnail);
+                mSelectedImagesContainer.addView(rootView, 0);
 
-            int px = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, getResources().getDisplayMetrics());
-            thumbnail.setLayoutParams(new FrameLayout.LayoutParams(px, px));
+                int px = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, getResources().getDisplayMetrics());
+                thumbnail.setLayoutParams(new FrameLayout.LayoutParams(px, px));
 
-            if(mSelectedImages.size() == 1) {
-                mSelectedImagesContainer.setVisibility(View.VISIBLE);
-                mSelectedImageEmptyMessage.setVisibility(View.GONE);
+                if(mSelectedImages.size() == 1) {
+                    mSelectedImagesContainer.setVisibility(View.VISIBLE);
+                    mSelectedImageEmptyMessage.setVisibility(View.GONE);
+                }
+                return true;
             }
-            return true;
-        }
+    	}
+    	
         return false;
     }
 
@@ -130,7 +144,7 @@ public class ImagePickerActivity extends FragmentActivity implements ActionBar.T
         return false;
     }
 
-    public boolean containsImage(Image image){
+    public boolean containsImage(Image image) {
         return mSelectedImages.contains(image);
     }
 
@@ -145,7 +159,7 @@ public class ImagePickerActivity extends FragmentActivity implements ActionBar.T
                 uris[i++] = img.mUri;
 
             Intent intent = new Intent();
-            intent.putExtra(TAG_IMAGE_URI, uris);
+            intent.putExtra(EXTRA_IMAGE_URIS, uris);
             setResult(Activity.RESULT_OK, intent);
         } else if(view.getId() == R.id.action_btn_cancel) {
             setResult(Activity.RESULT_CANCELED);
@@ -200,13 +214,13 @@ public class ImagePickerActivity extends FragmentActivity implements ActionBar.T
 
 	@Override
 	public void onTabUnselected(Tab tab, android.app.FragmentTransaction ft) {
-		// TODO Auto-generated method stub
+		// Auto-generated method stub
 		
 	}
 
 	@Override
 	public void onTabReselected(Tab tab, android.app.FragmentTransaction ft) {
-		// TODO Auto-generated method stub
+		// Auto-generated method stub
 		
 	}
 }
