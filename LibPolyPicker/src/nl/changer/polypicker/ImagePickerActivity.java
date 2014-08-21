@@ -126,8 +126,8 @@ public class ImagePickerActivity extends FragmentActivity implements ActionBar.T
     }
 
     public boolean removeImage(Image image) {
-        if(mSelectedImages.remove(image)){
-            for(int i = 0; i < mSelectedImagesContainer.getChildCount(); i++){
+        if(mSelectedImages.remove(image)) {
+            for(int i = 0; i < mSelectedImagesContainer.getChildCount(); i++) {
                 View childView = mSelectedImagesContainer.getChildAt(i);
                 if(childView.getTag().equals(image.mUri)){
                     mSelectedImagesContainer.removeViewAt(i);
@@ -135,7 +135,7 @@ public class ImagePickerActivity extends FragmentActivity implements ActionBar.T
                 }
             }
 
-            if(mSelectedImages.size() == 0){
+            if(mSelectedImages.size() == 0) {
                 mSelectedImagesContainer.setVisibility(View.GONE);
                 mSelectedImageEmptyMessage.setVisibility(View.VISIBLE);
             }

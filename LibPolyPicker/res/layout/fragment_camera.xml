@@ -12,18 +12,14 @@
         android:orientation="vertical" >
 
         <!--
-             <com.giljulio.imagepicker.ui.CameraPreview
-            android:id="@+id/surfaceView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="left|center_vertical" />
+        Add a CameraPreview here dynamically.
         -->
     </LinearLayout>
 
     <ImageButton
         android:id="@+id/take_picture"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:layout_gravity="center_horizontal|bottom"
         android:layout_margin="18dp"
         android:background="@android:color/transparent"

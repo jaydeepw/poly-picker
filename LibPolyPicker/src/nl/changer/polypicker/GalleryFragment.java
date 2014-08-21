@@ -62,7 +62,8 @@ public class GalleryFragment extends Fragment {
                 }
 
                 // refresh the view to
-               mGalleryAdapter.getView(i, view, adapterView);
+               // mGalleryAdapter.getView(i, view, adapterView);
+                mGalleryAdapter.notifyDataSetChanged();
             }
         });
 
