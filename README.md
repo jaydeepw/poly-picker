@@ -45,6 +45,7 @@ Start the PolyPicker activity and get the result back.
 
 private void getImages() {
 	Intent intent = new Intent(mContext, ImagePickerActivity.class);
+	intent.putExtra(ImagePickerActivity.EXTRA_SELECTION_LIMIT, 3);	// allow only upto 3 images to be selected.
 	startActivityForResult(intent, INTENT_REQUEST_GET_IMAGES);
 }
 
@@ -54,7 +55,7 @@ protected void onActivityResult(int requestCode, int resuleCode, Intent intent) 
 
 	if (resuleCode == Activity.RESULT_OK) {
 		if (requestCode == INTENT_REQUEST_GET_IMAGES) {
-			Parcelable[] parcelableUris = intent.getParcelableArrayExtra(ImagePickerActivity.TAG_IMAGE_URI);
+			Parcelable[] parcelableUris = intent.getParcelableArrayExtra(ImagePickerActivity.EXTRA_IMAGE_URIS);
             
             if(parcelableUris == null) {
             	return;
