@@ -2,7 +2,7 @@ package nl.changer.polypickerdemo;
 
 import java.util.HashSet;
 
-import nl.changer.polypicker.ui.ImagePickerActivity;
+import nl.changer.polypicker.ImagePickerActivity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;

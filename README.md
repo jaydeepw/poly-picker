@@ -35,7 +35,7 @@ Declare the PolyPicker activity in your AndroidManifest.xml
 ```xml
 
 <activity
-            android:name="nl.changer.polypicker.ui.ImagePickerActivity"
+            android:name="nl.changer.polypicker.ImagePickerActivity"
             android:configChanges="mcc|mnc|touchscreen|orientation|uiMode|screenSize|keyboardHidden" />
 ```
 

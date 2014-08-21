@@ -1,10 +1,9 @@
-package nl.changer.polypicker.ui;
+package nl.changer.polypicker;
 
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
-import nl.changer.polypicker.R;
 import nl.changer.polypicker.model.Image;
 import nl.changer.polypicker.utils.ImageInternalFetcher;
 import android.app.ActionBar;
@@ -20,8 +19,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
