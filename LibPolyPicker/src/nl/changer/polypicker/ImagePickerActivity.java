@@ -1,7 +1,6 @@
 package nl.changer.polypicker;
 
 import java.util.HashSet;
-import java.util.Locale;
 import java.util.Set;
 
 import nl.changer.polypicker.model.Image;
@@ -32,6 +31,9 @@ public class ImagePickerActivity extends FragmentActivity implements ActionBar.T
 
     private static final String TAG = ImagePickerActivity.class.getSimpleName();
 
+    /***
+     * Returns the parcelled image uris in the intent with this extra.
+     */
     public static final String EXTRA_IMAGE_URIS = "nl.changer.polypicker.extra.selected_image_uris";
     
     /***
@@ -104,7 +106,7 @@ public class ImagePickerActivity extends FragmentActivity implements ActionBar.T
     		Toast.makeText(this, mMaxSelectionsAllowed + " images selected already", Toast.LENGTH_SHORT).show();
     		return false;
     	} else {
-    		if(mSelectedImages.add(image)){
+    		if(mSelectedImages.add(image)) {
                 View rootView = LayoutInflater.from(ImagePickerActivity.this).inflate(R.layout.list_item_selected_thumbnail, null);
                 ImageView thumbnail = (ImageView) rootView.findViewById(R.id.selected_photo);
                 rootView.setTag(image.mUri);
@@ -114,7 +116,7 @@ public class ImagePickerActivity extends FragmentActivity implements ActionBar.T
                 int px = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, getResources().getDisplayMetrics());
                 thumbnail.setLayoutParams(new FrameLayout.LayoutParams(px, px));
 
-                if(mSelectedImages.size() == 1) {
+                if(mSelectedImages.size() >= 1) {
                     mSelectedImagesContainer.setVisibility(View.VISIBLE);
                     mSelectedImageEmptyMessage.setVisibility(View.GONE);
                 }
@@ -152,8 +154,7 @@ public class ImagePickerActivity extends FragmentActivity implements ActionBar.T
 		
         @Override
         public void onClick(View view) {
-            // cannot use switch statement since ADT 14 -.-
-            if(view.getId() == R.id.action_btn_done){
+            if(view.getId() == R.id.action_btn_done) {
 
                 Uri[] uris = new Uri[mSelectedImages.size()];
                 int i = 0;
@@ -196,12 +197,11 @@ public class ImagePickerActivity extends FragmentActivity implements ActionBar.T
 
         @Override
         public CharSequence getPageTitle(int position) {
-            Locale l = Locale.getDefault();
             switch (position) {
                 case 0:
-                    return "Take a photo";	//getString(R.string.title_section1).toUpperCase(l);
+                    return getString(R.string.take_photo);
                 case 1:
-                    return "Gallery";	//getString(R.string.title_section2).toUpperCase(l);
+                    return getString(R.string.gallery);
             }
             return null;
         }
@@ -215,13 +215,11 @@ public class ImagePickerActivity extends FragmentActivity implements ActionBar.T
 
 	@Override
 	public void onTabUnselected(Tab tab, android.app.FragmentTransaction ft) {
-		// Auto-generated method stub
-		
+		// Auto-generated method stub		
 	}
 
 	@Override
 	public void onTabReselected(Tab tab, android.app.FragmentTransaction ft) {
 		// Auto-generated method stub
-		
 	}
 }

@@ -6,6 +6,7 @@
     <string name="action_settings">Settings</string>
     <string name="done">Done</string>
     <string name="cancel">Cancel</string>
-    <!-- <string name="hello_blank_fragment">Hello blank fragment</string> -->
+    <string name="take_photo">Take a photo</string>
+    <string name="gallery">"Gallery"</string>
 
 </resources>
