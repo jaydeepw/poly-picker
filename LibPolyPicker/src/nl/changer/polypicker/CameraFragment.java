@@ -1,6 +1,5 @@
 package nl.changer.polypicker;
 
-import nl.changer.polypicker.R;
 import nl.changer.polypicker.model.Image;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -15,8 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-
-
 
 public class CameraFragment extends Fragment implements Camera.ShutterCallback, Camera.PictureCallback {
 
@@ -79,6 +76,7 @@ public class CameraFragment extends Fragment implements Camera.ShutterCallback, 
             MediaStore.Images.Media.DATA,
             MediaStore.Images.ImageColumns.ORIENTATION
         };
+        
          // can post image
         Cursor cursor = getActivity().getContentResolver().query(contentUri, cols, null, null, null);
         cursor.moveToFirst();
