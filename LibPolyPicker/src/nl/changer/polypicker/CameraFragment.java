@@ -53,96 +53,13 @@ public class CameraFragment extends Fragment implements Camera.ShutterCallback, 
             }
         }
     };
-
-    /*@Override
-    public void surfaceCreated(SurfaceHolder surfaceHolder) {
-        if (mCamera == null) {
-            mCamera = Camera.open();
-            try {
-                mCamera.setPreviewDisplay(surfaceHolder);
-                mCamera.setDisplayOrientation(90);
-
-                Camera.Parameters parameters = mCamera.getParameters();
-                List<Size> mSupportedPreviewSizes = mCamera.getParameters().getSupportedPreviewSizes();
-                // Camera.Size size = getOptimalPreviewSize(mSupportedPreviewSizes, w, h);
-                parameters.setPreviewSize(mSurfaceView.getWidth(), mSurfaceView.getHeight());
-                mCamera.setParameters(parameters);
-
-                // TODO: test how much setPreviewCallbackWithBuffer is faster
-                //mCamera.setPreviewCallback(this);
-                mCamera.startPreview();
-
-                mTakePictureBtn.setEnabled(true);
-            } catch (IOException e) {
-                e.printStackTrace();
-                mCamera.release();
-                mCamera = null;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }*/
     
-    /*private Camera.Size getOptimalPreviewSize(List<Camera.Size> sizes, int w, int h) {
-        final double ASPECT_TOLERANCE = 0.1;
-        double targetRatio=(double)h / w;
-
-        if (sizes == null) return null;
-
-        Camera.Size optimalSize = null;
-        double minDiff = Double.MAX_VALUE;
-
-        int targetHeight = h;
-
-        for (Camera.Size size : sizes) {
-            double ratio = (double) size.width / size.height;
-            if (Math.abs(ratio - targetRatio) > ASPECT_TOLERANCE) continue;
-            if (Math.abs(size.height - targetHeight) < minDiff) {
-                optimalSize = size;
-                minDiff = Math.abs(size.height - targetHeight);
-            }
-        }
-
-        if (optimalSize == null) {
-            minDiff = Double.MAX_VALUE;
-            for (Camera.Size size : sizes) {
-                if (Math.abs(size.height - targetHeight) < minDiff) {
-                    optimalSize = size;
-                    minDiff = Math.abs(size.height - targetHeight);
-                }
-            }
-        }
-        return optimalSize;
-    }*/
-
-    /*@Override
-    public void surfaceChanged(SurfaceHolder surfaceHolder, int format, int width, int height) {
-        Log.d(TAG, "surfaceChanged");
-    }
-
-    @Override
-    public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-        if (mCamera != null) {
-            mCamera.stopPreview();
-            mCamera.setPreviewCallback(null);
-            mCamera.release();
-            mCamera = null;
-        }
-
-    }*/
-
-    /*@Override
-    public void onPreviewFrame(byte[] bytes, Camera camera) {
-        if(!mTakePictureBtn.isEnabled())
-            mTakePictureBtn.setEnabled(true);
-    }*/
-
     @Override
     public void onPictureTaken(byte[] bytes, Camera camera) {
         mTakePictureBtn.setEnabled(true);
         Bitmap picture = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
 
-        //rotates the image to portrait
+        // rotates the image to portrait
         Matrix matrix = new Matrix();
         matrix.postRotate(90);
         picture = Bitmap.createBitmap(picture, 0, 0, picture.getWidth(), picture.getHeight(), matrix, true);
