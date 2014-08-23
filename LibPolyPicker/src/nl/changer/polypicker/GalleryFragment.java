@@ -47,7 +47,7 @@ public class GalleryFragment extends Fragment {
                 Uri uri = Uri.parse(imageCursor.getString(imageCursor.getColumnIndex(MediaStore.Images.Media.DATA)));
                 int orientation = imageCursor.getInt(imageCursor.getColumnIndex(MediaStore.Images.ImageColumns.ORIENTATION));
                 mGalleryAdapter.add(new Image(uri, orientation));
-            }	
+            }
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
