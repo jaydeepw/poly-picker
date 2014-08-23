@@ -34,21 +34,27 @@ public class GalleryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_gallery, container, false);
 
-        Log.d(TAG, "onCreateView");
         mGalleryAdapter = new ImageGalleryAdapter(getActivity());
         mGalleryGridView = (GridView) rootView.findViewById(R.id.gallery_grid);
         mActivity = ((ImagePickerActivity) getActivity());
 
-
-        final String[] columns = {MediaStore.Images.Media.DATA, MediaStore.Images.Media._ID, MediaStore.Images.ImageColumns.ORIENTATION};
-        final String orderBy = MediaStore.Images.Media._ID;
-        Cursor imageCursor = getActivity().getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns, null, null, orderBy);
-        while (imageCursor.moveToNext()) {
-            Uri uri = Uri.parse(imageCursor.getString(imageCursor.getColumnIndex(MediaStore.Images.Media.DATA)));
-            int orientation = imageCursor.getInt(imageCursor.getColumnIndex(MediaStore.Images.ImageColumns.ORIENTATION));
-            mGalleryAdapter.add(new Image(uri, orientation));
-        }
-        imageCursor.close();
+        Cursor imageCursor = null;
+        try {
+        	final String[] columns = {MediaStore.Images.Media.DATA, MediaStore.Images.ImageColumns.ORIENTATION};
+            final String orderBy = MediaStore.Images.Media.DATE_ADDED;
+            imageCursor = getActivity().getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns, null, null, orderBy + " DESC");
+            while (imageCursor.moveToNext()) {
+                Uri uri = Uri.parse(imageCursor.getString(imageCursor.getColumnIndex(MediaStore.Images.Media.DATA)));
+                int orientation = imageCursor.getInt(imageCursor.getColumnIndex(MediaStore.Images.ImageColumns.ORIENTATION));
+                mGalleryAdapter.add(new Image(uri, orientation));
+            }	
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(imageCursor != null && !imageCursor.isClosed()) {
+				imageCursor.close();	
+			}	
+		}
 
         mGalleryGridView.setAdapter(mGalleryAdapter);
         mGalleryGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
