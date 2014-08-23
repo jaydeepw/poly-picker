@@ -13,7 +13,7 @@ Features
 ==========
 * Allows taking pictures from camera as well.
 * Multi-selection of images from gallery.
-* Select/capture images only upto a specified limit.
+* Ability to select/capture images upto a specified limit.
 * Preview thumbnail of selected images.
 * No dependecy.
 
