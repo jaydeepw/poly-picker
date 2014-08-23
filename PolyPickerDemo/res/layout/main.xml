@@ -9,15 +9,22 @@
     tools:context="nl.changer.polypickerdemo.MainActivity"
     tools:ignore="MergeRootFrame" >
 
-    <!-- android:background="@drawable/gray_border_wo_padding" -->
-
     <Button
         android:id="@+id/get_images"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:text="Pick/Capture Images"
+        android:text="Pick/Capture images"
+        android:textColor="#000000" />
+
+    <Button
+        android:id="@+id/get_n_images"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:text="Pick/Capture only 3 images"
         android:textColor="#000000" />
 
 </LinearLayout>

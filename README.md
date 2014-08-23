@@ -13,8 +13,9 @@ Features
 ==========
 * Allows taking pictures from camera as well.
 * Multi-selection of images from gallery.
+* Select/capture images only upto a specified limit.
 * Preview thumbnail of selected images.
-* No dependecy. 
+* No dependecy.
 
 Getting started
 ==========
@@ -68,6 +69,14 @@ protected void onActivityResult(int requestCode, int resuleCode, Intent intent) 
 
 ```
 
+Contributing
+=========================
+
+Please fork this repository and contribute back using
+[pull requests](https://github.com/jaydeepw/poly-picker/pulls).
+
+Please follow Android code [style guide](https://source.android.com/source/code-style.html)
+
 Credits
 ==========
 This project is inspired by and modified from an existing project mentioned below.
@@ -75,7 +84,7 @@ This project is inspired by and modified from an existing project mentioned belo
 [android-multiple-image-picker](https://github.com/giljulio/android-multiple-image-picker)
 
 
-Alternative
+Alternative projects
 ==========
 * [android-multiple-image-picker](https://github.com/giljulio/android-multiple-image-picker)
 * [MultipleImagePick](https://github.com/luminousman/MultipleImagePick)

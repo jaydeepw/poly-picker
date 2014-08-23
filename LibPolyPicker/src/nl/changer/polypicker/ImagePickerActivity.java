@@ -28,7 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class ImagePickerActivity extends FragmentActivity implements ActionBar.TabListener, View.OnClickListener {
+public class ImagePickerActivity extends FragmentActivity implements ActionBar.TabListener {
 
     private static final String TAG = ImagePickerActivity.class.getSimpleName();
 
@@ -69,8 +69,8 @@ public class ImagePickerActivity extends FragmentActivity implements ActionBar.T
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        mCancelButtonView.setOnClickListener(this);
-        mDoneButtonView.setOnClickListener(this);
+        mCancelButtonView.setOnClickListener(onFinishGettingImages);
+        mDoneButtonView.setOnClickListener(onFinishGettingImages);
         
         mMaxSelectionsAllowed = getIntent().getIntExtra(EXTRA_SELECTION_LIMIT, Integer.MAX_VALUE);
 
@@ -147,26 +147,29 @@ public class ImagePickerActivity extends FragmentActivity implements ActionBar.T
     public boolean containsImage(Image image) {
         return mSelectedImages.contains(image);
     }
+    
+    private View.OnClickListener onFinishGettingImages = new View.OnClickListener() {
+		
+        @Override
+        public void onClick(View view) {
+            // cannot use switch statement since ADT 14 -.-
+            if(view.getId() == R.id.action_btn_done){
 
-    @Override
-    public void onClick(View view) {
-        //cannot use switch statement since ADT 14 -.-
-        if(view.getId() == R.id.action_btn_done){
+                Uri[] uris = new Uri[mSelectedImages.size()];
+                int i = 0;
+                for(Image img : mSelectedImages) {
+                	uris[i++] = img.mUri;	
+                }
 
-            Uri[] uris = new Uri[mSelectedImages.size()];
-            int i = 0;
-            for(Image img : mSelectedImages)
-                uris[i++] = img.mUri;
-
-            Intent intent = new Intent();
-            intent.putExtra(EXTRA_IMAGE_URIS, uris);
-            setResult(Activity.RESULT_OK, intent);
-        } else if(view.getId() == R.id.action_btn_cancel) {
-            setResult(Activity.RESULT_CANCELED);
+                Intent intent = new Intent();
+                intent.putExtra(EXTRA_IMAGE_URIS, uris);
+                setResult(Activity.RESULT_OK, intent);
+            } else if(view.getId() == R.id.action_btn_cancel) {
+                setResult(Activity.RESULT_CANCELED);
+            }
+            finish();
         }
-        finish();
-    }
-
+	};
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
@@ -176,8 +179,6 @@ public class ImagePickerActivity extends FragmentActivity implements ActionBar.T
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
             switch(position){
                 case 0:
                     return new CameraFragment();

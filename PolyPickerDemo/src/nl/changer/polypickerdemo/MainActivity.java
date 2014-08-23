@@ -19,6 +19,7 @@ public class MainActivity extends FragmentActivity {
 	private static final String TAG = MainActivity.class.getSimpleName();
 	
 	private static final int INTENT_REQUEST_GET_IMAGES = 13;
+	private static final int INTENT_REQUEST_GET_N_IMAGES = 14;
 	
 	private Context mContext;
 	
@@ -41,11 +42,29 @@ public class MainActivity extends FragmentActivity {
 				getImages();
 			}
 		});
+		
+		View getNImages = findViewById(R.id.get_n_images);
+
+		getNImages.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				getNImages();
+			}
+		});
 	}
 
 	private void getImages() {
 		Intent intent = new Intent(mContext, ImagePickerActivity.class);
 		startActivityForResult(intent, INTENT_REQUEST_GET_IMAGES);
+	}
+	
+	private void getNImages() {
+		Intent intent = new Intent(mContext, ImagePickerActivity.class);
+		
+		// limit image pick count to only 3 images.
+		intent.putExtra(ImagePickerActivity.EXTRA_SELECTION_LIMIT, 3);
+		startActivityForResult(intent, INTENT_REQUEST_GET_N_IMAGES);
 	}
 
 	@Override
@@ -53,8 +72,8 @@ public class MainActivity extends FragmentActivity {
 		super.onActivityResult(requestCode, resuleCode, intent);
 
 		if (resuleCode == Activity.RESULT_OK) {
-			if (requestCode == INTENT_REQUEST_GET_IMAGES) {
-				Parcelable[] parcelableUris = intent.getParcelableArrayExtra(ImagePickerActivity.TAG_IMAGE_URI);
+			if (requestCode == INTENT_REQUEST_GET_IMAGES || requestCode == INTENT_REQUEST_GET_N_IMAGES) {
+				Parcelable[] parcelableUris = intent.getParcelableArrayExtra(ImagePickerActivity.EXTRA_IMAGE_URIS);
                 
                 if(parcelableUris ==null) {
                 	return;
