@@ -1,6 +1,5 @@
 package nl.changer.polypicker;
 
-import nl.changer.polypicker.R;
 import nl.changer.polypicker.model.Image;
 import android.content.Context;
 import android.database.Cursor;
@@ -8,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,9 +24,9 @@ public class GalleryFragment extends Fragment {
 
     private static final String TAG = GalleryFragment.class.getSimpleName();
 
-    GridView mGalleryGridView;
-    ImageGalleryAdapter mGalleryAdapter;
-    ImagePickerActivity mActivity;
+    private GridView mGalleryGridView;
+    private ImageGalleryAdapter mGalleryAdapter;
+    private ImagePickerActivity mActivity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,8 +39,8 @@ public class GalleryFragment extends Fragment {
         Cursor imageCursor = null;
         try {
         	final String[] columns = {MediaStore.Images.Media.DATA, MediaStore.Images.ImageColumns.ORIENTATION};
-            final String orderBy = MediaStore.Images.Media.DATE_ADDED;
-            imageCursor = getActivity().getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns, null, null, orderBy + " DESC");
+            final String orderBy = MediaStore.Images.Media.DATE_ADDED + " DESC";
+            imageCursor = getActivity().getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, columns, null, null, orderBy);
             while (imageCursor.moveToNext()) {
                 Uri uri = Uri.parse(imageCursor.getString(imageCursor.getColumnIndex(MediaStore.Images.Media.DATA)));
                 int orientation = imageCursor.getInt(imageCursor.getColumnIndex(MediaStore.Images.ImageColumns.ORIENTATION));
@@ -78,6 +76,8 @@ public class GalleryFragment extends Fragment {
 
     class ViewHolder {
         ImageView mThumbnail;
+        // This is like storing too much data in memory.
+        // find a better way to handle this
         Image mImage;
     }
 
