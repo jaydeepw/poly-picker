@@ -18,8 +18,7 @@ import android.widget.ImageButton;
 
 
 
-public class CameraFragment extends Fragment implements /*SurfaceHolder.Callback,*/
-        Camera.ShutterCallback, Camera.PictureCallback {
+public class CameraFragment extends Fragment implements Camera.ShutterCallback, Camera.PictureCallback {
 
     private static final String TAG = CameraFragment.class.getSimpleName();
 
@@ -28,28 +27,32 @@ public class CameraFragment extends Fragment implements /*SurfaceHolder.Callback
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        // Inflate the layout 
+    	// for this fragment
         View rootView = inflater.inflate(R.layout.fragment_camera, container, false);
 
-        // mSurfaceView = (CameraPreview)rootView.findViewById(R.id.surfaceView);
         mCamera = Camera.open();
         CameraPreview preview = new CameraPreview(getActivity(), mCamera);
         
         ViewGroup previewHolder = (ViewGroup) rootView.findViewById(R.id.preview_holder);
         previewHolder.addView(preview);
-
+        // take picture even when the preview is clicked.
+        previewHolder.setOnClickListener(mOnTakePictureClicked);
+        
         mTakePictureBtn = (ImageButton) rootView.findViewById(R.id.take_picture);
-        mTakePictureBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(mTakePictureBtn.isEnabled()){
-                    mTakePictureBtn.setEnabled(false);
-                    mCamera.takePicture(CameraFragment.this, null, CameraFragment.this);
-                }
-            }
-        });
+        mTakePictureBtn.setOnClickListener(mOnTakePictureClicked);
         return rootView;
     }
+    
+    View.OnClickListener mOnTakePictureClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if(mTakePictureBtn.isEnabled()){
+                mTakePictureBtn.setEnabled(false);
+                mCamera.takePicture(CameraFragment.this, null, CameraFragment.this);
+            }
+        }
+    };
 
     /*@Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
