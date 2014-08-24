@@ -104,7 +104,6 @@ public class MainActivity extends FragmentActivity {
 	}
 	
 	private void showMedia() {
-		
 		// Remove all views before
 		// adding the new ones.
 		mSelectedImagesContainer.removeAllViews();
