@@ -17,6 +17,11 @@ Features
 * Preview thumbnail of selected images.
 * No dependecy.
 
+<video width="320" height="240" controls>
+  	<source src="https://dl.dropboxusercontent.com/u/16272703/opensource/polypicker.mp4" type="video/mp4">
+	Your browser does not support the video tag.
+</video>
+
 Getting started
 ==========
 
