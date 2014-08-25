@@ -17,6 +17,10 @@ Features
 * Preview thumbnail of selected images.
 * No dependecy.
 
+Result
+==========
+<img src="https://github.com/jaydeepw/poly-picker/blob/develop/pp-animation.gif" />
+
 Getting started
 ==========
 
