@@ -15,8 +15,8 @@ Features
 * Allows taking pictures from camera as well.
 * Multi-selection of images from gallery.
 * Ability to select/capture images upto a specified limit.
-* Preview thumbnail of selected images.
-* No dependecy.
+* Preview thumbnails of selected images.
+* No dependency.
 
 Result
 ==========
@@ -27,7 +27,7 @@ Getting started
 
 Add camera permissions and required features to your AndroidManifest.xml
 
-```xml>
+```xml
 
 <uses-feature android:name="android.hardware.camera" />
 <uses-feature android:name="android.hardware.camera.autofocus" />
