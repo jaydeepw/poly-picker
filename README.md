@@ -7,8 +7,9 @@ Android library project for selecting/capturing multiple images from the device.
 Why?
 ==========
 
+* Most of the apps we develop require to fetch images from camera or gallery.
 * Android does not provide multi-selection of images out of the box until [API 18](http://developer.android.com/reference/android/content/Intent.html#EXTRA_ALLOW_MULTIPLE).
-* There are no libraries that help me multi-choose images from both camera and gallery with better UX.
+* There are no libraries that help me multi-choose images from both camera and gallery with beautiful UX.
 
 Features
 ==========
