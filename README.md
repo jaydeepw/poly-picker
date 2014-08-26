@@ -34,7 +34,7 @@ Add camera permissions and required features to your AndroidManifest.xml
 <uses-feature android:name="android.hardware.camera.autofocus" />
 
 <uses-permission android:name="android.permission.CAMERA" />
-<uses-permission android:name="android.permission.READ" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 ```
 
 Declare the PolyPicker activity in your AndroidManifest.xml
