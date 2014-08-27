@@ -58,7 +58,9 @@ public class CameraPreview extends SurfaceView implements
 
 		// stop preview before making changes
 		try {
-			mCamera.stopPreview();
+			if(mCamera != null) {
+				mCamera.stopPreview();	
+			}
 		} catch (Exception e) {
 			// ignore: tried to stop a non-existent preview
 			e.printStackTrace();
@@ -70,10 +72,12 @@ public class CameraPreview extends SurfaceView implements
 		try {
 			Camera.Parameters parameters = mCamera.getParameters();
 			parameters.setPreviewSize(mPreviewSize.width, mPreviewSize.height);
-			mCamera.setParameters(parameters);
-			mCamera.setDisplayOrientation(90);
-			mCamera.setPreviewDisplay(mHolder);
-			mCamera.startPreview();
+			if(mCamera != null) {
+				mCamera.setParameters(parameters);
+				mCamera.setDisplayOrientation(90);
+				mCamera.setPreviewDisplay(mHolder);
+				mCamera.startPreview();	
+			}
 		} catch (Exception e) {
 			Log.d(TAG, "Error starting camera preview: " + e.getMessage());
 		}
@@ -108,17 +112,25 @@ public class CameraPreview extends SurfaceView implements
 					getResources().getDisplayMetrics().heightPixels);
 		}
 
-		float ratio;
-		if (mPreviewSize.height >= mPreviewSize.width) {
-			ratio = (float) mPreviewSize.height / (float) mPreviewSize.width;
-		} else {
-			ratio = (float) mPreviewSize.width / (float) mPreviewSize.height;
+		float ratio = 0;
+		
+		if(mPreviewSize != null) {
+			if (mPreviewSize.height >= mPreviewSize.width) {
+				ratio = (float) mPreviewSize.height / (float) mPreviewSize.width;
+			} else {
+				ratio = (float) mPreviewSize.width / (float) mPreviewSize.height;
+			}	
 		}
 
-		// One of these methods should be used,
-		// second method squishes preview slightly.
-		setMeasuredDimension(width, (int) (width * ratio));
-		// setMeasuredDimension((int) (width * ratio), height);
+		if(ratio != 0) {
+			// One of these methods should be used,
+			// second method squishes preview slightly.
+			setMeasuredDimension(width, (int) (width * ratio));
+			// setMeasuredDimension((int) (width * ratio), height);			
+		} else {
+			setMeasuredDimension(width, height);
+		}
+
 	}
 
 	private Camera.Size getOptimalPreviewSize(List<Camera.Size> sizes, int w,

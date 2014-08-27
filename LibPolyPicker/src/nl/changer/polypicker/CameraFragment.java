@@ -46,7 +46,9 @@ public class CameraFragment extends Fragment implements Camera.ShutterCallback, 
         public void onClick(View view) {
             if(mTakePictureBtn.isEnabled()){
                 mTakePictureBtn.setEnabled(false);
-                mCamera.takePicture(CameraFragment.this, null, CameraFragment.this);
+                if(mCamera != null) {
+                	mCamera.takePicture(CameraFragment.this, null, CameraFragment.this);	
+                }
             }
         }
     };

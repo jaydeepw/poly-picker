@@ -83,6 +83,12 @@ Please fork this repository and contribute back using
 
 Please follow Android code [style guide](https://source.android.com/source/code-style.html)
 
+Developed by
+============
+
+ * Jaydeep Wagh - <jaydeep.w@gmail.com>
+ * Twitter - [Jaydeep_W](https://twitter.com/Jaydeep_W)
+
 Credits
 ==========
 This project is inspired by and modified from an existing project mentioned below.
