@@ -58,7 +58,11 @@ public class CameraFragment extends Fragment implements Camera.ShutterCallback, 
         mTakePictureBtn.setEnabled(true);
         Bitmap picture = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
 
-        // rotates the image to portrait
+        // TODO: Rotating the image here is not really
+        // required. We can present the image as is in the preview
+        // at the bottom. We can make a provision in the library that the user
+        // can select an image and rotate it. This UX can be similar to
+        // what WhatsApp does when trying to add multiple images.
         Matrix matrix = new Matrix();
         matrix.postRotate(90);
         picture = Bitmap.createBitmap(picture, 0, 0, picture.getWidth(), picture.getHeight(), matrix, true);
