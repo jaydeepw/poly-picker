@@ -1,3 +1,4 @@
+
 package nl.changer.polypicker;
 
 import java.util.List;
@@ -5,12 +6,13 @@ import java.util.List;
 import android.content.Context;
 import android.hardware.Camera;
 import android.hardware.Camera.Size;
+import android.os.Build;
+import android.text.style.BulletSpan;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-public class CameraPreview extends SurfaceView implements
-		SurfaceHolder.Callback {
+public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
 
 	private static final String TAG = "CameraPreview";
 
@@ -58,8 +60,8 @@ public class CameraPreview extends SurfaceView implements
 
 		// stop preview before making changes
 		try {
-			if(mCamera != null) {
-				mCamera.stopPreview();	
+			if (mCamera != null) {
+				mCamera.stopPreview();
 			}
 		} catch (Exception e) {
 			// ignore: tried to stop a non-existent preview
@@ -72,11 +74,11 @@ public class CameraPreview extends SurfaceView implements
 		try {
 			Camera.Parameters parameters = mCamera.getParameters();
 			parameters.setPreviewSize(mPreviewSize.width, mPreviewSize.height);
-			if(mCamera != null) {
+			if (mCamera != null) {
 				mCamera.setParameters(parameters);
 				mCamera.setDisplayOrientation(90);
 				mCamera.setPreviewDisplay(mHolder);
-				mCamera.startPreview();	
+				mCamera.startPreview();
 			}
 		} catch (Exception e) {
 			Log.d(TAG, "Error starting camera preview: " + e.getMessage());
@@ -85,62 +87,60 @@ public class CameraPreview extends SurfaceView implements
 
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-		final int width = resolveSize(getSuggestedMinimumWidth(),
-				widthMeasureSpec);
-		final int height = resolveSize(getSuggestedMinimumHeight(),
-				heightMeasureSpec);
+		final int width = resolveSize(getSuggestedMinimumWidth(), widthMeasureSpec);
+		final int height = resolveSize(getSuggestedMinimumHeight(), heightMeasureSpec);
 
 		// supported preview sizes
 		List<Size> supportedPreviewSizes = null;
 
 		if (mCamera != null) {
-			supportedPreviewSizes = mCamera.getParameters()
-					.getSupportedPreviewSizes();
-			/*
-			 * for(Camera.Size str: supportedPreviewSizes) { Log.d(TAG,
-			 * str.width + "/" + str.height); }
-			 */
+			supportedPreviewSizes = mCamera.getParameters().getSupportedPreviewSizes();
+
+			for (Camera.Size str : supportedPreviewSizes) {
+				Log.i(TAG, str.width + "/" + str.height);
+			}
 		}
 
 		if (supportedPreviewSizes != null) {
 			// TODO: fix this.
 			// thisis a hack involved here for now.
 			// Was not able to figure out why resolveSize above is return height
-			// = 0
-			// on my Nexus 4
-			mPreviewSize = getOptimalPreviewSize(supportedPreviewSizes, width,
-					getResources().getDisplayMetrics().heightPixels);
+			// = 0 on my Nexus 4
+			mPreviewSize = getOptimalPreviewSize(supportedPreviewSizes, width, getResources().getDisplayMetrics().heightPixels);
 		}
 
 		float ratio = 0;
-		
-		if(mPreviewSize != null) {
+
+		if (mPreviewSize != null) {
 			if (mPreviewSize.height >= mPreviewSize.width) {
 				ratio = (float) mPreviewSize.height / (float) mPreviewSize.width;
 			} else {
 				ratio = (float) mPreviewSize.width / (float) mPreviewSize.height;
-			}	
+			}
 		}
 
-		if(ratio != 0) {
+		Log.i(TAG, " width: " + mPreviewSize.width + " height: " + mPreviewSize.height);
+		// Toast.makeText(getContext(), " width: " + mPreviewSize.width + " height: " +
+		// mPreviewSize.height, Toast.LENGTH_SHORT).show();
+
+		if (ratio != 0) {
 			// One of these methods should be used,
 			// second method squishes preview slightly.
 			setMeasuredDimension(width, (int) (width * ratio));
-			// setMeasuredDimension((int) (width * ratio), height);			
+			// setMeasuredDimension((int) (width * ratio), height);
 		} else {
 			setMeasuredDimension(width, height);
 		}
-
 	}
 
-	private Camera.Size getOptimalPreviewSize(List<Camera.Size> sizes, int w,
-			int h) {
+	private Camera.Size getOptimalPreviewSize(List<Camera.Size> sizes, int w, int h) {
 		Log.d(TAG, "values: " + w + "/" + h);
 		final double ASPECT_TOLERANCE = 0.1;
 		double targetRatio = (double) h / w;
 
-		if (sizes == null)
+		if (sizes == null) {
 			return null;
+		}
 
 		Camera.Size optimalSize = null;
 		double minDiff = Double.MAX_VALUE;
@@ -167,6 +167,14 @@ public class CameraPreview extends SurfaceView implements
 					minDiff = Math.abs(size.height - targetHeight);
 				}
 			}
+		}
+
+		// TODO: This is very hacky way to do device specific customization.
+		// Ideally CameraFragment from the library specified here should be used in future.
+		// https://github.com/commonsguy/cwac-camera
+		if (Build.MODEL != null && Build.MODEL.equalsIgnoreCase("GT-I9500")) {
+			optimalSize.width = 1008;
+			optimalSize.height = 566;
 		}
 
 		return optimalSize;
