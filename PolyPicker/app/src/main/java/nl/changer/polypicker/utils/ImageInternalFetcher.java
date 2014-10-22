@@ -1,4 +1,4 @@
-package changer.nl.polypicker.utils;
+package nl.changer.polypicker.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;

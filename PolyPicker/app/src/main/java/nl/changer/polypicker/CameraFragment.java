@@ -1,5 +1,5 @@
 
-package changer.nl.polypicker;
+package nl.changer.polypicker;
 
 import nl.changer.polypicker.model.Image;
 import android.database.Cursor;

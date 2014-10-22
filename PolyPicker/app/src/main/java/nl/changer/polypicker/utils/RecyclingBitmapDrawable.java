@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package changer.nl.polypicker.utils;
+package nl.changer.polypicker.utils;
 
-import nl.changer.polypicker.BuildConfig;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
+
+import nl.changer.polypicker.BuildConfig;
 
 /**
  * A BitmapDrawable that keeps track of whether it is being displayed or cached.

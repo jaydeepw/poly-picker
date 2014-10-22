@@ -1,4 +1,4 @@
-package changer.nl.polypicker.model;
+package nl.changer.polypicker.model;
 
 import android.net.Uri;
 

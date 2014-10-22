@@ -31,7 +31,7 @@ Thumbs.db
 .idea/workspace.xml - remove # and delete .idea if it better suit your needs.
 .gradle
 build/
-gradle.properties
+secring.gpg
 Optional - for older project format, add this section to your gitignore file:
 
 

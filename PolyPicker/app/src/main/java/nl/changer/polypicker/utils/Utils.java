@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package changer.nl.polypicker.utils;
+package nl.changer.polypicker.utils;
 
 
 import android.os.Build;

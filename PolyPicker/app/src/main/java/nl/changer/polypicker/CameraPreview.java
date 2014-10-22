@@ -1,5 +1,5 @@
 
-package changer.nl.polypicker;
+package nl.changer.polypicker;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package changer.nl.polypicker;
+package nl.changer.polypicker;
 
 import android.content.Context;
 import android.content.res.TypedArray;
