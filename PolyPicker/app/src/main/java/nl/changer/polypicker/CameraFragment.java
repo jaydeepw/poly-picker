@@ -1,7 +1,6 @@
 
 package nl.changer.polypicker;
 
-import nl.changer.polypicker.model.Image;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+
+import nl.changer.polypicker.model.Image;
 
 public class CameraFragment extends Fragment implements Camera.ShutterCallback, Camera.PictureCallback {
 
