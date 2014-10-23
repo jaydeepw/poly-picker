@@ -6,8 +6,8 @@ Android library project for selecting/capturing multiple images from the device.
 Caution!
 ==========
 Eclipse based project structure has been dropped. If you wish to use this library in your eclipse development
-enviornment, please checkout [eclipse-develop](https://github.com/jaydeepw/poly-picker/tree/eclipse-develop).
-No further development will be done or merged into eclipse-develop branch.
+enviornment, please checkout [eclipse-develop][1].
+No further development will be done or merged into [eclipse-develop][1] branch.
 
 
 Why?
@@ -105,3 +105,5 @@ Alternative projects
 ==========
 * [android-multiple-image-picker](https://github.com/giljulio/android-multiple-image-picker)
 * [MultipleImagePick](https://github.com/luminousman/MultipleImagePick)
+
+[1]: https://github.com/jaydeepw/poly-picker/tree/eclipse-develop
