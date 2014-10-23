@@ -28,6 +28,14 @@ Result
 ==========
 <img src="https://github.com/jaydeepw/poly-picker/blob/develop/pp-animation.gif" />
 
+Download
+--------
+Gradle:
+```groovy
+compile 'net.the4thdimension:polypicker:1.0.5'
+```
+PolyPicker requires Android 4.0+.
+
 Getting started
 ==========
 
