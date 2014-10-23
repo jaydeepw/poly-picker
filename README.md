@@ -11,7 +11,7 @@ No further development will be done or merged into [eclipse-develop][1] branch.
 
 Why?
 ==========
-* Most of the apps we develop require to fetch images from camera or gallery.
+* Most of the apps we develop require fetching images from camera or gallery.
 * Android does not provide multi-selection of images out of the box until [API 18](http://developer.android.com/reference/android/content/Intent.html#EXTRA_ALLOW_MULTIPLE).
 * There are no libraries that help me multi-choose images from both camera and gallery with beautiful UX.
 
