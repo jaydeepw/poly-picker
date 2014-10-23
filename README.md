@@ -5,8 +5,7 @@ Android library project for selecting/capturing multiple images from the device.
 
 Caution!
 ==========
-Eclipse based project structure has been dropped. If you wish to use this library in your eclipse development
-enviornment, please checkout [eclipse-develop][1].
+Eclipse library project structure has been dropped. If you wish to use this library in your eclipse IDE, please checkout [eclipse-develop][1].
 No further development will be done or merged into [eclipse-develop][1] branch.
 
 
