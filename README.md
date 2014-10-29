@@ -31,7 +31,11 @@ Download
 --------
 Gradle:
 ```groovy
-compile 'net.the4thdimension:polypicker:1.0.5'
+
+{
+	compile 'net.the4thdimension:poly-picker:1.0.6'
+}
+
 ```
 PolyPicker requires Android 4.0+.
 
