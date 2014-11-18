@@ -37,7 +37,7 @@ Gradle:
 }
 
 ```
-PolyPicker requires Android 4.0+.
+Requires Android 4.0+.
 
 Getting started
 ==========
