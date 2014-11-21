@@ -3,6 +3,10 @@ poly-picker
 
 Android library project for selecting/capturing multiple images from the device.
 
+Result
+==========
+<img src="https://github.com/jaydeepw/poly-picker/blob/develop/pp-animation.gif" />
+
 Caution!
 ==========
 Eclipse library project structure has been dropped. If you wish to use this library in your eclipse IDE, please checkout [eclipse-develop][1].
@@ -22,10 +26,6 @@ Features
 * Ability to select/capture images upto a specified limit.
 * Preview thumbnails of selected images.
 * No dependency.
-
-Result
-==========
-<img src="https://github.com/jaydeepw/poly-picker/blob/develop/pp-animation.gif" />
 
 Download
 --------
