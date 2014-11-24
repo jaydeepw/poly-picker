@@ -1,0 +1,12 @@
+<!-- Galaxy S3 (Verizon) -->
+<deviceProfile>
+
+	<minPictureHeight>
+1835
+	</minPictureHeight>
+
+	<maxPictureHeight>
+1837
+	</maxPictureHeight>
+
+</deviceProfile>
