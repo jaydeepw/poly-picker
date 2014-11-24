@@ -16,10 +16,16 @@ package nl.changer.polypicker;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.hardware.Camera.Face;
 import android.hardware.Camera.Parameters;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -35,6 +41,8 @@ import com.commonsware.cwac.camera.CameraUtils;
 import com.commonsware.cwac.camera.PictureTransaction;
 import com.commonsware.cwac.camera.SimpleCameraHost;
 
+import nl.changer.polypicker.model.Image;
+
 public class DemoCameraFragment extends CameraFragment implements OnSeekBarChangeListener {
     private static final String KEY_USE_FFC = "com.commonsware.cwac.camera.demo.USE_FFC";
     private static final String TAG = DemoCameraFragment.class.getSimpleName();
@@ -49,6 +57,8 @@ public class DemoCameraFragment extends CameraFragment implements OnSeekBarChang
     // private SeekBar zoom=null;
     private long lastFaceToast = 0L;
     String flashMode = null;
+
+    private View mTakePictureBtn;
 
     /*static DemoCameraFragment newInstance(boolean useFFC) {
         DemoCameraFragment f = new DemoCameraFragment();
@@ -75,10 +85,24 @@ public class DemoCameraFragment extends CameraFragment implements OnSeekBarChang
 
         ((ViewGroup) results.findViewById(R.id.camera)).addView(cameraView);
 
+        mTakePictureBtn = results.findViewById(R.id.take_picture);
+        mTakePictureBtn.setOnClickListener(mOnTakePictureClicked);
+
         results.setKeepScreenOn(true);
         setRecordingItemVisibility();
         return results;
     }
+
+    private View.OnClickListener mOnTakePictureClicked = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View view) {
+        if (mTakePictureBtn.isEnabled()) {
+            mTakePictureBtn.setEnabled(false);
+            takePicture();
+        }
+        }
+    };
 
     @Override
     public void onPause() {
@@ -235,7 +259,7 @@ public class DemoCameraFragment extends CameraFragment implements OnSeekBarChang
         void setSingleShotMode(boolean mode);
     }
 
-    class DemoCameraHost extends SimpleCameraHost implements Camera.FaceDetectionListener {
+    private class DemoCameraHost extends SimpleCameraHost implements Camera.FaceDetectionListener {
         boolean supportsFaces = false;
 
         public DemoCameraHost(Context _ctxt) {
@@ -261,7 +285,8 @@ public class DemoCameraFragment extends CameraFragment implements OnSeekBarChang
         }
 
         @Override
-        public void saveImage(PictureTransaction xact, byte[] image) {
+        public void saveImage(PictureTransaction xact, byte[] bytes) {
+            Log.i(TAG, "Ready to save the image");
             if (useSingleShotMode()) {
                 singleShotProcessing = false;
 
@@ -275,8 +300,38 @@ public class DemoCameraFragment extends CameraFragment implements OnSeekBarChang
                 // DisplayActivity.imageToShow=image;
                 // startActivity(new Intent(getActivity(), DisplayActivity.class));
             } else {
-                super.saveImage(xact, image);
+               // super.saveImage(xact, bytes);
+                Log.i(TAG, "#saveImage Ready to save the image");
+
+                Bitmap picture = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                String path = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), picture, getPhotoFilename(), null);
+                Uri contentUri = Uri.parse(path);
+                final Image image = getImageFromContentUri(contentUri);
+
+                // run the media scanner service
+                MediaScannerConnection.scanFile(getActivity(), new String[]{path}, new String[]{ "image/jpeg" }, null);
+
+                // the current method is an async. call.
+                // so make changes to the UI on the main thread.
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((ImagePickerActivity) getActivity()).addImage(image);
+                        mTakePictureBtn.setEnabled(true);
+                    }
+                });
             }
+        }
+
+        public Image getImageFromContentUri(Uri contentUri) {
+            String[] cols = { MediaStore.Images.Media.DATA, MediaStore.Images.ImageColumns.ORIENTATION };
+
+            // can post image
+            Cursor cursor = getActivity().getContentResolver().query(contentUri, cols, null, null, null);
+            cursor.moveToFirst();
+            Uri uri = Uri.parse(cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA)));
+            int orientation = cursor.getInt(cursor.getColumnIndex(MediaStore.Images.ImageColumns.ORIENTATION));
+            return new Image(uri, orientation);
         }
 
         @Override
@@ -284,8 +339,9 @@ public class DemoCameraFragment extends CameraFragment implements OnSeekBarChang
             if (autoFocusItem != null) {
                 autoFocusItem.setEnabled(true);
 
-                if (supportsFaces)
+                if (supportsFaces) {
                     startFaceDetection();
+                }
             }
         }
 
@@ -303,10 +359,7 @@ public class DemoCameraFragment extends CameraFragment implements OnSeekBarChang
         @Override
         public void onCameraFail(CameraHost.FailureReason reason) {
             super.onCameraFail(reason);
-
-            Toast.makeText(getActivity(),
-                    "Sorry, but you cannot use the camera now!",
-                    Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Sorry, but you cannot use the camera now!", Toast.LENGTH_LONG).show();
         }
 
         @Override
