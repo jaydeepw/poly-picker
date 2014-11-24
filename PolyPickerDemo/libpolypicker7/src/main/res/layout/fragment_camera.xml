@@ -21,6 +21,6 @@
         android:layout_margin="18dp"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
-        android:src="@drawable/photo_btn1" />
+        android:src="@drawable/state_normal" />
 
 </FrameLayout>

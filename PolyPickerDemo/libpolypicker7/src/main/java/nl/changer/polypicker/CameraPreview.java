@@ -1,8 +1,6 @@
 
 package nl.changer.polypicker;
 
-import java.util.List;
-
 import android.content.Context;
 import android.hardware.Camera;
 import android.hardware.Camera.Size;
@@ -11,6 +9,11 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import java.util.List;
+
+/**
+ * @deprecated
+ */
 public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
 
 	private static final String TAG = "CameraPreview";

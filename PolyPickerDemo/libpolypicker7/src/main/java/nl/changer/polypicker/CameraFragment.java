@@ -16,6 +16,9 @@ import android.widget.ImageButton;
 
 import nl.changer.polypicker.model.Image;
 
+/**
+ * @deprecated
+ */
 public class CameraFragment extends Fragment implements Camera.ShutterCallback, Camera.PictureCallback {
 
 	private static final String TAG = CameraFragment.class.getSimpleName();

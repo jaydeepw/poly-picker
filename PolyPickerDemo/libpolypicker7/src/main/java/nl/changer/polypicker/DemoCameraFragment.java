@@ -17,6 +17,7 @@ package nl.changer.polypicker;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.Camera;
@@ -98,6 +99,8 @@ public class DemoCameraFragment extends CameraFragment implements OnSeekBarChang
         @Override
         public void onClick(View view) {
         if (mTakePictureBtn.isEnabled()) {
+            // enable the button after the photo is
+            // saved on the device.
             mTakePictureBtn.setEnabled(false);
             takePicture();
         }
@@ -301,7 +304,7 @@ public class DemoCameraFragment extends CameraFragment implements OnSeekBarChang
                 // startActivity(new Intent(getActivity(), DisplayActivity.class));
             } else {
                // super.saveImage(xact, bytes);
-                Log.i(TAG, "#saveImage Ready to save the image");
+                // Log.i(TAG, "#saveImage Ready to save the image");
 
                 Bitmap picture = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                 String path = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), picture, getPhotoFilename(), null);
@@ -328,9 +331,25 @@ public class DemoCameraFragment extends CameraFragment implements OnSeekBarChang
 
             // can post image
             Cursor cursor = getActivity().getContentResolver().query(contentUri, cols, null, null, null);
-            cursor.moveToFirst();
-            Uri uri = Uri.parse(cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA)));
-            int orientation = cursor.getInt(cursor.getColumnIndex(MediaStore.Images.ImageColumns.ORIENTATION));
+
+            Uri uri = null;
+            int orientation = -1;
+
+            try {
+                if (cursor.moveToFirst()) {
+                    uri = Uri.parse(cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA)));
+                    orientation = cursor.getInt(cursor.getColumnIndex(MediaStore.Images.ImageColumns.ORIENTATION));
+                }
+            } catch (SQLiteException e) {
+                e.printStackTrace();
+            }  catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (cursor != null && !cursor.isClosed()) {
+                    cursor.close();
+                }
+            }
+
             return new Image(uri, orientation);
         }
 
