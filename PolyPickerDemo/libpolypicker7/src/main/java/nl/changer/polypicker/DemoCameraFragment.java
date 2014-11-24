@@ -35,8 +35,7 @@ import com.commonsware.cwac.camera.CameraUtils;
 import com.commonsware.cwac.camera.PictureTransaction;
 import com.commonsware.cwac.camera.SimpleCameraHost;
 
-public class DemoCameraFragment extends CameraFragment implements
-        OnSeekBarChangeListener {
+public class DemoCameraFragment extends CameraFragment implements OnSeekBarChangeListener {
     private static final String KEY_USE_FFC = "com.commonsware.cwac.camera.demo.USE_FFC";
     private static final String TAG = DemoCameraFragment.class.getSimpleName();
     private MenuItem singleShotItem = null;
@@ -78,10 +77,8 @@ public class DemoCameraFragment extends CameraFragment implements
         ((ViewGroup) results.findViewById(R.id.camera)).addView(cameraView);
 
         results.setKeepScreenOn(true);
-
         setRecordingItemVisibility();
-
-        return (results);
+        return results;
     }
 
     @Override
