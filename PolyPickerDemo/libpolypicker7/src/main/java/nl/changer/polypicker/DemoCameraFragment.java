@@ -102,6 +102,7 @@ public class DemoCameraFragment extends CameraFragment implements OnSeekBarChang
             // enable the button after the photo is
             // saved on the device.
             mTakePictureBtn.setEnabled(false);
+
             takePicture();
         }
         }
