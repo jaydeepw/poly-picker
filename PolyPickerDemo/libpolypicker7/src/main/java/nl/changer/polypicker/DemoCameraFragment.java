@@ -64,7 +64,6 @@ public class DemoCameraFragment extends CameraFragment implements OnSeekBarChang
     public void onCreate(Bundle state) {
         super.onCreate(state);
 
-        setHasOptionsMenu(true);
         SimpleCameraHost.Builder builder = new SimpleCameraHost.Builder(new DemoCameraHost(getActivity()));
         setHost(builder.useFullBleedPreview(true).build());
     }
