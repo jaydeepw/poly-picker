@@ -24,7 +24,6 @@
         </activity>
         <activity
             android:name="nl.changer.polypicker.ImagePickerActivity"
-            android:configChanges="mcc|mnc|touchscreen|orientation|uiMode|screenSize|keyboardHidden"
             android:theme="@style/AppTheme" />
     </application>
 

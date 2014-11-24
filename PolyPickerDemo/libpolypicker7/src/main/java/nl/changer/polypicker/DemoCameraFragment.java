@@ -50,7 +50,7 @@ public class DemoCameraFragment extends CameraFragment implements OnSeekBarChang
     private long lastFaceToast = 0L;
     String flashMode = null;
 
-    static DemoCameraFragment newInstance(boolean useFFC) {
+    /*static DemoCameraFragment newInstance(boolean useFFC) {
         DemoCameraFragment f = new DemoCameraFragment();
         Bundle args = new Bundle();
 
@@ -58,7 +58,7 @@ public class DemoCameraFragment extends CameraFragment implements OnSeekBarChang
         f.setArguments(args);
 
         return f;
-    }
+    }*/
 
     @Override
     public void onCreate(Bundle state) {
@@ -71,7 +71,7 @@ public class DemoCameraFragment extends CameraFragment implements OnSeekBarChang
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View cameraView = super.onCreateView(inflater, container, savedInstanceState);
-        View results = inflater.inflate(R.layout.fragment, container, false);
+        View results = inflater.inflate(R.layout.fragment_camera_cwac, container, false);
 
         ((ViewGroup) results.findViewById(R.id.camera)).addView(cameraView);
 
@@ -235,8 +235,7 @@ public class DemoCameraFragment extends CameraFragment implements OnSeekBarChang
         void setSingleShotMode(boolean mode);
     }
 
-    class DemoCameraHost extends SimpleCameraHost implements
-            Camera.FaceDetectionListener {
+    class DemoCameraHost extends SimpleCameraHost implements Camera.FaceDetectionListener {
         boolean supportsFaces = false;
 
         public DemoCameraHost(Context _ctxt) {

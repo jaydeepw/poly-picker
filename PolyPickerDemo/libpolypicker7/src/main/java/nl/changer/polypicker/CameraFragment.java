@@ -26,7 +26,7 @@ public class CameraFragment extends Fragment implements Camera.ShutterCallback, 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// Inflate the layout
-		// for this fragment
+		// for this fragment_camera_cwac
 		View rootView = inflater.inflate(R.layout.fragment_camera, container, false);
 
 		mCamera = Camera.open();
