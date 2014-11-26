@@ -5,14 +5,14 @@
     tools:context="nl.changer.changer.nl.polypicker.CameraFragment">
 
     <GridView
+        android:id="@+id/gallery_grid"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/gallery_grid"
         android:layout_gravity="center"
-        android:numColumns="3"
-        android:horizontalSpacing="0.5dp"
-        android:verticalSpacing="0.5dp"
         android:drawSelectorOnTop="true"
-        android:listSelector="?android:attr/selectableItemBackground"/>
+        android:horizontalSpacing="0.5dp"
+        android:listSelector="?android:attr/selectableItemBackground"
+        android:numColumns="3"
+        android:verticalSpacing="0.5dp" />
 
 </FrameLayout>

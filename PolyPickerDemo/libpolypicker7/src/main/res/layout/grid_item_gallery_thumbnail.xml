@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
     android:background="#cccccc"
-    custom:matchHeightToWidth="true" >
+    custom:matchHeightToWidth="true">
 
     <ImageView
         android:id="@+id/thumbnail_image"

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context="nl.changer.changer.nl.polypicker.ImagePickerActivity" >
+    tools:context="nl.changer.changer.nl.polypicker.ImagePickerActivity">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
@@ -19,12 +19,12 @@
         android:divider="?android:dividerHorizontal"
         android:dividerPadding="8dp"
         android:orientation="vertical"
-        android:showDividers="middle" >
+        android:showDividers="middle">
 
         <FrameLayout
             android:id="@+id/selected_photos_container_frame"
             android:layout_width="match_parent"
-            android:layout_height="61dp" >
+            android:layout_height="61dp">
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
@@ -32,7 +32,7 @@
                 android:fillViewport="false"
                 android:foregroundGravity="left"
                 android:paddingBottom="1dp"
-                android:paddingTop="1dp" >
+                android:paddingTop="1dp">
 
                 <LinearLayout
                     android:id="@+id/selected_photos_container"
@@ -58,7 +58,7 @@
             android:id="@+id/button_bar"
             style="?android:buttonBarStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/action_btn_cancel"

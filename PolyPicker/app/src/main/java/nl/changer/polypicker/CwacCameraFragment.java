@@ -17,13 +17,13 @@ package nl.changer.polypicker;
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
 import android.hardware.Camera;
 import android.hardware.Camera.Face;
 import android.hardware.Camera.Parameters;
-import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -35,7 +35,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.commonsware.cwac.camera.CameraFragment;
-import com.commonsware.cwac.camera.CameraHost;
 import com.commonsware.cwac.camera.CameraUtils;
 import com.commonsware.cwac.camera.PictureTransaction;
 import com.commonsware.cwac.camera.SimpleCameraHost;
@@ -66,6 +65,7 @@ public class CwacCameraFragment extends CameraFragment {
         mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setMessage(getString(R.string.progress_title));
         mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setCancelable(false);
     }
 
     @Override
@@ -138,7 +138,8 @@ public class CwacCameraFragment extends CameraFragment {
             final Image image = getImageFromContentUri(contentUri);
 
             // run the media scanner service
-            MediaScannerConnection.scanFile(getActivity(), new String[]{path}, new String[]{"image/jpeg"}, null);
+            // MediaScannerConnection.scanFile(getActivity(), new String[]{path}, new String[]{"image/jpeg"}, null);
+            getActivity().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, contentUri));
 
             // the current method is an async. call.
             // so make changes to the UI on the main thread.

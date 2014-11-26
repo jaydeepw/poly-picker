@@ -24,7 +24,6 @@ import android.graphics.Bitmap;
 import android.hardware.Camera;
 import android.hardware.Camera.Face;
 import android.hardware.Camera.Parameters;
-import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -36,7 +35,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.commonsware.cwac.camera.CameraFragment;
-import com.commonsware.cwac.camera.CameraHost;
 import com.commonsware.cwac.camera.CameraUtils;
 import com.commonsware.cwac.camera.PictureTransaction;
 import com.commonsware.cwac.camera.SimpleCameraHost;
@@ -67,6 +65,7 @@ public class CwacCameraFragment extends CameraFragment {
         mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setMessage(getString(R.string.progress_title));
         mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setCancelable(false);
     }
 
     @Override
