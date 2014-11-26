@@ -108,7 +108,7 @@ protected void onActivityResult(int requestCode, int resuleCode, Intent intent) 
 ```
 
 Contributing
-=========================
+==============
 
 Please fork this repository and contribute back using
 [pull requests](https://github.com/jaydeepw/poly-picker/pulls).
@@ -123,12 +123,11 @@ Developed by
 
 Credits
 ==========
-This project is inspired by and modified from an existing project mentioned below.
-
+ * This project is inspired by and modified from an existing project mentioned below.
 [android-multiple-image-picker](https://github.com/giljulio/android-multiple-image-picker)
 
-Dealing with camera on variety of hardware and fragmentation in underlying software is difficult.
-CommonsGuy helped make it handle better in this library.
+ * Dealing with camera on variety of hardware and fragmentation in underlying software is difficult.
+CommonsGuy helped handle it better in this library.
 [Cwac Camera](https://github.com/commonsguy/cwac-camera)
 
 
@@ -137,4 +136,10 @@ Alternative projects
 * [android-multiple-image-picker](https://github.com/giljulio/android-multiple-image-picker)
 * [MultipleImagePick](https://github.com/luminousman/MultipleImagePick)
 
+
+Release Notes
+-------------
+- v1.0.7: Replace camera view with CommonsGuy camera view which is tested well and handles camera functionality better on variety of hardware.
+
 [1]: https://github.com/jaydeepw/poly-picker/tree/eclipse-develop
+
