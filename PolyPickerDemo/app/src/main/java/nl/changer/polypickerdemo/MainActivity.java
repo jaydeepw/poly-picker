@@ -139,7 +139,7 @@ public class MainActivity extends FragmentActivity {
             // show the image thumbnail.
             int wdpx = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 300, getResources().getDisplayMetrics());
             int htpx = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, getResources().getDisplayMetrics());
-            thumbnail.setLayoutParams(new FrameLayout.LayoutParams(wdpx, htpx));
+            thumbnail.setLayoutParams(new FrameLayout().LayoutParams(wdpx, htpx));
 		}
 	}
 }

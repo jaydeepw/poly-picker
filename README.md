@@ -53,13 +53,29 @@ Add camera permissions and required features to your AndroidManifest.xml
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 ```
 
+Request large heap memory using "largeHeap" attribute for your application. This will avoid application to
+crash on low memory devices. The side effect would be that your application may force
+other applications to be kicked out of memory. Nothing very severe.
+
+```xml
+
+<application
+		android:icon="@drawable/ic_launcher"
+		android:label="@string/app_name"
+		android:largeHeap="true">
+		.
+		.
+		.
+</application>
+
+```
+
 Declare the PolyPicker activity in your AndroidManifest.xml
 
 ```xml
 
 <activity
-            android:name="nl.changer.polypicker.ImagePickerActivity"
-            android:configChanges="mcc|mnc|touchscreen|orientation|uiMode|screenSize|keyboardHidden" />
+            android:name="nl.changer.polypicker.ImagePickerActivity" />
 ```
 
 Start the PolyPicker activity and get the result back.

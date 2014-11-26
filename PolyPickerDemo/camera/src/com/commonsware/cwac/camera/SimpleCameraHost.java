@@ -52,8 +52,7 @@ public class SimpleCameraHost implements CameraHost {
     }
 
     @Override
-    public Camera.Parameters adjustPictureParameters(PictureTransaction xact,
-                                                     Camera.Parameters parameters) {
+    public Camera.Parameters adjustPictureParameters(PictureTransaction xact, Camera.Parameters parameters) {
         return (parameters);
     }
 

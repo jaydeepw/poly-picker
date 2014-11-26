@@ -172,7 +172,7 @@ public class ImagePickerActivity extends Activity implements ActionBar.TabListen
 		}
 	};
 
-	public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
 		public SectionsPagerAdapter(FragmentManager fm) {
 			super(fm);
@@ -183,7 +183,8 @@ public class ImagePickerActivity extends Activity implements ActionBar.TabListen
 			switch (position) {
 			case 0:
 				// return new CameraFragment();
-                return new DemoCameraFragment();
+                return new CwacCameraFragment();
+                // return new DemoCameraFragment();
 			case 1:
 				return new GalleryFragment();
 			default:

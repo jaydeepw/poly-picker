@@ -13,17 +13,6 @@
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
         android:contentDescription="new post image"
-        android:scaleType="centerCrop"
         android:visibility="visible" />
-
-    <!-- <ImageView
-        android:id="@+id/remove_media"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right|top"
-        android:layout_margin="@dimen/media_spacing"
-        android:background="@android:color/transparent"
-        android:contentDescription="remove button"
-        android:src="@drawable/btn_remove" /> -->
 
 </FrameLayout>
