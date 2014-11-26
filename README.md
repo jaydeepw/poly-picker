@@ -127,6 +127,10 @@ This project is inspired by and modified from an existing project mentioned belo
 
 [android-multiple-image-picker](https://github.com/giljulio/android-multiple-image-picker)
 
+Dealing with camera on variety of hardware and fragmentation in underlying software is difficult.
+CommonsGuy helped make it handle better in this library.
+[Cwac Camera](https://github.com/commonsguy/cwac-camera)
+
 
 Alternative projects
 ==========
