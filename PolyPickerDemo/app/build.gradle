@@ -29,5 +29,4 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:18.0.0'
     compile 'net.the4thdimension:poly-picker:1.0.9'
-    // compile project(':libpolypicker7')
 }

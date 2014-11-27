@@ -45,7 +45,7 @@ repositories {
 
 
 {
-	compile 'net.the4thdimension:poly-picker:1.0.6'
+	compile 'net.the4thdimension:poly-picker:1.0.9'
 }
 
 ```
@@ -76,7 +76,6 @@ other applications to be kicked out of memory. Nothing very severe.
 		android:icon="@drawable/ic_launcher"
 		android:label="@string/app_name"
 		android:largeHeap="true">
-		.
 		.
 		.
 </application>
@@ -140,8 +139,7 @@ Credits
 [android-multiple-image-picker](https://github.com/giljulio/android-multiple-image-picker)
 
  * Dealing with camera on variety of hardware and fragmentation in underlying software is difficult.
-CommonsGuy helped handle it better in this library.
-[Cwac Camera](https://github.com/commonsguy/cwac-camera)
+CommonsGuy helped handle it better in this library [Cwac Camera](https://github.com/commonsguy/cwac-camera)
 
 
 Alternative projects
@@ -152,7 +150,7 @@ Alternative projects
 
 Release Notes
 -------------
-- v1.0.7: Replace camera view with CommonsGuy camera view which is tested well and handles camera functionality better on variety of hardware.
+- v1.0.9: Replace camera view with CommonsGuy camera view which is tested well and handles camera functionality better on variety of hardware.
 
 [1]: https://github.com/jaydeepw/poly-picker/tree/eclipse-develop
 
