@@ -1,1 +1,2 @@
-include ':app', ':libpolypicker7', ':camera'
+include ':app'
+// , ':libpolypicker7', ':camera'

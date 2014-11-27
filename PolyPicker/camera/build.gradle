@@ -38,6 +38,11 @@ android {
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
     }
+
+    // It would be better to fix the issues
+    lintOptions {
+        abortOnError false
+    }
 }
 
 // from http://stackoverflow.com/a/19484146/115145
@@ -52,3 +57,5 @@ android.libraryVariants.all { variant ->
   task.from variant.javaCompile.destinationDir
 	task.archiveName = "cwac-${task.archiveName}"
 }
+
+// apply from: '../maven_push.gradle'

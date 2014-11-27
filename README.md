@@ -29,8 +29,20 @@ Features
 
 Download
 --------
-Gradle:
+
 ```groovy
+
+// add external maven respository url in addition to having
+// your preferred repository.
+
+repositories {
+    mavenCentral();
+
+    maven {
+        url "https://repo.commonsware.com.s3.amazonaws.com"
+    }
+}
+
 
 {
 	compile 'net.the4thdimension:poly-picker:1.0.6'
@@ -52,6 +64,7 @@ Add camera permissions and required features to your AndroidManifest.xml
 <uses-permission android:name="android.permission.CAMERA" />
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 ```
+
 
 Request large heap memory using "largeHeap" attribute for your application. This will avoid application to
 crash on low memory devices. The side effect would be that your application may force

@@ -1,9 +1,0 @@
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_enabled="false" android:drawable="@drawable/state_disabled" />
-    <!-- pressed -->
-    <item android:state_pressed="true" android:drawable="@drawable/state_highlight" />
-    <!-- focused -->
-    <item android:state_enabled="true" android:drawable="@drawable/state_normal" />
-
-    <item android:drawable="@drawable/state_normal" />
-</selector>
