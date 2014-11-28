@@ -40,7 +40,6 @@ dependencies {
 
 // add external respository url in addition to having
 // your preferred repository.
-
 repositories {
     maven {
         url "https://repo.commonsware.com.s3.amazonaws.com"
@@ -142,7 +141,7 @@ Credits
 [android-multiple-image-picker](https://github.com/giljulio/android-multiple-image-picker)
 
  * Dealing with camera on variety of hardware and fragmentation in underlying software is difficult.
-CommonsGuy helped handle it better in this library [Cwac Camera](https://github.com/commonsguy/cwac-camera)
+CommonsGuy's library [Cwac Camera](https://github.com/commonsguy/cwac-camera) helped handle it better in this project
 
 
 Alternative projects
@@ -152,8 +151,11 @@ Alternative projects
 
 
 Release Notes
--------------
-- v1.0.9: Replace camera view with CommonsGuy camera view which is tested well and handles camera functionality better on variety of hardware.
+============
+
+## v1.0.9: 
+
+* Replace camera view with CommonsGuy camera view which is tested well and handles camera functionality better on variety of hardware.
 
 [1]: https://github.com/jaydeepw/poly-picker/tree/eclipse-develop
 
