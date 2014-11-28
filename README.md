@@ -32,19 +32,22 @@ Download
 
 ```groovy
 
-// add external maven respository url in addition to having
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:support-v4:21.0.0'
+    // and your other dependencies
+}
+
+// add external respository url in addition to having
 // your preferred repository.
 
 repositories {
-    mavenCentral();
-
     maven {
         url "https://repo.commonsware.com.s3.amazonaws.com"
     }
 }
 
-
-{
+dependencies {
 	compile 'net.the4thdimension:poly-picker:1.0.9'
 }
 
