@@ -153,7 +153,7 @@ Alternative projects
 Release Notes
 ============
 
-## v1.0.9: 
+## v1.0.9
 
 * Replace camera view with CommonsGuy camera view which is tested well and handles camera functionality better on variety of hardware.
 
