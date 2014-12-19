@@ -29,7 +29,7 @@ Features
 * No dependency.
 
 Download
---------
+==========
 
 ```groovy
 
@@ -159,4 +159,3 @@ Release Notes
 * Replace camera view with CommonsGuy camera view which is tested well and handles camera functionality better on variety of hardware.
 
 [1]: https://github.com/jaydeepw/poly-picker/tree/eclipse-develop
-
