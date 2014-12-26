@@ -27,12 +27,13 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:support-v13:21.0.0'
-    // compile project(':camera')
 }
 
-/*Adding the dependency is a wise way for this project,
-however when we import this library statically into another project
-it causes issues when downloading cwac:camera from the AWS server.*/
+/***
+ * Adding the dependency is a wise way for this project,
+ * however when we import this library statically into another project
+ * it causes issues when downloading cwac:camera from the AWS server.
+ ***/
 repositories {
     maven {
         url "https://repo.commonsware.com.s3.amazonaws.com"
@@ -43,4 +44,4 @@ dependencies {
     compile 'com.commonsware.cwac:camera:0.6.10'
 }
 
-apply from: '../maven_push.gradle'
+// apply from: '../maven_push.gradle'
