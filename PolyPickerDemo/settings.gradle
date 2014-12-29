@@ -1,2 +1,1 @@
-include ':app', ':polypicker-proxy'
-// , ':libpolypicker7', ':camera'
+include ':app'

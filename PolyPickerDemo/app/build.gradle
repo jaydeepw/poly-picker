@@ -28,6 +28,6 @@ repositories {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:21.0.+'
-    // compile 'net.the4thdimension:poly-picker:1.0.9'
-    compile project(':polypicker-proxy')
+    compile 'net.the4thdimension:poly-picker:1.0.10'
+    // compile project(':polypicker-proxy')
 }

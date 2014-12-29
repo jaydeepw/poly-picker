@@ -48,7 +48,7 @@ repositories {
 }
 
 dependencies {
-	compile 'net.the4thdimension:poly-picker:1.0.9'
+	compile 'net.the4thdimension:poly-picker:1.0.10'
 }
 
 ```
@@ -153,6 +153,10 @@ Alternative projects
 
 Release Notes
 ============
+
+## v1.0.10
+
+* Persist captured images even on device orientation changes
 
 ## v1.0.9
 

@@ -64,7 +64,6 @@ public class ImagePickerActivity extends Activity implements ActionBar.TabListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_pp);
 
-
         mSelectedImagesContainer = (LinearLayout) findViewById(R.id.selected_photos_container);
         mSelectedImageEmptyMessage = (TextView) findViewById(R.id.selected_photos_empty);
         mViewPager = (ViewPager) findViewById(R.id.pager);

@@ -44,4 +44,4 @@ dependencies {
     compile 'com.commonsware.cwac:camera:0.6.10'
 }
 
-// apply from: '../maven_push.gradle'
+apply from: '../maven_push.gradle'
