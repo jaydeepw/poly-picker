@@ -58,6 +58,7 @@ public class CwacCameraFragment extends CameraFragment {
     @Override
     public void onCreate(Bundle state) {
         super.onCreate(state);
+        setRetainInstance(true);
 
         SimpleCameraHost.Builder builder = new SimpleCameraHost.Builder(new DemoCameraHost(getActivity()));
         setHost(builder.useFullBleedPreview(true).build());
@@ -87,17 +88,17 @@ public class CwacCameraFragment extends CameraFragment {
 
         @Override
         public void onClick(View view) {
-        if (mTakePictureBtn.isEnabled()) {
-            // enable the button after the photo is
-            // saved on the device.
-            mTakePictureBtn.setEnabled(false);
-            mProgressDialog.show();
+            if (mTakePictureBtn.isEnabled()) {
+                // enable the button after the photo is
+                // saved on the device.
+                mTakePictureBtn.setEnabled(false);
+                mProgressDialog.show();
 
-            PictureTransaction pictureTransaction = new PictureTransaction(getHost());
-            pictureTransaction.needBitmap(true);
-            pictureTransaction.flashMode(flashMode);
-            takePicture(pictureTransaction);
-        }
+                PictureTransaction pictureTransaction = new PictureTransaction(getHost());
+                pictureTransaction.needBitmap(true);
+                pictureTransaction.flashMode(flashMode);
+                takePicture(pictureTransaction);
+            }
         }
     };
 

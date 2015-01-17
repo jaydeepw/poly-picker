@@ -42,3 +42,9 @@ Optional - for older project format, add this section to your gitignore file:
 *.ipr
 *~
 *.swp
+
+# The link below states that it is OK to
+# ignore app.iml and *.iml
+#http://stackoverflow.com/a/26363300/452487
+app/app.iml
+*.iml

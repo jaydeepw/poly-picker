@@ -1,4 +1,3 @@
-
 package nl.changer.polypicker;
 
 import android.app.ActionBar;
@@ -21,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,203 +29,240 @@ import nl.changer.polypicker.utils.ImageInternalFetcher;
 
 public class ImagePickerActivity extends Activity implements ActionBar.TabListener {
 
-	private static final String TAG = ImagePickerActivity.class.getSimpleName();
+    private static final String TAG = ImagePickerActivity.class.getSimpleName();
 
-	/***
-	 * Returns the parcelled image uris in the intent with this extra.
-	 */
-	public static final String EXTRA_IMAGE_URIS = "nl.changer.changer.nl.polypicker.extra.selected_image_uris";
+    /**
+     * Key to persist the list when saving the state of the activity.
+     */
+    private static final String KEY_LIST = "nl.changer.polypicker.savedinstance.key.list";
 
-	/***
-	 * Integer extra to limit the number of images that can be selected. By default the user can
-	 * select infinite number of images.
-	 */
-	public static final String EXTRA_SELECTION_LIMIT = "nl.changer.changer.nl.polypicker.extra.selection_limit";
+    /**
+     * Returns the parcelled image uris in the intent with this extra.
+     */
+    public static final String EXTRA_IMAGE_URIS = "nl.changer.changer.nl.polypicker.extra.selected_image_uris";
 
-	private Set<Image> mSelectedImages;
-	private LinearLayout mSelectedImagesContainer;
-	private TextView mSelectedImageEmptyMessage;
+    /**
+     * Integer extra to limit the number of images that can be selected. By default the user can
+     * select infinite number of images.
+     */
+    public static final String EXTRA_SELECTION_LIMIT = "nl.changer.changer.nl.polypicker.extra.selection_limit";
 
-	private SectionsPagerAdapter mSectionsPagerAdapter;
-	private ViewPager mViewPager;
-	public ImageInternalFetcher mImageFetcher;
+    private Set<Image> mSelectedImages;
+    private LinearLayout mSelectedImagesContainer;
+    private TextView mSelectedImageEmptyMessage;
 
-	private Button mCancelButtonView, mDoneButtonView;
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private ViewPager mViewPager;
+    public ImageInternalFetcher mImageFetcher;
 
-	private int mMaxSelectionsAllowed = Integer.MAX_VALUE;
+    private Button mCancelButtonView, mDoneButtonView;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main_pp);
+    private int mMaxSelectionsAllowed = Integer.MAX_VALUE;
 
-		mSelectedImagesContainer = (LinearLayout) findViewById(R.id.selected_photos_container);
-		mSelectedImageEmptyMessage = (TextView) findViewById(R.id.selected_photos_empty);
-		mViewPager = (ViewPager) findViewById(R.id.pager);
-		mCancelButtonView = (Button) findViewById(R.id.action_btn_cancel);
-		mDoneButtonView = (Button) findViewById(R.id.action_btn_done);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main_pp);
 
-		mSelectedImages = new HashSet<Image>();
-		mImageFetcher = new ImageInternalFetcher(this, 500);
-		mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
-		mViewPager.setAdapter(mSectionsPagerAdapter);
+        mSelectedImagesContainer = (LinearLayout) findViewById(R.id.selected_photos_container);
+        mSelectedImageEmptyMessage = (TextView) findViewById(R.id.selected_photos_empty);
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mCancelButtonView = (Button) findViewById(R.id.action_btn_cancel);
+        mDoneButtonView = (Button) findViewById(R.id.action_btn_done);
 
-		mCancelButtonView.setOnClickListener(onFinishGettingImages);
-		mDoneButtonView.setOnClickListener(onFinishGettingImages);
+        mSelectedImages = new HashSet<Image>();
+        mImageFetcher = new ImageInternalFetcher(this, 500);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
+        mViewPager.setAdapter(mSectionsPagerAdapter);
 
-		mMaxSelectionsAllowed = getIntent().getIntExtra(EXTRA_SELECTION_LIMIT, Integer.MAX_VALUE);
+        mCancelButtonView.setOnClickListener(onFinishGettingImages);
+        mDoneButtonView.setOnClickListener(onFinishGettingImages);
 
-		setupActionBar();
-	}
+        mMaxSelectionsAllowed = getIntent().getIntExtra(EXTRA_SELECTION_LIMIT, Integer.MAX_VALUE);
 
-	/**
-	 * Sets up the action bar, adding view page indicator.
-	 ***/
-	private void setupActionBar() {
-		final ActionBar actionBar = getActionBar();
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		actionBar.setDisplayShowHomeEnabled(false);
-		actionBar.setDisplayShowTitleEnabled(false);
+        setupActionBar();
+        if (savedInstanceState != null) {
+            populateUi(savedInstanceState);
+        }
+    }
 
-		mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+    private void populateUi(Bundle savedInstanceState) {
+        ArrayList<Image> list = savedInstanceState.getParcelableArrayList(KEY_LIST);
 
-			@Override
-			public void onPageSelected(int position) {
-				actionBar.setSelectedNavigationItem(position);
-			}
-		});
+        if (list != null) {
+            for (Image image : list) {
+                addImage(image);
+            }
+        }
+    }
 
-		for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-			actionBar.addTab(actionBar.newTab().setText(mSectionsPagerAdapter.getPageTitle(i)).setTabListener(this));
-		}
-	}
+    /**
+     * Sets up the action bar, adding view page indicator.
+     */
+    private void setupActionBar() {
+        final ActionBar actionBar = getActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayShowTitleEnabled(false);
 
-	public boolean addImage(Image image) {
+        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 
-		if (mSelectedImages.size() == mMaxSelectionsAllowed) {
-			Toast.makeText(this, mMaxSelectionsAllowed + " images selected already", Toast.LENGTH_SHORT).show();
-			return false;
-		} else {
-			if (mSelectedImages.add(image)) {
-				View rootView = LayoutInflater.from(ImagePickerActivity.this).inflate(R.layout.list_item_selected_thumbnail, null);
-				ImageView thumbnail = (ImageView) rootView.findViewById(R.id.selected_photo);
-				rootView.setTag(image.mUri);
-				mImageFetcher.loadImage(image.mUri, thumbnail);
-				mSelectedImagesContainer.addView(rootView, 0);
+            @Override
+            public void onPageSelected(int position) {
+                actionBar.setSelectedNavigationItem(position);
+            }
+        });
 
-				int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, getResources().getDisplayMetrics());
-				thumbnail.setLayoutParams(new FrameLayout.LayoutParams(px, px));
+        for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
+            actionBar.addTab(actionBar.newTab().setText(mSectionsPagerAdapter.getPageTitle(i)).setTabListener(this));
+        }
+    }
 
-				if (mSelectedImages.size() >= 1) {
-					mSelectedImagesContainer.setVisibility(View.VISIBLE);
-					mSelectedImageEmptyMessage.setVisibility(View.GONE);
-				}
-				return true;
-			}
-		}
+    public boolean addImage(Image image) {
 
-		return false;
-	}
+        if (mSelectedImages == null) {
+            // this condition may arise when the activity is being
+            // restored when sufficient memory is available. onRestoreState()
+            // will be called.
+            mSelectedImages = new HashSet<Image>();
+        }
 
-	public boolean removeImage(Image image) {
-		if (mSelectedImages.remove(image)) {
-			for (int i = 0; i < mSelectedImagesContainer.getChildCount(); i++) {
-				View childView = mSelectedImagesContainer.getChildAt(i);
-				if (childView.getTag().equals(image.mUri)) {
-					mSelectedImagesContainer.removeViewAt(i);
-					break;
-				}
-			}
+        if (mSelectedImages.size() == mMaxSelectionsAllowed) {
+            Toast.makeText(this, mMaxSelectionsAllowed + " images selected already", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            if (mSelectedImages.add(image)) {
+                View rootView = LayoutInflater.from(ImagePickerActivity.this).inflate(R.layout.list_item_selected_thumbnail, null);
+                ImageView thumbnail = (ImageView) rootView.findViewById(R.id.selected_photo);
+                rootView.setTag(image.mUri);
+                mImageFetcher.loadImage(image.mUri, thumbnail);
+                mSelectedImagesContainer.addView(rootView, 0);
 
-			if (mSelectedImages.size() == 0) {
-				mSelectedImagesContainer.setVisibility(View.GONE);
-				mSelectedImageEmptyMessage.setVisibility(View.VISIBLE);
-			}
-			return true;
-		}
-		return false;
-	}
+                int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, getResources().getDisplayMetrics());
+                thumbnail.setLayoutParams(new FrameLayout.LayoutParams(px, px));
 
-	public boolean containsImage(Image image) {
-		return mSelectedImages.contains(image);
-	}
+                if (mSelectedImages.size() >= 1) {
+                    mSelectedImagesContainer.setVisibility(View.VISIBLE);
+                    mSelectedImageEmptyMessage.setVisibility(View.GONE);
+                }
+                return true;
+            }
+        }
 
-	private View.OnClickListener onFinishGettingImages = new View.OnClickListener() {
+        return false;
+    }
 
-		@Override
-		public void onClick(View view) {
-			if (view.getId() == R.id.action_btn_done) {
+    public boolean removeImage(Image image) {
+        if (mSelectedImages.remove(image)) {
+            for (int i = 0; i < mSelectedImagesContainer.getChildCount(); i++) {
+                View childView = mSelectedImagesContainer.getChildAt(i);
+                if (childView.getTag().equals(image.mUri)) {
+                    mSelectedImagesContainer.removeViewAt(i);
+                    break;
+                }
+            }
 
-				Uri[] uris = new Uri[mSelectedImages.size()];
-				int i = 0;
-				for (Image img : mSelectedImages) {
-					uris[i++] = img.mUri;
-				}
+            if (mSelectedImages.size() == 0) {
+                mSelectedImagesContainer.setVisibility(View.GONE);
+                mSelectedImageEmptyMessage.setVisibility(View.VISIBLE);
+            }
+            return true;
+        }
+        return false;
+    }
 
-				Intent intent = new Intent();
-				intent.putExtra(EXTRA_IMAGE_URIS, uris);
-				setResult(Activity.RESULT_OK, intent);
-			} else if (view.getId() == R.id.action_btn_cancel) {
-				setResult(Activity.RESULT_CANCELED);
-			}
-			finish();
-		}
-	};
+    public boolean containsImage(Image image) {
+        return mSelectedImages.contains(image);
+    }
+
+    private View.OnClickListener onFinishGettingImages = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View view) {
+            if (view.getId() == R.id.action_btn_done) {
+
+                Uri[] uris = new Uri[mSelectedImages.size()];
+                int i = 0;
+                for (Image img : mSelectedImages) {
+                    uris[i++] = img.mUri;
+                }
+
+                Intent intent = new Intent();
+                intent.putExtra(EXTRA_IMAGE_URIS, uris);
+                setResult(Activity.RESULT_OK, intent);
+            } else if (view.getId() == R.id.action_btn_cancel) {
+                setResult(Activity.RESULT_CANCELED);
+            }
+            finish();
+        }
+    };
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-		public SectionsPagerAdapter(FragmentManager fm) {
-			super(fm);
-		}
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
 
-		@Override
-		public Fragment getItem(int position) {
-			switch (position) {
-			case 0:
-				// return new CameraFragment();
-                return new CwacCameraFragment();
-                // return new DemoCameraFragment();
-			case 1:
-				return new GalleryFragment();
-			default:
-				return null;
-			}
-		}
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                // TODO: user meaningful constants instead of merely integers
+                // to make this code more readable.
+                case 0:
+                    return new CwacCameraFragment();
+                case 1:
+                    return new GalleryFragment();
+                default:
+                    return null;
+            }
+        }
 
-		@Override
-		public int getCount() {
-			return 2;
-		}
+        @Override
+        public int getCount() {
+            return 2;
+        }
 
-		@Override
-		public CharSequence getPageTitle(int position) {
-			switch (position) {
-			case 0:
-				return getString(R.string.take_photo);
-			case 1:
-				return getString(R.string.gallery);
-			}
-			return null;
-		}
-	}
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0:
+                    return getString(R.string.take_photo);
+                case 1:
+                    return getString(R.string.gallery);
+            }
+            return null;
+        }
+    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+
+        // preserve already taken images on configuration changes like
+        // screen rotation or activity run out of memory.
+        // HashSet cannot be saved, so convert to list and then save.
+        ArrayList<Image> list = new ArrayList<Image>(mSelectedImages);
+        outState.putParcelableArrayList(KEY_LIST, list);
     }
 
     @Override
-	public void onTabSelected(Tab tab, android.app.FragmentTransaction ft) {
-		mViewPager.setCurrentItem(tab.getPosition());
-	}
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        populateUi(savedInstanceState);
+    }
 
-	@Override
-	public void onTabUnselected(Tab tab, android.app.FragmentTransaction ft) {
-		// Auto-generated method stub
-	}
+    @Override
+    public void onTabSelected(Tab tab, android.app.FragmentTransaction ft) {
+        mViewPager.setCurrentItem(tab.getPosition());
+    }
 
-	@Override
-	public void onTabReselected(Tab tab, android.app.FragmentTransaction ft) {
-		// Auto-generated method stub
-	}
+    @Override
+    public void onTabUnselected(Tab tab, android.app.FragmentTransaction ft) {
+        // Auto-generated method stub
+    }
+
+    @Override
+    public void onTabReselected(Tab tab, android.app.FragmentTransaction ft) {
+        // Auto-generated method stub
+    }
 }

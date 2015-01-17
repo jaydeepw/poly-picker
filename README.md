@@ -17,6 +17,7 @@ Why?
 ==========
 * Most of the apps we develop require fetching images from camera or gallery.
 * Android does not provide multi-selection of images out of the box until [API 18](http://developer.android.com/reference/android/content/Intent.html#EXTRA_ALLOW_MULTIPLE).
+* Dealing with camera on variety of hardware and fragmentation in underlying software is difficult.
 * There are no libraries that help me multi-choose images from both camera and gallery with beautiful UX.
 
 Features
@@ -28,7 +29,7 @@ Features
 * No dependency.
 
 Download
---------
+==========
 
 ```groovy
 
@@ -47,7 +48,7 @@ repositories {
 }
 
 dependencies {
-	compile 'net.the4thdimension:poly-picker:1.0.9'
+	compile 'net.the4thdimension:poly-picker:1.0.10'
 }
 
 ```
@@ -153,9 +154,12 @@ Alternative projects
 Release Notes
 ============
 
+## v1.0.10
+
+* Persist captured images even on device orientation changes
+
 ## v1.0.9
 
 * Replace camera view with CommonsGuy camera view which is tested well and handles camera functionality better on variety of hardware.
 
 [1]: https://github.com/jaydeepw/poly-picker/tree/eclipse-develop
-
