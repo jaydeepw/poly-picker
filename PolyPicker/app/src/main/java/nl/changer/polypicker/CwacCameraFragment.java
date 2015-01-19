@@ -238,4 +238,38 @@ public class CwacCameraFragment extends CameraFragment {
             // TODO: check if take picture can be called here.
         }
     }
+
+    /**
+     * App was getting crashed because of this error,
+     * 29294-29294/nl.changer.polypickerdemo E/WindowManager﹕ android.view.WindowLeaked:
+     * Activity nl.changer.polypicker.ImagePickerActivity has leaked window
+     * com.android.internal.policy.impl.PhoneWindow$DecorView{42c29ce0 V.E..... R....... 0,0-1026,288}
+     * that was originally added here
+     * <p/>
+     * What's happening here???
+     * You are trying to add a window and while it shows up it is on the foreground,but when you are pressing
+     * the home pr rotates the device, it gets paused and then gets stopped via the onStop().
+     * So your CustomView remains attached to the window that now has disappeared.
+     * Hence according to the system your customView occupied the space which it did not release.
+     * <p/>
+     * Solution: Inside your onStop()and onDestroy() make sure you dismiss your view(dismiss() if it's a dialog) or
+     * remove it(remove()if added using window Manaager).
+     * <p/>
+     * Therefore added following code in onStop() and onDestroy()
+     */
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mProgressDialog != null) {
+            mProgressDialog.dismiss();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mProgressDialog != null) {
+            mProgressDialog.dismiss();
+        }
+    }
 }
