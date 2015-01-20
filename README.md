@@ -26,7 +26,6 @@ Features
 * Multi-selection of images from gallery.
 * Ability to select/capture images upto a specified limit.
 * Preview thumbnails of selected images.
-* No dependency.
 
 Download
 ==========
@@ -132,7 +131,7 @@ Please fork this repository and contribute back using
 
 Please follow Android code [style guide](https://source.android.com/source/code-style.html)
 
-## You can contribute to polypicker in following ways.
+## You can contribute to polypicker in following ways
  * Test on multiple devices you have
  * Write unit tests
  * Help with string translations
