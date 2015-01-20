@@ -35,8 +35,10 @@ Download
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:support-v4:21.0.0'
-    // and your other dependencies
+    // and 
+    // your 
+    // other 
+    // dependencies...
 }
 
 // add external respository url in addition to having
@@ -48,7 +50,7 @@ repositories {
 }
 
 dependencies {
-	compile 'net.the4thdimension:poly-picker:1.0.10'
+	compile 'net.the4thdimension:poly-picker:1.0.11'
 }
 
 ```
@@ -130,6 +132,12 @@ Please fork this repository and contribute back using
 
 Please follow Android code [style guide](https://source.android.com/source/code-style.html)
 
+## You can contribute to polypicker in following ways.
+ * Test on multiple devices you have
+ * Write unit tests
+ * Help with string translations
+ * Fix open issues in the library
+
 Developed by
 ============
 
@@ -153,6 +161,10 @@ Alternative projects
 
 Release Notes
 ============
+
+## v1.0.11
+
+* Fix leaking progress dialog windown when the device orientation changes
 
 ## v1.0.10
 
