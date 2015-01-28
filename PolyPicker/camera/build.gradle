@@ -22,8 +22,8 @@ dependencies {
 }
 
 android {
-    compileSdkVersion 16
-    buildToolsVersion "19.1.0"
+    compileSdkVersion 21    // change it to 16 when SDK is downoaded
+    buildToolsVersion "21.1.2"
 
     sourceSets {
         main {
