@@ -50,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="No images selected"
+                android:text="@string/no_images_selected"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
         </FrameLayout>
 
