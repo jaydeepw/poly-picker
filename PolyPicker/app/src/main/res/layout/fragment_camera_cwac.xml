@@ -18,6 +18,7 @@
         android:layout_margin="10dp"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
+        android:contentDescription="@string/imageview_capture_photo_content_description"
         android:src="@drawable/btn_bg" />
 
 </FrameLayout>
