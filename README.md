@@ -105,10 +105,10 @@ private void getImages() {
 }
 
 @Override
-protected void onActivityResult(int requestCode, int resuleCode, Intent intent) {
-	super.onActivityResult(requestCode, resuleCode, intent);
+protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+	super.onActivityResult(requestCode, resultCode, intent);
 
-	if (resuleCode == Activity.RESULT_OK) {
+	if (resultCode == Activity.RESULT_OK) {
 		if (requestCode == INTENT_REQUEST_GET_IMAGES) {
 			Parcelable[] parcelableUris = intent.getParcelableArrayExtra(ImagePickerActivity.EXTRA_IMAGE_URIS);
             
