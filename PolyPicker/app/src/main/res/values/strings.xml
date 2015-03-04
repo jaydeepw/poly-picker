@@ -5,7 +5,7 @@
     <string name="done">Done</string>
     <string name="cancel">Cancel</string>
     <string name="take_photo">Take a photo</string>
-    <string name="gallery">"Gallery"</string>
+    <string name="gallery">Gallery</string>
     <string name="progress_title">Processing…</string>
     <string name="no_images_selected">No images selected</string>
     <string name="imageview_content_description">Gallery item image</string>

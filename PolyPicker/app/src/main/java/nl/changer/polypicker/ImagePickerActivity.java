@@ -47,6 +47,17 @@ public class ImagePickerActivity extends Activity implements ActionBar.TabListen
      */
     public static final String EXTRA_SELECTION_LIMIT = "nl.changer.changer.nl.polypicker.extra.selection_limit";
 
+    /**
+     * Single source. Allows taking image from only one source at a time.
+     */
+    public static final String EXTRA_SOURCE = "nl.changer.changer.nl.polypicker.extra.image_source";
+
+    /**
+     * Source camera. Allows taking image only using camera when passed in intent as
+     * {@link nl.changer.polypicker.ImagePickerActivity#EXTRA_SOURCE}
+     */
+    public static final int SOURCE_CAMERA = 1;
+
     private Set<Image> mSelectedImages;
     private LinearLayout mSelectedImagesContainer;
     private TextView mSelectedImageEmptyMessage;
