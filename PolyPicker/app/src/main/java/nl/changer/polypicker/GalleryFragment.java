@@ -25,7 +25,6 @@ public class GalleryFragment extends Fragment {
 
     private static final String TAG = GalleryFragment.class.getSimpleName();
 
-    private GridView mGalleryGridView;
     private ImageGalleryAdapter mGalleryAdapter;
     private ImagePickerActivity mActivity;
 
@@ -34,7 +33,7 @@ public class GalleryFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_gallery, container, false);
 
         mGalleryAdapter = new ImageGalleryAdapter(getActivity());
-        mGalleryGridView = (GridView) rootView.findViewById(R.id.gallery_grid);
+        GridView galleryGridView = (GridView) rootView.findViewById(R.id.gallery_grid);
         mActivity = ((ImagePickerActivity) getActivity());
 
         Cursor imageCursor = null;
@@ -55,19 +54,19 @@ public class GalleryFragment extends Fragment {
 			}	
 		}
 
-        mGalleryGridView.setAdapter(mGalleryAdapter);
-        mGalleryGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        galleryGridView.setAdapter(mGalleryAdapter);
+        galleryGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Image image = mGalleryAdapter.getItem(i);
                 if (!mActivity.containsImage(image)) {
-                	mActivity.addImage(image);
+                    mActivity.addImage(image);
                 } else {
-                	mActivity.removeImage(image);
+                    mActivity.removeImage(image);
                 }
 
                 // refresh the view to
-               // mGalleryAdapter.getView(i, view, adapterView);
+                // mGalleryAdapter.getView(i, view, adapterView);
                 mGalleryAdapter.notifyDataSetChanged();
             }
         });
@@ -112,5 +111,4 @@ public class GalleryFragment extends Fragment {
             return convertView;
         }
     }
-
 }

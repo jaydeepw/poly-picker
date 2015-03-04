@@ -1,6 +1,7 @@
 
 package nl.changer.polypicker;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.hardware.Camera;
 import android.hardware.Camera.Size;
@@ -14,19 +15,18 @@ import java.util.List;
 /**
  * @deprecated
  */
+@SuppressLint("ViewConstructor")
 public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
 
 	private static final String TAG = "CameraPreview";
 
-	private Context mContext;
-	private SurfaceHolder mHolder;
+    private SurfaceHolder mHolder;
 	private Camera mCamera;
 	// private List<Camera.Size> mSupportedPreviewSizes;
 	private Size mPreviewSize;
 
 	public CameraPreview(Context context, Camera camera) {
 		super(context);
-		mContext = context;
 		mCamera = camera;
 
 		// Install a SurfaceHolder.Callback so we get notified when the
@@ -34,6 +34,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 		mHolder = getHolder();
 		mHolder.addCallback(this);
 		// deprecated setting, but required on Android versions prior to 3.0
+        // can be remove if we are targetting Andorid 4.0 and above.
 		mHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 	}
 

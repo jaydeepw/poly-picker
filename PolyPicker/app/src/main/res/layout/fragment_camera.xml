@@ -10,7 +10,7 @@
         android:orientation="vertical">
 
         <!--
-        Add a CameraPreview here dynamically.
+        Add a CameraPreview here dynamically. This should be a horizontal scrolling list
         -->
     </LinearLayout>
 
@@ -22,6 +22,7 @@
         android:layout_margin="18dp"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
+        android:contentDescription="@string/imageview_capture_photo_content_description"
         android:src="@drawable/state_normal" />
 
 </FrameLayout>
