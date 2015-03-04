@@ -1,0 +1,18 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="nl.changer.changer.nl.polypicker.CameraFragment">
+
+    <GridView
+        android:id="@+id/gallery_grid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:drawSelectorOnTop="true"
+        android:horizontalSpacing="0.5dp"
+        android:listSelector="?android:attr/selectableItemBackground"
+        android:numColumns="3"
+        android:verticalSpacing="0.5dp" />
+
+</FrameLayout>
