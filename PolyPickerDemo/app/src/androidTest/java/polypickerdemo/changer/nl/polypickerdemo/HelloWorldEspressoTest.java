@@ -27,6 +27,29 @@ public class HelloWorldEspressoTest extends ActivityInstrumentationTestCase2<Mai
     }
 
     public void testListGoesOverTheFold() {
+
+        for (int i = 0; i < 3; i++) {
+            takePictureFromCamera();
+        }
+    }
+
+    private void takePictureFromCamera() {
         Espresso.onView(withId(R.id.get_n_images)).perform(ViewActions.click());
+        Espresso.onView(withId(R.id.take_picture)).perform(ViewActions.click());
+        waitForSometime(8000);  // picture processing delay
+        Espresso.onView(withId(R.id.action_btn_done)).perform(ViewActions.click());
+        waitForSometime(500);
+        Espresso.onView(withId(R.id.selected_photos_container)).perform(ViewActions.swipeLeft());
+        Espresso.onView(withId(R.id.selected_photos_container)).perform(ViewActions.swipeLeft());
+    }
+
+    private void waitForSometime(int timeToWaitFor) {
+        try {
+            Thread.sleep(timeToWaitFor);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
