@@ -8,13 +8,21 @@ import android.test.suitebuilder.annotation.LargeTest;
 import nl.changer.polypickerdemo.MainActivity;
 import nl.changer.polypickerdemo.R;
 
+import static android.support.test.espresso.Espresso.onData;
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.swipeLeft;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.anything;
 
 /**
  * Created by jay on 6/3/15.
  */
 @LargeTest
 public class HelloWorldEspressoTest extends ActivityInstrumentationTestCase2<MainActivity> {
+
+    private static final int PHOTO_PROCESSING_DELAY = 3000;
 
     public HelloWorldEspressoTest() {
         super(MainActivity.class);
@@ -31,16 +39,40 @@ public class HelloWorldEspressoTest extends ActivityInstrumentationTestCase2<Mai
         for (int i = 0; i < 3; i++) {
             takePictureFromCamera();
         }
+
+        takePicturesFromCameraAndGallery();
+
+        waitForSometime(500);
+        onView(withId(R.id.hori_scroll_view)).perform(swipeLeft());
+        onView(withId(R.id.hori_scroll_view)).perform(swipeLeft());
+        onView(withId(R.id.hori_scroll_view)).perform(swipeLeft());
+
+        // ending delay to visually verify the tests
+        waitForSometime(8000);
+    }
+
+    private void takePicturesFromCameraAndGallery() {
+        onView(withId(R.id.get_images)).perform(click());
+        onView(withId(R.id.take_picture)).perform(click());
+        waitForSometime(PHOTO_PROCESSING_DELAY);  // picture processing delay
+
+        waitForSometime(500);
+        onView(withText(R.string.gallery)).perform(click());
+
+        for (int i = 0; i < 3; i++) {
+            onData(anything())
+                    .inAdapterView(withId(R.id.gallery_grid))
+                    .atPosition(i).perform(click());
+        }
+
+        onView(withId(R.id.action_btn_done)).perform(click());
     }
 
     private void takePictureFromCamera() {
-        Espresso.onView(withId(R.id.get_n_images)).perform(ViewActions.click());
-        Espresso.onView(withId(R.id.take_picture)).perform(ViewActions.click());
-        waitForSometime(8000);  // picture processing delay
-        Espresso.onView(withId(R.id.action_btn_done)).perform(ViewActions.click());
-        /*waitForSometime(500);
-        Espresso.onView(withId(R.id.selected_photos_container)).perform(ViewActions.swipeLeft());
-        Espresso.onView(withId(R.id.selected_photos_container)).perform(ViewActions.swipeLeft());*/
+        onView(withId(R.id.get_n_images)).perform(click());
+        onView(withId(R.id.take_picture)).perform(click());
+        waitForSometime(PHOTO_PROCESSING_DELAY);  // picture processing delay
+        onView(withId(R.id.action_btn_done)).perform(click());
     }
 
     private void waitForSometime(int timeToWaitFor) {
