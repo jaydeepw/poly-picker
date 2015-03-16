@@ -47,6 +47,18 @@ public class ImagePickerActivity extends Activity implements ActionBar.TabListen
      */
     public static final String EXTRA_SELECTION_LIMIT = "nl.changer.changer.nl.polypicker.extra.selection_limit";
 
+    /**
+     * Flag for showing only camera for capturing image.
+     * Add this with value true/false as an extended data to the intent while starting as activity.
+     */
+    public static final String EXTRA_SHOW_ONLY_CAMERA = "nl.changer.changer.nl.polypicker.extra.show_only_camera";
+
+    /**
+     * Flag for showing only camera for capturing image.
+     * Add this with value true/false as an extended data to the intent while starting as activity.
+     */
+    public static final String EXTRA_SHOW_ONLY_GALLERY = "nl.changer.changer.nl.polypicker.extra.show_only_gallery";
+
     private Set<Image> mSelectedImages;
     private LinearLayout mSelectedImagesContainer;
     private TextView mSelectedImageEmptyMessage;
@@ -59,10 +71,27 @@ public class ImagePickerActivity extends Activity implements ActionBar.TabListen
 
     private int mMaxSelectionsAllowed = Integer.MAX_VALUE;
 
+    private boolean mShowOnlyCamera = false;
+    private boolean mShowOnlyGallery = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_pp);
+
+        if (getIntent() != null) {
+            if (getIntent().hasExtra(EXTRA_SELECTION_LIMIT)) {
+                mMaxSelectionsAllowed = getIntent().getIntExtra(EXTRA_SELECTION_LIMIT, Integer.MAX_VALUE);
+            }
+
+            if (getIntent().hasExtra(EXTRA_SHOW_ONLY_CAMERA)) {
+                mShowOnlyCamera = getIntent().getBooleanExtra(EXTRA_SHOW_ONLY_CAMERA, false);
+            }
+
+            if (getIntent().hasExtra(EXTRA_SHOW_ONLY_GALLERY)) {
+                mShowOnlyGallery = getIntent().getBooleanExtra(EXTRA_SHOW_ONLY_GALLERY, false);
+            }
+        }
 
         mSelectedImagesContainer = (LinearLayout) findViewById(R.id.selected_photos_container);
         mSelectedImageEmptyMessage = (TextView) findViewById(R.id.selected_photos_empty);
@@ -77,8 +106,6 @@ public class ImagePickerActivity extends Activity implements ActionBar.TabListen
 
         mCancelButtonView.setOnClickListener(onFinishGettingImages);
         mDoneButtonView.setOnClickListener(onFinishGettingImages);
-
-        mMaxSelectionsAllowed = getIntent().getIntExtra(EXTRA_SELECTION_LIMIT, Integer.MAX_VALUE);
 
         setupActionBar();
         if (savedInstanceState != null) {
@@ -205,6 +232,11 @@ public class ImagePickerActivity extends Activity implements ActionBar.TabListen
 
         @Override
         public Fragment getItem(int position) {
+
+            if (getCount() == 1) {
+                return mShowOnlyCamera ? new CwacCameraFragment() : new GalleryFragment();
+            }
+
             switch (position) {
                 // TODO: user meaningful constants instead of merely integers
                 // to make this code more readable.
@@ -219,11 +251,20 @@ public class ImagePickerActivity extends Activity implements ActionBar.TabListen
 
         @Override
         public int getCount() {
-            return 2;
+            if ((!mShowOnlyCamera && !mShowOnlyGallery) || (mShowOnlyCamera && mShowOnlyGallery)) {
+                return 2;
+            } else {
+                return 1;
+            }
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
+
+            if (getCount() == 1) {
+                return mShowOnlyCamera ? getString(R.string.take_photo) : getString(R.string.gallery);
+            }
+
             switch (position) {
                 case 0:
                     return getString(R.string.take_photo);
