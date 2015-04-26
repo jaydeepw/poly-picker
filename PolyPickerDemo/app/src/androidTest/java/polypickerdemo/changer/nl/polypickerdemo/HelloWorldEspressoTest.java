@@ -1,7 +1,5 @@
 package polypickerdemo.changer.nl.polypickerdemo;
 
-import android.support.test.espresso.Espresso;
-import android.support.test.espresso.action.ViewActions;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.LargeTest;
 
@@ -22,7 +20,10 @@ import static org.hamcrest.Matchers.anything;
 @LargeTest
 public class HelloWorldEspressoTest extends ActivityInstrumentationTestCase2<MainActivity> {
 
-    private static final int PHOTO_PROCESSING_DELAY = 3000;
+    /**
+     * A minimum delay required on Nexus5 when autofocus is enabled before taking photograph.
+     */
+    private static final int PHOTO_PROCESSING_DELAY = 4500;
 
     public HelloWorldEspressoTest() {
         super(MainActivity.class);

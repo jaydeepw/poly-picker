@@ -89,15 +89,9 @@ public class CwacCameraFragment extends CameraFragment {
         @Override
         public void onClick(View view) {
             if (mTakePictureBtn.isEnabled()) {
-                // enable the button after the photo is
-                // saved on the device.
-                mTakePictureBtn.setEnabled(false);
-                mProgressDialog.show();
-
-                PictureTransaction pictureTransaction = new PictureTransaction(getHost());
-                pictureTransaction.needBitmap(true);
-                pictureTransaction.flashMode(flashMode);
-                takePicture(pictureTransaction);
+                autoFocus();
+                // calling above method will lead to callback
+                // onAutoFocus()
             }
         }
     };
@@ -109,6 +103,17 @@ public class CwacCameraFragment extends CameraFragment {
                 recordItem.setVisible(false);
             }
         }
+    }
+
+    @Override
+    public void takePicture() {
+        mTakePictureBtn.setEnabled(false);
+        mProgressDialog.show();
+
+        PictureTransaction pictureTransaction = new PictureTransaction(getHost());
+        pictureTransaction.needBitmap(true);
+        pictureTransaction.flashMode(flashMode);
+        super.takePicture(pictureTransaction);
     }
 
     private class DemoCameraHost extends SimpleCameraHost implements Camera.FaceDetectionListener {
@@ -234,8 +239,10 @@ public class CwacCameraFragment extends CameraFragment {
         @TargetApi(16)
         public void onAutoFocus(boolean success, Camera camera) {
             super.onAutoFocus(success, camera);
-            // takePictureItem.setEnabled(true);
-            // TODO: check if take picture can be called here.
+
+            // whether success=true/false just let it be.
+            // we got to take picture no matter what.
+            takePicture();
         }
     }
 
@@ -243,9 +250,8 @@ public class CwacCameraFragment extends CameraFragment {
     public void onStop() {
         super.onStop();
 
-        // stop from leaking window.
-        // This is a not correct way to handle this.
-        // Needs to be changed
+        // if activity is closed suddenly,
+        // dismiss the progress dialog.
         if (mProgressDialog != null) {
             mProgressDialog.dismiss();
         }

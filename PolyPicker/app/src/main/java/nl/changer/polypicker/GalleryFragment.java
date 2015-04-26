@@ -23,8 +23,6 @@ import nl.changer.polypicker.model.Image;
  */
 public class GalleryFragment extends Fragment {
 
-    private static final String TAG = GalleryFragment.class.getSimpleName();
-
     private ImageGalleryAdapter mGalleryAdapter;
     private ImagePickerActivity mActivity;
 

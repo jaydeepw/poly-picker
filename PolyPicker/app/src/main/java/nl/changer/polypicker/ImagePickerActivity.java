@@ -29,8 +29,6 @@ import nl.changer.polypicker.utils.ImageInternalFetcher;
 
 public class ImagePickerActivity extends Activity implements ActionBar.TabListener {
 
-    private static final String TAG = ImagePickerActivity.class.getSimpleName();
-
     /**
      * Key to persist the list when saving the state of the activity.
      */
@@ -75,8 +73,8 @@ public class ImagePickerActivity extends Activity implements ActionBar.TabListen
         mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        mCancelButtonView.setOnClickListener(onFinishGettingImages);
-        mDoneButtonView.setOnClickListener(onFinishGettingImages);
+        mCancelButtonView.setOnClickListener(mOnFinishGettingImages);
+        mDoneButtonView.setOnClickListener(mOnFinishGettingImages);
 
         mMaxSelectionsAllowed = getIntent().getIntExtra(EXTRA_SELECTION_LIMIT, Integer.MAX_VALUE);
 
@@ -175,7 +173,7 @@ public class ImagePickerActivity extends Activity implements ActionBar.TabListen
         return mSelectedImages.contains(image);
     }
 
-    private View.OnClickListener onFinishGettingImages = new View.OnClickListener() {
+    private View.OnClickListener mOnFinishGettingImages = new View.OnClickListener() {
 
         @Override
         public void onClick(View view) {
