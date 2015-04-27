@@ -58,16 +58,17 @@ public class ImagePickerActivity extends ActionBarActivity implements ActionBar.
     private Button mCancelButtonView, mDoneButtonView;
 
     private int mMaxSelectionsAllowed = Integer.MAX_VALUE;
+    private SlidingTabText mSlidingTabs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_pp);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+       /* Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
-        }
+        }*/
 
         mSelectedImagesContainer = (LinearLayout) findViewById(R.id.selected_photos_container);
         mSelectedImageEmptyMessage = (TextView) findViewById(R.id.selected_photos_empty);
@@ -77,8 +78,8 @@ public class ImagePickerActivity extends ActionBarActivity implements ActionBar.
 
         mSelectedImages = new HashSet<Image>();
         mImageFetcher = new ImageInternalFetcher(this, 500);
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        // mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
+        // mViewPager.setAdapter(mSectionsPagerAdapter);
 
         mCancelButtonView.setOnClickListener(mOnFinishGettingImages);
         mDoneButtonView.setOnClickListener(mOnFinishGettingImages);
@@ -107,7 +108,7 @@ public class ImagePickerActivity extends ActionBarActivity implements ActionBar.
     private void setupActionBar() {
         final ActionBar actionBar = getActionBar();
 
-        if (actionBar == null) {
+        /*if (actionBar == null) {
             return;
         }
 
@@ -125,7 +126,15 @@ public class ImagePickerActivity extends ActionBarActivity implements ActionBar.
 
         for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
             actionBar.addTab(actionBar.newTab().setText(mSectionsPagerAdapter.getPageTitle(i)).setTabListener(this));
-        }
+        }*/
+
+        mSlidingTabs = (SlidingTabText)findViewById(R.id.sliding_tabs);
+        mSlidingTabs.setSelectedIndicatorColors(getResources().getColor(R.color.orange)); // TODO: make this configurable via API.
+        mSlidingTabs.setCustomTabView(R.layout.tab_view_text, R.id.tab_icon);
+        mSlidingTabs.setTabStripColor(R.color.white);   // TODO: make this configurable via API.
+        mViewPager.setAdapter(new TrainDetailsPagerAdapter(getFragmentManager()));
+        mSlidingTabs.setTabTitles(getResources().getStringArray(R.array.tab_titles));
+        mSlidingTabs.setViewPager(mViewPager);
     }
 
     public boolean addImage(Image image) {
