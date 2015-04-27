@@ -1,0 +1,19 @@
+<resources>
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">#ff5d49ff</item>
+        <item name="colorPrimaryDark">#ff2328ff</item>
+        <item name="android:textColorPrimary">#FFFFFF</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+
+    <style name="AppBaseTheme" parent="AppTheme.Base">
+        <!-- API 14 theme customizations can go here. -->
+    </style>
+
+</resources>
