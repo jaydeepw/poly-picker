@@ -5,24 +5,30 @@ package nl.changer.polypicker;
  */
 public class Config {
 
-    private int mStripColor;
+    private int mTabBackgroundColor;
+    private int mTabSelectionIndicatorColor;
     private int mSelectionLimit;
 
     /**
      *
-     * @param stripColor
+     * @param tabBgColor
      * @param selectionLimit Pass -1 to not limit the selection of photos.
      */
-    public Config(int stripColor, int selectionLimit) {
-        mStripColor = stripColor;
+    public Config(int tabBgColor, int tabSelectionIndicatorColor, int selectionLimit) {
+        mTabBackgroundColor = tabBgColor;
+        mTabSelectionIndicatorColor = tabSelectionIndicatorColor;
 
         if (selectionLimit != -1) {
             mSelectionLimit = selectionLimit;
         }
     }
 
-    public int getStripColor() {
-        return mStripColor;
+    public int getTabBackgroundColor() {
+        return mTabBackgroundColor;
+    }
+
+    public int getTabSelectionIndicatorColor() {
+        return mTabSelectionIndicatorColor;
     }
 
     public int getSelectionLimit() {
@@ -34,18 +40,31 @@ public class Config {
      * <p/>
      */
     public static class Builder {
-        private int mStripColor;
+        private int mTabBackgroundColor = R.color.white;
+        private int mTabSelectionIndicatorColor = R.color.orange;
         private int mSelectionLimit = Integer.MAX_VALUE;
 
         /**
          * Tab strip color
          */
-        public Builder setStripColor(int colorRes) {
+        public Builder setTabBackgroundColor(int colorRes) {
             if (colorRes == 0 || colorRes == -1) {
                 throw new IllegalArgumentException("Invalid value for color");
             }
 
-            mStripColor = colorRes;
+            mTabBackgroundColor = colorRes;
+            return this;
+        }
+
+        /**
+         * Sets selected tab indicator color.
+         */
+        public Builder setTabSelectionIndicatorColor(int colorRes) {
+            if (colorRes == 0 || colorRes == -1) {
+                throw new IllegalArgumentException("Invalid value for color");
+            }
+
+            mTabSelectionIndicatorColor = colorRes;
             return this;
         }
 
@@ -63,7 +82,7 @@ public class Config {
          * Create the {@link Config} instances.
          */
         public Config build() {
-            return new Config(mStripColor, mSelectionLimit);
+            return new Config(mTabBackgroundColor, mTabSelectionIndicatorColor, mSelectionLimit);
         }
     }
 }

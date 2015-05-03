@@ -72,7 +72,8 @@ public class MainActivity extends FragmentActivity {
 	private void getNImages() {
 		Intent intent = new Intent(mContext, ImagePickerActivity.class);
 		Config config = new Config.Builder()
-				.setStripColor(R.color.white)	// set tab strip color. Default white.
+				.setTabBackgroundColor(R.color.white)	// set tab background color. Default white.
+				.setTabSelectionIndicatorColor(R.color.blue)
 				.setSelectionLimit(2)	// set photo selection limit Default unlimited selection.
 				.build();
 		ImagePickerActivity.setConfig(config);

@@ -48,9 +48,14 @@ public class ImagePickerActivity extends ActionBarActivity {
     private SlidingTabText mSlidingTabText;
 
     // initialize with default config.
-    private static Config mConfig = new Config(R.color.white, -1);
+    private static Config mConfig = new Config.Builder().build();
 
     public static void setConfig(Config config) {
+
+        if (config == null) {
+            throw new NullPointerException("Config cannot be null. Not setting config will use default values.");
+        }
+
         ImagePickerActivity.mConfig = config;
     }
 
@@ -75,8 +80,6 @@ public class ImagePickerActivity extends ActionBarActivity {
 
         mSelectedImages = new HashSet<Image>();
         mImageFetcher = new ImageInternalFetcher(this, 500);
-        // mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
-        // mViewPager.setAdapter(mSectionsPagerAdapter);
 
         mCancelButtonView.setOnClickListener(mOnFinishGettingImages);
         mDoneButtonView.setOnClickListener(mOnFinishGettingImages);
@@ -124,9 +127,9 @@ public class ImagePickerActivity extends ActionBarActivity {
         }*/
 
         mSlidingTabText = (SlidingTabText) findViewById(R.id.sliding_tabs);
-        mSlidingTabText.setSelectedIndicatorColors(getResources().getColor(R.color.orange)); // TODO: make this configurable via API.
+        mSlidingTabText.setSelectedIndicatorColors(getResources().getColor(mConfig.getTabSelectionIndicatorColor()));
         mSlidingTabText.setCustomTabView(R.layout.tab_view_text, R.id.tab_icon);
-        mSlidingTabText.setTabStripColor(mConfig.getStripColor());
+        mSlidingTabText.setTabStripColor(mConfig.getTabBackgroundColor());
         mViewPager.setAdapter(new PagerAdapter2Fragments(getFragmentManager()));
         mSlidingTabText.setTabTitles(getResources().getStringArray(R.array.tab_titles));
         mSlidingTabText.setViewPager(mViewPager);
