@@ -71,10 +71,11 @@ public class MainActivity extends FragmentActivity {
 	
 	private void getNImages() {
 		Intent intent = new Intent(mContext, ImagePickerActivity.class);
-		Config config = new ImagePickerActivity.Builder().setStripColor(R.color.orange).build();
+		Config config = new Config.Builder()
+				.setStripColor(R.color.white)	// set tab strip color. Default white.
+				.setSelectionLimit(2)	// set photo selection limit Default unlimited selection.
+				.build();
 		ImagePickerActivity.setConfig(config);
-		// limit image pick count to only 3 images.
-		intent.putExtra(ImagePickerActivity.EXTRA_SELECTION_LIMIT, 3);
 		startActivityForResult(intent, INTENT_REQUEST_GET_N_IMAGES);
 	}
 

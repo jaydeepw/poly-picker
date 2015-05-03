@@ -20,12 +20,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.Executor;
 
 import nl.changer.polypicker.model.Image;
 import nl.changer.polypicker.utils.ImageInternalFetcher;
 
-public class ImagePickerActivity extends ActionBarActivity /*implements ActionBar.TabListener*/ {
+public class ImagePickerActivity extends ActionBarActivity {
 
     /**
      * Key to persist the list when saving the state of the activity.
@@ -37,29 +36,22 @@ public class ImagePickerActivity extends ActionBarActivity /*implements ActionBa
      */
     public static final String EXTRA_IMAGE_URIS = "nl.changer.changer.nl.polypicker.extra.selected_image_uris";
 
-    /**
-     * Integer extra to limit the number of images that can be selected. By default the user can
-     * select infinite number of images.
-     */
-    public static final String EXTRA_SELECTION_LIMIT = "nl.changer.changer.nl.polypicker.extra.selection_limit";
-
     private Set<Image> mSelectedImages;
     private LinearLayout mSelectedImagesContainer;
     protected TextView mSelectedImageEmptyMessage;
 
-    // private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     public ImageInternalFetcher mImageFetcher;
 
     private Button mCancelButtonView, mDoneButtonView;
 
-    private int mMaxSelectionsAllowed = Integer.MAX_VALUE;
     private SlidingTabText mSlidingTabText;
 
-    private static Config mConfig;
+    // initialize with default config.
+    private static Config mConfig = new Config(R.color.white, -1);
 
-    public static void setConfig(Config mConfig) {
-        ImagePickerActivity.mConfig = mConfig;
+    public static void setConfig(Config config) {
+        ImagePickerActivity.mConfig = config;
     }
 
     @Override
@@ -88,8 +80,6 @@ public class ImagePickerActivity extends ActionBarActivity /*implements ActionBa
 
         mCancelButtonView.setOnClickListener(mOnFinishGettingImages);
         mDoneButtonView.setOnClickListener(mOnFinishGettingImages);
-
-        mMaxSelectionsAllowed = getIntent().getIntExtra(EXTRA_SELECTION_LIMIT, Integer.MAX_VALUE);
 
         setupActionBar();
         if (savedInstanceState != null) {
@@ -136,11 +126,7 @@ public class ImagePickerActivity extends ActionBarActivity /*implements ActionBa
         mSlidingTabText = (SlidingTabText) findViewById(R.id.sliding_tabs);
         mSlidingTabText.setSelectedIndicatorColors(getResources().getColor(R.color.orange)); // TODO: make this configurable via API.
         mSlidingTabText.setCustomTabView(R.layout.tab_view_text, R.id.tab_icon);
-        if (mConfig != null) {
-            mSlidingTabText.setTabStripColor(mConfig.getStripColor());                    // TODO: make this configurable via API.
-        } else {
-            mSlidingTabText.setTabStripColor(R.color.white);                    // TODO: make this configurable via API.
-        }
+        mSlidingTabText.setTabStripColor(mConfig.getStripColor());
         mViewPager.setAdapter(new PagerAdapter2Fragments(getFragmentManager()));
         mSlidingTabText.setTabTitles(getResources().getStringArray(R.array.tab_titles));
         mSlidingTabText.setViewPager(mViewPager);
@@ -155,8 +141,8 @@ public class ImagePickerActivity extends ActionBarActivity /*implements ActionBa
             mSelectedImages = new HashSet<Image>();
         }
 
-        if (mSelectedImages.size() == mMaxSelectionsAllowed) {
-            Toast.makeText(this, getString(R.string.n_images_selected, mMaxSelectionsAllowed), Toast.LENGTH_SHORT).show();
+        if (mSelectedImages.size() == mConfig.getSelectionLimit()) {
+            Toast.makeText(this, getString(R.string.n_images_selected, mConfig.getSelectionLimit()), Toast.LENGTH_SHORT).show();
             return false;
         } else {
             if (mSelectedImages.add(image)) {
@@ -240,33 +226,5 @@ public class ImagePickerActivity extends ActionBarActivity /*implements ActionBa
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         populateUi(savedInstanceState);
-    }
-
-    /**
-     * Build a new {@link Config}.
-     * <p>
-     * Calling the following methods is required before calling {@link #build()}:
-     * <ul>
-     * <li>{@link #setEndpoint(Endpoint)}</li>
-     * </ul>
-     * <p>
-     */
-    public static class Builder {
-        private int mStripColor;
-
-        /** API endpoint URL. */
-        public Builder setStripColor(int color) {
-            if (color == 0 || color == -1) {
-                throw new IllegalArgumentException("Invalid value for color");
-            }
-
-            mStripColor = color;
-            return this;
-        }
-
-        /** Create the {@link Config} instances. */
-        public Config build() {
-            return new Config(mStripColor);
-        }
     }
 }
