@@ -10,5 +10,6 @@
     <string name="no_images_selected">No images selected</string>
     <string name="imageview_content_description">Gallery item image</string>
     <string name="imageview_capture_photo_content_description">Take photo using device camera</string>
+    <string name="n_images_selected">%1$s images selected already</string>
 
 </resources>

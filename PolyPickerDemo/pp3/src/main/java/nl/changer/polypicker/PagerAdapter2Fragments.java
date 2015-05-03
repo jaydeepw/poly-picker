@@ -7,16 +7,16 @@ import android.support.v13.app.FragmentStatePagerAdapter;
 /**
  * Created by jay on 21/4/15.
  */
-public class TrainDetailsPagerAdapter extends FragmentStatePagerAdapter {
+public class PagerAdapter2Fragments extends FragmentStatePagerAdapter {
 
     /**
      * Number of tabs to be show. Change this value when a tab is added/removed
      */
     private static final int TAB_COUNT = 2;
-    private static final int TAB_INFO = 0;
-    private static final int TAB_PNR_DETAILS = 1;
+    private static final int TAB_CAMERA = 0;
+    private static final int TAB_GALLERY = 1;
 
-    public TrainDetailsPagerAdapter(FragmentManager fm) {
+    public PagerAdapter2Fragments(FragmentManager fm) {
         super(fm);
     }
 
@@ -25,10 +25,10 @@ public class TrainDetailsPagerAdapter extends FragmentStatePagerAdapter {
 
         switch(position) {
 
-            case TAB_INFO:
+            case TAB_CAMERA:
                 CwacCameraFragment profileInfoFragment = new CwacCameraFragment();
                 return profileInfoFragment;
-            case TAB_PNR_DETAILS:
+            case TAB_GALLERY:
                 GalleryFragment pnrFragment = new GalleryFragment();
                 return pnrFragment;
         }
