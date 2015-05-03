@@ -19,6 +19,7 @@ import java.io.File;
 import java.util.HashSet;
 import java.util.Iterator;
 
+import nl.changer.polypicker.Config;
 import nl.changer.polypicker.ImagePickerActivity;
 import nl.changer.polypicker.utils.ImageInternalFetcher;
 
@@ -70,7 +71,8 @@ public class MainActivity extends FragmentActivity {
 	
 	private void getNImages() {
 		Intent intent = new Intent(mContext, ImagePickerActivity.class);
-		
+		Config config = new ImagePickerActivity.Builder().setStripColor(R.color.orange).build();
+		ImagePickerActivity.setConfig(config);
 		// limit image pick count to only 3 images.
 		intent.putExtra(ImagePickerActivity.EXTRA_SELECTION_LIMIT, 3);
 		startActivityForResult(intent, INTENT_REQUEST_GET_N_IMAGES);

@@ -20,6 +20,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.Executor;
 
 import nl.changer.polypicker.model.Image;
 import nl.changer.polypicker.utils.ImageInternalFetcher;
@@ -54,6 +55,12 @@ public class ImagePickerActivity extends ActionBarActivity /*implements ActionBa
 
     private int mMaxSelectionsAllowed = Integer.MAX_VALUE;
     private SlidingTabText mSlidingTabText;
+
+    private static Config mConfig;
+
+    public static void setConfig(Config mConfig) {
+        ImagePickerActivity.mConfig = mConfig;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,7 +136,11 @@ public class ImagePickerActivity extends ActionBarActivity /*implements ActionBa
         mSlidingTabText = (SlidingTabText) findViewById(R.id.sliding_tabs);
         mSlidingTabText.setSelectedIndicatorColors(getResources().getColor(R.color.orange)); // TODO: make this configurable via API.
         mSlidingTabText.setCustomTabView(R.layout.tab_view_text, R.id.tab_icon);
-        mSlidingTabText.setTabStripColor(R.color.white);   // TODO: make this configurable via API.
+        if (mConfig != null) {
+            mSlidingTabText.setTabStripColor(mConfig.getStripColor());                    // TODO: make this configurable via API.
+        } else {
+            mSlidingTabText.setTabStripColor(R.color.white);                    // TODO: make this configurable via API.
+        }
         mViewPager.setAdapter(new PagerAdapter2Fragments(getFragmentManager()));
         mSlidingTabText.setTabTitles(getResources().getStringArray(R.array.tab_titles));
         mSlidingTabText.setViewPager(mViewPager);
@@ -229,5 +240,33 @@ public class ImagePickerActivity extends ActionBarActivity /*implements ActionBa
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         populateUi(savedInstanceState);
+    }
+
+    /**
+     * Build a new {@link Config}.
+     * <p>
+     * Calling the following methods is required before calling {@link #build()}:
+     * <ul>
+     * <li>{@link #setEndpoint(Endpoint)}</li>
+     * </ul>
+     * <p>
+     */
+    public static class Builder {
+        private int mStripColor;
+
+        /** API endpoint URL. */
+        public Builder setStripColor(int color) {
+            if (color == 0 || color == -1) {
+                throw new IllegalArgumentException("Invalid value for color");
+            }
+
+            mStripColor = color;
+            return this;
+        }
+
+        /** Create the {@link Config} instances. */
+        public Config build() {
+            return new Config(mStripColor);
+        }
     }
 }
