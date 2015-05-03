@@ -3,6 +3,8 @@ package polypickerdemo.changer.nl.polypickerdemo;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.LargeTest;
 
+import java.util.concurrent.TimeUnit;
+
 import nl.changer.polypickerdemo.MainActivity;
 import nl.changer.polypickerdemo.R;
 
@@ -21,9 +23,10 @@ import static org.hamcrest.Matchers.anything;
 public class HelloWorldEspressoTest extends ActivityInstrumentationTestCase2<MainActivity> {
 
     /**
-     * A minimum delay required on Nexus5 when autofocus is enabled before taking photograph.
+     * A minimum delay required on Nexus5 when autofocus is enabled before taking photograph is 4.5 sec
+     * and Sony test device is 10sec
      */
-    private static final int PHOTO_PROCESSING_DELAY = 4500;
+    private static final long PHOTO_PROCESSING_DELAY = TimeUnit.SECONDS.toMillis(10);
 
     public HelloWorldEspressoTest() {
         super(MainActivity.class);
@@ -76,7 +79,7 @@ public class HelloWorldEspressoTest extends ActivityInstrumentationTestCase2<Mai
         onView(withId(R.id.action_btn_done)).perform(click());
     }
 
-    private void waitForSometime(int timeToWaitFor) {
+    private void waitForSometime(long timeToWaitFor) {
         try {
             Thread.sleep(timeToWaitFor);
         } catch (InterruptedException e) {

@@ -13,7 +13,7 @@
         <item name="windowActionBar">false</item>
     </style>-->
 
-    <style name="AppBaseTheme" parent="AppTheme.Base">
+    <style name="PPBaseTheme" parent="AppTheme.Base">
         <!-- API 14 theme customizations can go here. -->
     </style>
 

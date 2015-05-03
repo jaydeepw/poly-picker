@@ -25,7 +25,7 @@
         </activity>
         <activity
             android:name="nl.changer.polypicker.ImagePickerActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/PPBaseTheme" />
     </application>
 
 </manifest>
