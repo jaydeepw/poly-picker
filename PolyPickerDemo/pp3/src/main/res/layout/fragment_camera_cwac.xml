@@ -12,8 +12,8 @@
 
     <ImageButton
         android:id="@+id/take_picture"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:layout_gravity="center_horizontal|bottom"
         android:layout_margin="10dp"
         android:background="@android:color/transparent"

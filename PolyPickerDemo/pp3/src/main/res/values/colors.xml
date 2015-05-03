@@ -4,4 +4,10 @@
     <color name="white">#FFFFFF</color>
     <color name="blue">#FF1AA1E1</color>
     <color name="orange">#ffe16b10</color>
+
+    <!--Floating Action Button colors-->
+    <color name="fab_color_1">#ff5252</color>
+    <color name="fab_color_1_muted">#ff8080</color>
+    <color name="fab_color_2">#9c27b0</color>
+    <color name="fab_color_2_muted">#a56ab0</color>
 </resources>
