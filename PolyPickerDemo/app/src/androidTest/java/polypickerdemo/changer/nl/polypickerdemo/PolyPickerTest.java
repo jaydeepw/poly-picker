@@ -20,7 +20,7 @@ import static org.hamcrest.Matchers.anything;
  * Created by jay on 6/3/15.
  */
 @LargeTest
-public class HelloWorldEspressoTest extends ActivityInstrumentationTestCase2<MainActivity> {
+public class PolyPickerTest extends ActivityInstrumentationTestCase2<MainActivity> {
 
     /**
      * A minimum delay required on Nexus5 when autofocus is enabled before taking photograph is 4.5 sec
@@ -28,7 +28,7 @@ public class HelloWorldEspressoTest extends ActivityInstrumentationTestCase2<Mai
      */
     private static final long PHOTO_PROCESSING_DELAY = TimeUnit.SECONDS.toMillis(10);
 
-    public HelloWorldEspressoTest() {
+    public PolyPickerTest() {
         super(MainActivity.class);
     }
 
