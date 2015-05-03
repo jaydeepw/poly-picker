@@ -14,16 +14,16 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
-
-<selector xmlns:android="http://schemas.android.com/apk/res/android"
-        android:enterFadeDuration="@android:integer/config_shortAnimTime">
-
-    <item android:state_checked="true">
-        <bitmap android:src="@drawable/ic_tick" android:tint="@android:color/white" />
-    </item>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item>
-        <bitmap android:src="@drawable/ic_add" android:tint="@android:color/white" />
+        <ripple android:color="@color/fab_color_1_muted">
+            <item>
+                <shape>
+                    <solid android:color="@color/orange" />
+                </shape>
+            </item>
+        </ripple>
     </item>
 
 </selector>

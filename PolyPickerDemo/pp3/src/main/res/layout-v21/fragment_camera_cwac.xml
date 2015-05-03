@@ -12,18 +12,14 @@
 
     <nl.changer.polypicker.FloatingActionButton
         android:id="@+id/take_picture"
-        android:layout_width="@dimen/fab_size"
-        android:layout_height="@dimen/fab_size"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_margin="10dp"
-        android:elevation="@dimen/fab_elevation"
-        android:background="@drawable/fab_background"
+        style="@style/CameraFABButtonStyle"
         android:stateListAnimator="@animator/fab_anim" >
 
         <ImageView
             android:layout_width="@dimen/fab_icon_size"
             android:layout_height="@dimen/fab_icon_size"
-            android:src="@drawable/fab_icons"
+            android:src="@drawable/ic_camera"
+            android:tint="@android:color/white"
             android:layout_gravity="center"
             android:duplicateParentState="true" />
 

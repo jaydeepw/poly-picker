@@ -3,8 +3,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_elevation">8dp</dimen>
-    <dimen name="fab_size">56dp</dimen>
-    <dimen name="fab_icon_size">24dp</dimen>
+    <dimen name="fab_size">60dp</dimen>
+    <dimen name="fab_icon_size">30dp</dimen>
     <dimen name="fab_press_translation_z">9dp</dimen>
 
 </resources>

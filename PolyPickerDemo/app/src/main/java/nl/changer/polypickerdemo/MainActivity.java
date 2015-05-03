@@ -76,7 +76,7 @@ public class MainActivity extends FragmentActivity {
 				.setTabSelectionIndicatorColor(R.color.blue)
 				.setSelectionLimit(2)	// set photo selection limit Default unlimited selection.
 				.build();
-		ImagePickerActivity.setConfig(config);
+		// ImagePickerActivity.setConfig(config);
 		startActivityForResult(intent, INTENT_REQUEST_GET_N_IMAGES);
 	}
 

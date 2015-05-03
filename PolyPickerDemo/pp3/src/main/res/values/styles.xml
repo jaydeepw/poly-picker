@@ -16,4 +16,12 @@
         <!-- API 14 theme customizations can go here. -->
     </style>
 
+    <style name="CameraButtonStyle">
+        <item name="android:layout_width">@dimen/fab_size</item>
+        <item name="android:layout_height">@dimen/fab_size</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:contentDescription">@string/imageview_capture_photo_content_description</item>
+        <item name="android:layout_gravity">center_horizontal|bottom</item>
+    </style>
+
 </resources>
