@@ -53,10 +53,14 @@ public class ImagePickerActivity extends ActionBarActivity {
     public static void setConfig(Config config) {
 
         if (config == null) {
-            throw new NullPointerException("Config cannot be null. Not setting config will use default values.");
+            throw new NullPointerException("Config cannot be passed null. Not setting config will use default values.");
         }
 
-        ImagePickerActivity.mConfig = config;
+        mConfig = config;
+    }
+
+    public static Config getConfig() {
+        return mConfig;
     }
 
     @Override
@@ -104,9 +108,9 @@ public class ImagePickerActivity extends ActionBarActivity {
      * Sets up the action bar, adding view page indicator.
      */
     private void setupActionBar() {
-        final ActionBar actionBar = getActionBar();
+       /*final ActionBar actionBar = getActionBar();
 
-        /*if (actionBar == null) {
+        if (actionBar == null) {
             return;
         }
 

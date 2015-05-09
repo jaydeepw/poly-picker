@@ -27,6 +27,7 @@ public class PagerAdapter2Fragments extends FragmentStatePagerAdapter {
 
             case TAB_CAMERA:
                 CwacCameraFragment profileInfoFragment = new CwacCameraFragment();
+                CwacCameraFragment.setConfig(ImagePickerActivity.getConfig());
                 return profileInfoFragment;
             case TAB_GALLERY:
                 GalleryFragment pnrFragment = new GalleryFragment();
