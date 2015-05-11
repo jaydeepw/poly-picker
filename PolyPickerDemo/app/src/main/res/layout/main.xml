@@ -28,7 +28,7 @@
             android:layout_below="@id/get_images"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:text="Pick/Capture only 3 images"
+            android:text="@string/pick_N_images"
             android:textColor="#000000" />
     </RelativeLayout>
 
