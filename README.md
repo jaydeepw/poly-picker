@@ -288,6 +288,12 @@ Alternative projects
 Release Notes
 ============
 
+## v1.0.13-SNAPSHOT
+
+* Add autofocus feature when taking picture using camera.
+* Material theme for camera fragment
+* Configurable UI controls to match the theme of the host application using the library.
+
 ## v1.0.11
 
 * Fix leaking progress dialog windown when the device orientation changes
