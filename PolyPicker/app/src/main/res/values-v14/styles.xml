@@ -5,7 +5,15 @@
         AppBaseTheme from BOTH res/values/styles.xml and
         res/values-v11/styles.xml on API 14+ devices.
     -->
-    <style name="AppBaseTheme" parent="@android:style/Theme.Holo.Light">
+
+    <!--<style name="AppTheme.Base" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">#ff5d49ff</item>
+        <item name="colorPrimaryDark">#ff2328ff</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>-->
+
+    <style name="PPBaseTheme" parent="AppTheme.Base">
         <!-- API 14 theme customizations can go here. -->
     </style>
 

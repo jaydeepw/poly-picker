@@ -63,7 +63,7 @@ Add camera permissions and required features to your AndroidManifest.xml
 ```xml
 
 <uses-feature android:name="android.hardware.camera" />
-<uses-feature android:name="android.hardware.camera.autofocus" />
+<uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
 
 <uses-permission android:name="android.permission.CAMERA" />
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -111,12 +111,138 @@ protected void onActivityResult(int requestCode, int resuleCode, Intent intent) 
 	if (resuleCode == Activity.RESULT_OK) {
 		if (requestCode == INTENT_REQUEST_GET_IMAGES) {
 			Parcelable[] parcelableUris = intent.getParcelableArrayExtra(ImagePickerActivity.EXTRA_IMAGE_URIS);
-            
-            if(parcelableUris == null) {
-            	return;
+
+            if (parcelableUris == null) {
+                return;
             }
 
-            // show images using uris returned.
+            // Java doesn't allow array casting, this is a little hack
+            Uri[] uris = new Uri[parcelableUris.length];
+            System.arraycopy(parcelableUris, 0, uris, 0, parcelableUris.length);
+
+            if (uris != null) {
+                for (Uri uri : uris) {
+                    Log.i(TAG, " uri: " + uri);
+                    mMedia.add(uri);
+                }
+
+                showMedia();
+            }
+		}
+	}
+}
+
+```
+
+Testing Snapshot build
+==========
+
+Snapshot builds are development builds that need refining and bug fixes. Open source community can greatly
+help in achieveing this by testing such builds and logging issues and feedback that can make PolyPicker better, together.
+Add snapshot dependency to your app module's build.gradle file
+
+```groovy
+
+repositories {
+    // for downloading Polypicker dependency cwac-camera
+    maven {
+        url "https://repo.commonsware.com.s3.amazonaws.com"
+    }
+
+    // for downloading polypicker v1.0.13-SNAPSHOT
+    maven {
+        url "https://oss.sonatype.org/content/repositories/snapshots/"
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:21.0.+'
+    // and other dependencies
+
+    // PolyPicker dependency.
+    compile 'net.the4thdimension:poly-picker:1.0.13-SNAPSHOT'
+}
+
+```
+
+Add camera permissions and required features to your AndroidManifest.xml
+
+```xml
+
+<uses-feature android:name="android.hardware.camera" />
+<uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
+
+<uses-permission android:name="android.permission.CAMERA" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+```
+
+
+Request large heap memory using "largeHeap" attribute for your application. This will avoid application to
+crash on low memory devices. The side effect would be that your application may force
+other applications to be kicked out of memory. Nothing very severe.
+
+```xml
+
+<application
+		android:icon="@drawable/ic_launcher"
+		android:label="@string/app_name"
+		android:largeHeap="true">
+		.
+		.
+</application>
+
+```
+
+Declare the PolyPicker activity in your AndroidManifest.xml
+
+```xml
+
+<activity
+            android:name="nl.changer.polypicker.ImagePickerActivity" />
+```
+
+Start PolyPicker activity to request images.
+
+```java
+
+// start polypicker activity to grab some images.
+Intent intent = new Intent(mContext, ImagePickerActivity.class);
+        Config config = new Config.Builder()
+                .setTabBackgroundColor(R.color.white)    // set tab background color. Default white.
+                .setTabSelectionIndicatorColor(R.color.blue)
+                .setCameraButtonColor(R.color.green)
+                .setSelectionLimit(2)    // set photo selection limit. Default unlimited selection.
+                .build();
+        ImagePickerActivity.setConfig(config);
+        startActivityForResult(intent, INTENT_REQUEST_GET_IMAGES);
+
+
+// parse images returned by polypicker
+@Override
+protected void onActivityResult(int requestCode, int resuleCode, Intent intent) {
+	super.onActivityResult(requestCode, resuleCode, intent);
+
+	if (resuleCode == Activity.RESULT_OK) {
+		if (requestCode == INTENT_REQUEST_GET_IMAGES) {
+			Parcelable[] parcelableUris = intent.getParcelableArrayExtra(ImagePickerActivity.EXTRA_IMAGE_URIS);
+
+            if (parcelableUris == null) {
+                return;
+            }
+
+            // Java doesn't allow array casting, this is a little hack
+            Uri[] uris = new Uri[parcelableUris.length];
+            System.arraycopy(parcelableUris, 0, uris, 0, parcelableUris.length);
+
+            if (uris != null) {
+                for (Uri uri : uris) {
+                    Log.i(TAG, " uri: " + uri);
+                    mMedia.add(uri);
+                }
+
+                showMedia();
+            }
 		}
 	}
 }
@@ -134,6 +260,7 @@ Please follow Android code [style guide](https://source.android.com/source/code-
 ## You can contribute to polypicker in following ways
  * Test on multiple devices you have
  * Write unit tests
+ * Write UI tests
  * Help with string translations
  * Fix open issues in the library
 

@@ -1,15 +1,12 @@
 package nl.changer.polypicker;
 
 import android.app.ActionBar;
-import android.app.ActionBar.Tab;
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBarActivity;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +24,7 @@ import java.util.Set;
 import nl.changer.polypicker.model.Image;
 import nl.changer.polypicker.utils.ImageInternalFetcher;
 
-public class ImagePickerActivity extends Activity implements ActionBar.TabListener {
+public class ImagePickerActivity extends ActionBarActivity {
 
     /**
      * Key to persist the list when saving the state of the activity.
@@ -39,28 +36,45 @@ public class ImagePickerActivity extends Activity implements ActionBar.TabListen
      */
     public static final String EXTRA_IMAGE_URIS = "nl.changer.changer.nl.polypicker.extra.selected_image_uris";
 
-    /**
-     * Integer extra to limit the number of images that can be selected. By default the user can
-     * select infinite number of images.
-     */
-    public static final String EXTRA_SELECTION_LIMIT = "nl.changer.changer.nl.polypicker.extra.selection_limit";
-
     private Set<Image> mSelectedImages;
     private LinearLayout mSelectedImagesContainer;
-    private TextView mSelectedImageEmptyMessage;
+    protected TextView mSelectedImageEmptyMessage;
 
-    private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     public ImageInternalFetcher mImageFetcher;
 
     private Button mCancelButtonView, mDoneButtonView;
 
-    private int mMaxSelectionsAllowed = Integer.MAX_VALUE;
+    private SlidingTabText mSlidingTabText;
+
+    // initialize with default config.
+    private static Config mConfig = new Config.Builder().build();
+
+    public static void setConfig(Config config) {
+
+        if (config == null) {
+            throw new NullPointerException("Config cannot be passed null. Not setting config will use default values.");
+        }
+
+        mConfig = config;
+    }
+
+    public static Config getConfig() {
+        return mConfig;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_pp);
+
+       /*
+       // Dont enable the toolbar.
+       // Consumes a lot of space in the UI unnecessarily.
+       Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+        }*/
 
         mSelectedImagesContainer = (LinearLayout) findViewById(R.id.selected_photos_container);
         mSelectedImageEmptyMessage = (TextView) findViewById(R.id.selected_photos_empty);
@@ -70,13 +84,9 @@ public class ImagePickerActivity extends Activity implements ActionBar.TabListen
 
         mSelectedImages = new HashSet<Image>();
         mImageFetcher = new ImageInternalFetcher(this, 500);
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
-        mViewPager.setAdapter(mSectionsPagerAdapter);
 
         mCancelButtonView.setOnClickListener(mOnFinishGettingImages);
         mDoneButtonView.setOnClickListener(mOnFinishGettingImages);
-
-        mMaxSelectionsAllowed = getIntent().getIntExtra(EXTRA_SELECTION_LIMIT, Integer.MAX_VALUE);
 
         setupActionBar();
         if (savedInstanceState != null) {
@@ -98,7 +108,12 @@ public class ImagePickerActivity extends Activity implements ActionBar.TabListen
      * Sets up the action bar, adding view page indicator.
      */
     private void setupActionBar() {
-        final ActionBar actionBar = getActionBar();
+       /*final ActionBar actionBar = getActionBar();
+
+        if (actionBar == null) {
+            return;
+        }
+
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDisplayShowTitleEnabled(false);
@@ -113,7 +128,15 @@ public class ImagePickerActivity extends Activity implements ActionBar.TabListen
 
         for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
             actionBar.addTab(actionBar.newTab().setText(mSectionsPagerAdapter.getPageTitle(i)).setTabListener(this));
-        }
+        }*/
+
+        mSlidingTabText = (SlidingTabText) findViewById(R.id.sliding_tabs);
+        mSlidingTabText.setSelectedIndicatorColors(getResources().getColor(mConfig.getTabSelectionIndicatorColor()));
+        mSlidingTabText.setCustomTabView(R.layout.tab_view_text, R.id.tab_icon);
+        mSlidingTabText.setTabStripColor(mConfig.getTabBackgroundColor());
+        mViewPager.setAdapter(new PagerAdapter2Fragments(getFragmentManager()));
+        mSlidingTabText.setTabTitles(getResources().getStringArray(R.array.tab_titles));
+        mSlidingTabText.setViewPager(mViewPager);
     }
 
     public boolean addImage(Image image) {
@@ -125,8 +148,8 @@ public class ImagePickerActivity extends Activity implements ActionBar.TabListen
             mSelectedImages = new HashSet<Image>();
         }
 
-        if (mSelectedImages.size() == mMaxSelectionsAllowed) {
-            Toast.makeText(this, mMaxSelectionsAllowed + " images selected already", Toast.LENGTH_SHORT).show();
+        if (mSelectedImages.size() == mConfig.getSelectionLimit()) {
+            Toast.makeText(this, getString(R.string.n_images_selected, mConfig.getSelectionLimit()), Toast.LENGTH_SHORT).show();
             return false;
         } else {
             if (mSelectedImages.add(image)) {
@@ -195,43 +218,6 @@ public class ImagePickerActivity extends Activity implements ActionBar.TabListen
         }
     };
 
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            switch (position) {
-                // TODO: user meaningful constants instead of merely integers
-                // to make this code more readable.
-                case 0:
-                    return new CwacCameraFragment();
-                case 1:
-                    return new GalleryFragment();
-                default:
-                    return null;
-            }
-        }
-
-        @Override
-        public int getCount() {
-            return 2;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return getString(R.string.take_photo);
-                case 1:
-                    return getString(R.string.gallery);
-            }
-            return null;
-        }
-    }
-
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -247,20 +233,5 @@ public class ImagePickerActivity extends Activity implements ActionBar.TabListen
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         populateUi(savedInstanceState);
-    }
-
-    @Override
-    public void onTabSelected(Tab tab, android.app.FragmentTransaction ft) {
-        mViewPager.setCurrentItem(tab.getPosition());
-    }
-
-    @Override
-    public void onTabUnselected(Tab tab, android.app.FragmentTransaction ft) {
-        // Auto-generated method stub
-    }
-
-    @Override
-    public void onTabReselected(Tab tab, android.app.FragmentTransaction ft) {
-        // Auto-generated method stub
     }
 }

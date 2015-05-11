@@ -21,12 +21,17 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.hardware.Camera;
 import android.hardware.Camera.Face;
 import android.hardware.Camera.Parameters;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -40,6 +45,7 @@ import com.commonsware.cwac.camera.PictureTransaction;
 import com.commonsware.cwac.camera.SimpleCameraHost;
 
 import nl.changer.polypicker.model.Image;
+import nl.changer.polypicker.utils.DebugLog;
 
 public class CwacCameraFragment extends CameraFragment {
 
@@ -54,6 +60,9 @@ public class CwacCameraFragment extends CameraFragment {
     private View mTakePictureBtn;
 
     private ProgressDialog mProgressDialog;
+
+    // initialize with default config.
+    private static Config mConfig;
 
     @Override
     public void onCreate(Bundle state) {
@@ -72,16 +81,28 @@ public class CwacCameraFragment extends CameraFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View cameraView = super.onCreateView(inflater, container, savedInstanceState);
-        View results = inflater.inflate(R.layout.fragment_camera_cwac, container, false);
+        View view = inflater.inflate(R.layout.fragment_camera_cwac, container, false);
 
-        ((ViewGroup) results.findViewById(R.id.camera)).addView(cameraView);
+        ((ViewGroup) view.findViewById(R.id.camera)).addView(cameraView);
 
-        mTakePictureBtn = results.findViewById(R.id.take_picture);
+        mTakePictureBtn = view.findViewById(R.id.take_picture);
         mTakePictureBtn.setOnClickListener(mOnTakePictureClicked);
 
-        results.setKeepScreenOn(true);
+        if (mConfig != null) {
+            mTakePictureBtn.getBackground().setColorFilter(getResources().getColor(mConfig.getCameraButtonColor()), PorterDuff.Mode.DARKEN);
+        } // else default will be used.
+
+        view.setKeepScreenOn(true);
         setRecordingItemVisibility();
-        return results;
+        return view;
+    }
+
+    /**
+     * Configure {@link CwacCameraFragment} with different parameters.
+     * @param config
+     */
+    public static void setConfig(@Nullable Config config) {
+        mConfig = config;
     }
 
     private View.OnClickListener mOnTakePictureClicked = new View.OnClickListener() {
@@ -89,9 +110,15 @@ public class CwacCameraFragment extends CameraFragment {
         @Override
         public void onClick(View view) {
             if (mTakePictureBtn.isEnabled()) {
-                autoFocus();
-                // calling above method will lead to callback
-                // onAutoFocus()
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    autoFocus();
+                    // calling above method will lead to callback
+                    // onAutoFocus()
+                } else {
+                    // dont attempt autofocus for version less than 16.
+                    takePicture();
+                }
             }
         }
     };
