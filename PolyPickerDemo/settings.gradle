@@ -1,0 +1,1 @@
+include ':app', ':pp3', ':camera3', ':Library'

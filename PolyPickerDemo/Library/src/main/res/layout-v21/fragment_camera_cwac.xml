@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/camera"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <nl.changer.polypicker.FloatingActionButton
+        android:id="@+id/take_picture"
+        style="@style/CameraFABButtonStyle"
+        android:stateListAnimator="@animator/fab_anim" >
+
+        <ImageView
+            android:layout_width="@dimen/fab_icon_size"
+            android:layout_height="@dimen/fab_icon_size"
+            android:src="@mipmap/ic_camera"
+            android:tint="@android:color/white"
+            android:layout_gravity="center"
+            android:duplicateParentState="true" />
+
+    </nl.changer.polypicker.FloatingActionButton>
+
+</FrameLayout>
