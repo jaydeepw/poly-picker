@@ -102,7 +102,7 @@ public class GalleryFragment extends Fragment {
             Image image = getItem(position);
             boolean isSelected = mActivity.containsImage(image);
 
-            ((FrameLayout) convertView).setForeground(isSelected ? getResources().getDrawable(R.drawable.gallery_photo_selected) : null);
+            ((FrameLayout) convertView).setForeground(isSelected ? getResources().getDrawable(R.mipmap.gallery_photo_selected) : null);
 
             if (holder.mImage == null || !holder.mImage.equals(image)) {
                 mActivity.mImageFetcher.loadImage(image.mUri, holder.mThumbnail);

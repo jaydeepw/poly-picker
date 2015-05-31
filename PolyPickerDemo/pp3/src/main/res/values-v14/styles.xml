@@ -15,6 +15,9 @@
 
     <style name="PPBaseTheme" parent="AppTheme.Base">
         <!-- API 14 theme customizations can go here. -->
+        <!-- Both of these are needed -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
 </resources>

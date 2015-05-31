@@ -15,6 +15,6 @@
         style="@style/CameraButtonStyle"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
-        android:src="@drawable/btn_bg" />
+        android:src="@mipmap/btn_bg" />
 
 </FrameLayout>
