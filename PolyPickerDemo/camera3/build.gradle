@@ -3,14 +3,17 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.0.0'
+        // classpath 'com.android.tools.build:gradle:1.0.0'
+        classpath 'com.android.tools.build:gradle:1.2.3'
         classpath 'com.github.dcendents:android-maven-plugin:1.2'
 
     }
 }
 
-apply plugin: 'android-library'
-apply plugin: 'android-maven'
+/*apply plugin: 'android-library'
+apply plugin: 'android-maven'*/
+apply plugin: 'com.android.library'
+//apply plugin: 'android-maven'
 
 version '0.6.10'
 group 'com.commonsware.cwac'
@@ -22,8 +25,10 @@ dependencies {
 }
 
 android {
-    compileSdkVersion 16    // change it to 16 when SDK is downoaded
-    buildToolsVersion "21.1.2"
+    /*compileSdkVersion 16    // change it to 16 when SDK is downoaded
+    buildToolsVersion "21.1.2"*/
+    compileSdkVersion 22    // change it to 16 when SDK is downoaded
+    buildToolsVersion "22.0.1"
 
     sourceSets {
         main {

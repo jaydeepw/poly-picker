@@ -18,7 +18,7 @@
         <ImageView
             android:layout_width="@dimen/fab_icon_size"
             android:layout_height="@dimen/fab_icon_size"
-            android:src="@drawable/ic_camera"
+            android:src="@mipmap/ic_camera"
             android:tint="@android:color/white"
             android:layout_gravity="center"
             android:duplicateParentState="true" />
