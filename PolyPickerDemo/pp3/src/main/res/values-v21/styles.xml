@@ -13,7 +13,7 @@
     </style>
 
     <style name="CameraFABButtonStyle" parent="CameraButtonStyle">
-        <item name="android:background">@mipmap/fab_background</item>
+        <item name="android:background">@drawable/fab_background</item>
         <item name="android:elevation">@dimen/fab_elevation</item>
     </style>
 </resources>
