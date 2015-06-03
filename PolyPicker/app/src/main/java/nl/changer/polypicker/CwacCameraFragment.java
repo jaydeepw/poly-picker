@@ -167,23 +167,34 @@ public class CwacCameraFragment extends CameraFragment {
         @Override
         public void saveImage(PictureTransaction xact, Bitmap bitmap) {
             String path = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), bitmap, getPhotoFilename(), null);
-            Uri contentUri = Uri.parse(path);
-            final Image image = getImageFromContentUri(contentUri);
 
-            // run the media scanner service
-            // MediaScannerConnection.scanFile(getActivity(), new String[]{path}, new String[]{"image/jpeg"}, null);
-            getActivity().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, contentUri));
+            if(path == null) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mTakePictureBtn.setEnabled(true);
+                        mProgressDialog.dismiss();
+                    }
+                });
+            } else {
+                Uri contentUri = Uri.parse(path);
+                final Image image = getImageFromContentUri(contentUri);
 
-            // the current method is an async. call.
-            // so make changes to the UI on the main thread.
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    ((ImagePickerActivity) getActivity()).addImage(image);
-                    mTakePictureBtn.setEnabled(true);
-                    mProgressDialog.dismiss();
-                }
-            });
+                // run the media scanner service
+                // MediaScannerConnection.scanFile(getActivity(), new String[]{path}, new String[]{"image/jpeg"}, null);
+                getActivity().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, contentUri));
+
+                // the current method is an async. call.
+                // so make changes to the UI on the main thread.
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((ImagePickerActivity) getActivity()).addImage(image);
+                        mTakePictureBtn.setEnabled(true);
+                        mProgressDialog.dismiss();
+                    }
+                });
+            }
         }
 
         public Image getImageFromContentUri(Uri contentUri) {
