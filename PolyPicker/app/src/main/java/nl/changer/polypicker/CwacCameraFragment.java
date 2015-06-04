@@ -15,6 +15,7 @@
 package nl.changer.polypicker;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -169,9 +170,12 @@ public class CwacCameraFragment extends CameraFragment {
             String path = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), bitmap, getPhotoFilename(), null);
 
             if(path == null) {
-                getActivity().runOnUiThread(new Runnable() {
+                final Activity activity = getActivity();
+
+                activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        Toast.makeText(activity, getString(R.string.photo_save_error_toast), Toast.LENGTH_SHORT).show();
                         mTakePictureBtn.setEnabled(true);
                         mProgressDialog.dismiss();
                     }
