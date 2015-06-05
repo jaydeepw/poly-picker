@@ -15,6 +15,7 @@
 package nl.changer.polypicker;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -167,23 +168,37 @@ public class CwacCameraFragment extends CameraFragment {
         @Override
         public void saveImage(PictureTransaction xact, Bitmap bitmap) {
             String path = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), bitmap, getPhotoFilename(), null);
-            Uri contentUri = Uri.parse(path);
-            final Image image = getImageFromContentUri(contentUri);
 
-            // run the media scanner service
-            // MediaScannerConnection.scanFile(getActivity(), new String[]{path}, new String[]{"image/jpeg"}, null);
-            getActivity().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, contentUri));
+            if(path == null) {
+                final Activity activity = getActivity();
 
-            // the current method is an async. call.
-            // so make changes to the UI on the main thread.
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    ((ImagePickerActivity) getActivity()).addImage(image);
-                    mTakePictureBtn.setEnabled(true);
-                    mProgressDialog.dismiss();
-                }
-            });
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(activity, getString(R.string.photo_save_error_toast), Toast.LENGTH_SHORT).show();
+                        mTakePictureBtn.setEnabled(true);
+                        mProgressDialog.dismiss();
+                    }
+                });
+            } else {
+                Uri contentUri = Uri.parse(path);
+                final Image image = getImageFromContentUri(contentUri);
+
+                // run the media scanner service
+                // MediaScannerConnection.scanFile(getActivity(), new String[]{path}, new String[]{"image/jpeg"}, null);
+                getActivity().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, contentUri));
+
+                // the current method is an async. call.
+                // so make changes to the UI on the main thread.
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((ImagePickerActivity) getActivity()).addImage(image);
+                        mTakePictureBtn.setEnabled(true);
+                        mProgressDialog.dismiss();
+                    }
+                });
+            }
         }
 
         public Image getImageFromContentUri(Uri contentUri) {
