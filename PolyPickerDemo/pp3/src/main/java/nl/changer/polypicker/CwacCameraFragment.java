@@ -22,8 +22,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.hardware.Camera;
 import android.hardware.Camera.Face;
 import android.hardware.Camera.Parameters;
@@ -37,15 +35,16 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.commonsware.cwac.camera.CameraFragment;
-import com.commonsware.cwac.camera.CameraUtils;
 import com.commonsware.cwac.camera.PictureTransaction;
 import com.commonsware.cwac.camera.SimpleCameraHost;
 
+import java.util.List;
+
 import nl.changer.polypicker.model.Image;
-import nl.changer.polypicker.utils.DebugLog;
 
 public class CwacCameraFragment extends CameraFragment {
 
@@ -55,7 +54,10 @@ public class CwacCameraFragment extends CameraFragment {
 
     private MenuItem autoFocusItem = null;
     private MenuItem recordItem = null;
-    String flashMode = null;
+    String flashMode = Parameters.FLASH_MODE_OFF;
+
+    Button flashStateOnButton, flashStateOffButton = null;
+    List<String> supportedFlashModes = null;
 
     private View mTakePictureBtn;
 
@@ -87,6 +89,52 @@ public class CwacCameraFragment extends CameraFragment {
 
         mTakePictureBtn = view.findViewById(R.id.take_picture);
         mTakePictureBtn.setOnClickListener(mOnTakePictureClicked);
+
+        flashStateOnButton = (Button) view.findViewById( R.id.flash_state_on );
+        flashStateOffButton = (Button) view.findViewById( R.id.flash_state_off );
+
+        flashStateOffButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                flashStateOffButton.setVisibility(View.GONE);
+                flashStateOnButton.setVisibility(View.VISIBLE);
+
+                if(supportedFlashModes.contains(Parameters.FLASH_MODE_TORCH)) {
+                    flashMode = Parameters.FLASH_MODE_TORCH;
+                } else if(supportedFlashModes.contains(Parameters.FLASH_MODE_ON)) {
+                    flashMode = Parameters.FLASH_MODE_ON;
+                }
+
+            }
+        });
+
+        flashStateOnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                flashStateOnButton.setVisibility(View.GONE);
+                flashStateOffButton.setVisibility(View.VISIBLE);
+                flashMode = Parameters.FLASH_MODE_OFF;
+
+            }
+        });
+
+//        flashStateButton.setText( "OFF" );
+
+//        flashStateButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                switch( flashStateButton.getText().toString() ) {
+//                    case "OFF":
+//                        flashStateButton.setText( "ON" );
+//                        flashMode = Parameters.FLASH_MODE_TORCH;
+//                        break;
+//                    case "ON":
+//                        flashStateButton.setText( "OFF" );
+//                        flashMode = Parameters.FLASH_MODE_OFF;
+//                        break;
+//                }
+//            }
+//        });
 
         if (mConfig != null) {
             mTakePictureBtn.getBackground().setColorFilter(getResources().getColor(mConfig.getCameraButtonColor()), PorterDuff.Mode.DARKEN);
@@ -243,10 +291,18 @@ public class CwacCameraFragment extends CameraFragment {
 
         @Override
         public Parameters adjustPreviewParameters(Parameters parameters) {
-            flashMode = CameraUtils.findBestFlashModeMatch(parameters,
-                    Parameters.FLASH_MODE_RED_EYE,
-                    Parameters.FLASH_MODE_AUTO,
-                    Parameters.FLASH_MODE_ON);
+//            flashMode = CameraUtils.findBestFlashModeMatch(parameters,
+//                    Parameters.FLASH_MODE_RED_EYE,
+//                    Parameters.FLASH_MODE_AUTO,
+//                    Parameters.FLASH_MODE_ON);
+
+            supportedFlashModes = parameters.getSupportedFlashModes();
+
+            if( supportedFlashModes != null ) {
+                flashStateOffButton.setVisibility( View.VISIBLE );
+            } else {
+                Log.d( "Camera flash modes", "NONE" );
+            }
 
             if (parameters.getMaxNumDetectedFaces() > 0) {
                 supportsFaces = true;
