@@ -35,7 +35,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -110,24 +109,6 @@ public class CwacCameraFragment extends CameraFragment {
                 }
             }
         });
-
-//        flashStateButton.setText( "OFF" );
-
-//        flashStateButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                switch( flashStateButton.getText().toString() ) {
-//                    case "OFF":
-//                        flashStateButton.setText( "ON" );
-//                        flashMode = Parameters.FLASH_MODE_TORCH;
-//                        break;
-//                    case "ON":
-//                        flashStateButton.setText( "OFF" );
-//                        flashMode = Parameters.FLASH_MODE_OFF;
-//                        break;
-//                }
-//            }
-//        });
 
         if (mConfig != null) {
             mTakePictureBtn.getBackground().setColorFilter(getResources().getColor(mConfig.getCameraButtonColor()), PorterDuff.Mode.DARKEN);
