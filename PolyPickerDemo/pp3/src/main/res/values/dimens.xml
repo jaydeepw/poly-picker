@@ -7,4 +7,7 @@
     <dimen name="fab_icon_size">30dp</dimen>
     <dimen name="fab_press_translation_z">9dp</dimen>
 
+    <dimen name="flash_horizontal_margin">16dp</dimen>
+    <dimen name="flash_vertical_margin">16dp</dimen>
+
 </resources>

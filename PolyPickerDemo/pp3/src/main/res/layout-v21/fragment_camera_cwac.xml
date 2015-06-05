@@ -9,25 +9,17 @@
         android:id="@+id/camera"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
-
-
     </FrameLayout>
 
-    <Button
+    <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/flash_off"
-        android:id="@+id/flash_state_off"
+        android:text="@string/flash"
+        android:id="@+id/flash_switch"
         android:visibility="gone"
-        android:layout_gravity="left|top" />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/flash_on"
-        android:id="@+id/flash_state_on"
-        android:visibility="gone"
-        android:layout_gravity="left|top" />
-
+        android:layout_marginStart="@dimen/flash_horizontal_margin"
+        android:layout_marginTop="@dimen/flash_vertical_margin"
+        android:layout_gravity="start|top" />
 
     <nl.changer.polypicker.FloatingActionButton
         android:id="@+id/take_picture"

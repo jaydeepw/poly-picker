@@ -36,6 +36,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.commonsware.cwac.camera.CameraFragment;
@@ -56,7 +58,7 @@ public class CwacCameraFragment extends CameraFragment {
     private MenuItem recordItem = null;
     String flashMode = Parameters.FLASH_MODE_OFF;
 
-    Button flashStateOnButton, flashStateOffButton = null;
+    Switch flashSwitch;
     List<String> supportedFlashModes = null;
 
     private View mTakePictureBtn;
@@ -90,31 +92,22 @@ public class CwacCameraFragment extends CameraFragment {
         mTakePictureBtn = view.findViewById(R.id.take_picture);
         mTakePictureBtn.setOnClickListener(mOnTakePictureClicked);
 
-        flashStateOnButton = (Button) view.findViewById( R.id.flash_state_on );
-        flashStateOffButton = (Button) view.findViewById( R.id.flash_state_off );
-
-        flashStateOffButton.setOnClickListener(new View.OnClickListener() {
+        flashSwitch = (Switch) view.findViewById( R.id.flash_switch );
+        flashSwitch.setChecked(false);
+        flashSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                flashStateOffButton.setVisibility(View.GONE);
-                flashStateOnButton.setVisibility(View.VISIBLE);
-
-                if(supportedFlashModes.contains(Parameters.FLASH_MODE_TORCH)) {
-                    flashMode = Parameters.FLASH_MODE_TORCH;
-                } else if(supportedFlashModes.contains(Parameters.FLASH_MODE_ON)) {
-                    flashMode = Parameters.FLASH_MODE_ON;
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    if( supportedFlashModes != null ) {
+                        if (supportedFlashModes.contains(Parameters.FLASH_MODE_TORCH)) {
+                            flashMode = Parameters.FLASH_MODE_TORCH;
+                        } else if (supportedFlashModes.contains(Parameters.FLASH_MODE_ON)) {
+                            flashMode = Parameters.FLASH_MODE_ON;
+                        }
+                    }
+                } else {
+                    flashMode = Parameters.FLASH_MODE_OFF;
                 }
-
-            }
-        });
-
-        flashStateOnButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                flashStateOnButton.setVisibility(View.GONE);
-                flashStateOffButton.setVisibility(View.VISIBLE);
-                flashMode = Parameters.FLASH_MODE_OFF;
-
             }
         });
 
@@ -299,9 +292,9 @@ public class CwacCameraFragment extends CameraFragment {
             supportedFlashModes = parameters.getSupportedFlashModes();
 
             if( supportedFlashModes != null ) {
-                flashStateOffButton.setVisibility( View.VISIBLE );
+                flashSwitch.setVisibility( View.VISIBLE );
             } else {
-                Log.d( "Camera flash modes", "NONE" );
+                Log.d( TAG, "No Camera flash modes" );
             }
 
             if (parameters.getMaxNumDetectedFaces() > 0) {
