@@ -24,8 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="nl.changer.polypicker.ImagePickerActivity"
-            android:theme="@style/PPBaseTheme" />
+            android:name="nl.changer.polypicker.ImagePickerActivity" />
     </application>
 
 </manifest>

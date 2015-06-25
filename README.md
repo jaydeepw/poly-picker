@@ -49,7 +49,7 @@ repositories {
 }
 
 dependencies {
-	compile 'net.the4thdimension:poly-picker:1.0.11'
+	compile 'net.the4thdimension:poly-picker:1.0.14'
 }
 
 ```
@@ -86,7 +86,8 @@ other applications to be kicked out of memory. Nothing very severe.
 
 ```
 
-Declare the PolyPicker activity in your AndroidManifest.xml
+Declare the PolyPicker activity in your AndroidManifest.xml with some theme
+that is a descendent of AppCompat.
 
 ```xml
 
@@ -99,9 +100,15 @@ Start the PolyPicker activity and get the result back.
 ```java
 
 private void getImages() {
-	Intent intent = new Intent(mContext, ImagePickerActivity.class);
-	intent.putExtra(ImagePickerActivity.EXTRA_SELECTION_LIMIT, 3);	// allow only upto 3 images to be selected.
-	startActivityForResult(intent, INTENT_REQUEST_GET_IMAGES);
+	        Intent intent = new Intent(mContext, ImagePickerActivity.class);
+        Config config = new Config.Builder()
+                .setTabBackgroundColor(R.color.white)    // set tab background color. Default white.
+                .setTabSelectionIndicatorColor(R.color.blue)
+                .setCameraButtonColor(R.color.green)
+                .setSelectionLimit(2)    // set photo selection limit. Default unlimited selection.
+                .build();
+        ImagePickerActivity.setConfig(config);
+        startActivityForResult(intent, INTENT_REQUEST_GET_IMAGES);
 }
 
 @Override
