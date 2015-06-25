@@ -100,7 +100,7 @@ Start the PolyPicker activity and get the result back.
 ```java
 
 private void getImages() {
-	        Intent intent = new Intent(mContext, ImagePickerActivity.class);
+	    Intent intent = new Intent(mContext, ImagePickerActivity.class);
         Config config = new Config.Builder()
                 .setTabBackgroundColor(R.color.white)    // set tab background color. Default white.
                 .setTabSelectionIndicatorColor(R.color.blue)
@@ -295,7 +295,7 @@ Alternative projects
 Release Notes
 ============
 
-## v1.0.13-SNAPSHOT
+## v1.0.14
 
 * Add autofocus feature when taking picture using camera.
 * Material theme for camera fragment
