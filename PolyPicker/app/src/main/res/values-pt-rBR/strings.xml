@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">PolyPicker</string>
+    <string name="done">Concluido</string>
+    <string name="cancel">Cancelar</string>
+    <string name="take_photo">Tire uma foto</string>
+    <string name="gallery">"Galeria"</string>
+    <string name="progress_title">Processando…</string>
+    <string name="no_images_selected">Nenhuma imagem selecionada</string>
+    <string name="imageview_content_description">Item da Geleria de imagem</string>
+    <string name="imageview_capture_photo_content_description">Tire uma foto usando a câmera do dispositivo</string>
+    <string name="n_images_selected">%1$s imagens já selecionadas</string>
+    <string name="photo_save_error_toast">Erro ao salvar imagem.</string>
+
+</resources>
