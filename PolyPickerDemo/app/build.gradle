@@ -1,8 +1,6 @@
 apply plugin: 'com.android.application'
 
 android {
-    /*compileSdkVersion 21
-    buildToolsVersion "21.1.2"*/
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
 
@@ -36,19 +34,19 @@ repositories {
         url "https://repo.commonsware.com.s3.amazonaws.com"
     }
 
-    // for downloading polypicker v1.0.13
-    /*maven {
-        url "https://oss.sonatype.org/content/repositories/snapshots/"
-    }*/
+    maven {
+        url "https://jitpack.io"
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     // compile 'com.android.support:appcompat-v7:21.0.+'
     compile 'com.android.support:appcompat-v7:22.2.0'
-    compile 'net.the4thdimension:poly-picker:1.0.14'
+    compile 'com.github.jaydeepw:poly-picker:5a6f1f88f7ababd739e59ecbf2cacf64322c704b'
 
-    // compile project (':pp3')
+    /*compile project (':pp')
+    compile project (':camera')*/
     // Testing-only dependencies
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.0'
     androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
