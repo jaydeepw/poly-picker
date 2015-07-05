@@ -43,10 +43,11 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     // compile 'com.android.support:appcompat-v7:21.0.+'
     compile 'com.android.support:appcompat-v7:22.2.0'
-    compile 'com.github.jaydeepw:poly-picker:5a6f1f88f7ababd739e59ecbf2cacf64322c704b'
+    // compile 'com.github.jaydeepw:poly-picker:5a6f1f88f7ababd739e59ecbf2cacf64322c704b'
 
-    /*compile project (':pp')
-    compile project (':camera')*/
+    compile project (':pp')
+    compile project (':camera')
+    
     // Testing-only dependencies
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.0'
     androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
