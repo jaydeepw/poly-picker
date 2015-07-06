@@ -5,11 +5,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -88,10 +90,23 @@ public class ImagePickerActivity extends ActionBarActivity {
         mCancelButtonView.setOnClickListener(mOnFinishGettingImages);
         mDoneButtonView.setOnClickListener(mOnFinishGettingImages);
 
-        setupActionBar();
+       // setupActionBar();
         if (savedInstanceState != null) {
             populateUi(savedInstanceState);
         }
+
+        // mViewPager.setAdapter(new PagerAdapter2Fragments(getFragmentManager()));
+        setupViewPager(mViewPager);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs2);
+        tabLayout.setupWithViewPager(mViewPager);
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        PagerAdapter2Fragments adapter = new PagerAdapter2Fragments(getFragmentManager());
+        adapter.addFragment(new CwacCameraFragment(), getString(R.string.take_photo));
+        adapter.addFragment(new GalleryFragment(), getString(R.string.gallery));
+        viewPager.setAdapter(adapter);
     }
 
     private void populateUi(Bundle savedInstanceState) {
@@ -107,29 +122,7 @@ public class ImagePickerActivity extends ActionBarActivity {
     /**
      * Sets up the action bar, adding view page indicator.
      */
-    private void setupActionBar() {
-       /*final ActionBar actionBar = getActionBar();
-
-        if (actionBar == null) {
-            return;
-        }
-
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setDisplayShowTitleEnabled(false);
-
-        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-
-            @Override
-            public void onPageSelected(int position) {
-                actionBar.setSelectedNavigationItem(position);
-            }
-        });
-
-        for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-            actionBar.addTab(actionBar.newTab().setText(mSectionsPagerAdapter.getPageTitle(i)).setTabListener(this));
-        }*/
-
+    /*private void setupActionBar() {
         mSlidingTabText = (SlidingTabText) findViewById(R.id.sliding_tabs);
         mSlidingTabText.setSelectedIndicatorColors(getResources().getColor(mConfig.getTabSelectionIndicatorColor()));
         mSlidingTabText.setCustomTabView(R.layout.tab_view_text, R.id.tab_icon);
@@ -137,7 +130,7 @@ public class ImagePickerActivity extends ActionBarActivity {
         mViewPager.setAdapter(new PagerAdapter2Fragments(getFragmentManager()));
         mSlidingTabText.setTabTitles(getResources().getStringArray(R.array.tab_titles));
         mSlidingTabText.setViewPager(mViewPager);
-    }
+    }*/
 
     public boolean addImage(Image image) {
 

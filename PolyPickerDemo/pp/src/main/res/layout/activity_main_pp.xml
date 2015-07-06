@@ -1,26 +1,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="nl.changer.changer.nl.polypicker.ImagePickerActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/sliding_tabs2"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="?attr/colorPrimaryDark"/>
-
-    <nl.changer.polypicker.SlidingTabText
-        android:id="@+id/sliding_tabs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="?attr/actionBarSize"
+        app:tabGravity="fill"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="#030303"
+        app:tabTextColor="#030303" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/action_btn_contianer"
-        android:layout_below="@+id/toolbar" />
+        android:layout_below="@+id/sliding_tabs2" />
 
     <LinearLayout
         android:id="@+id/action_btn_contianer"

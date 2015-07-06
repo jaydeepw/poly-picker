@@ -2,12 +2,16 @@ package nl.changer.polypicker;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v13.app.FragmentStatePagerAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by jay on 21/4/15.
  */
-public class PagerAdapter2Fragments extends FragmentStatePagerAdapter {
+public class PagerAdapter2Fragments extends FragmentPagerAdapter {
 
     /**
      * Number of tabs to be show. Change this value when a tab is added/removed
@@ -18,6 +22,14 @@ public class PagerAdapter2Fragments extends FragmentStatePagerAdapter {
 
     public PagerAdapter2Fragments(FragmentManager fm) {
         super(fm);
+    }
+
+    private final List<Fragment> mFragments = new ArrayList<>();
+    private final List<String> mFragmentTitles = new ArrayList<>();
+
+    public void addFragment(Fragment fragment, String title) {
+        mFragments.add(fragment);
+        mFragmentTitles.add(title);
     }
 
     @Override
@@ -37,9 +49,19 @@ public class PagerAdapter2Fragments extends FragmentStatePagerAdapter {
         return null;
     }
 
+    /*@Override
+    public Fragment getItem(int position) {
+        return mFragments.get(position);
+    }*/
+
     @Override
     public int getCount() {
-        return TAB_COUNT;
+        return mFragments.size();
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return mFragmentTitles.get(position);
     }
 
     /**
