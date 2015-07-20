@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         Config config = new Config.Builder()
                 .setTabBackgroundColor(R.color.white)    // set tab background color. Default white.
                 .setTabSelectionIndicatorColor(R.color.blue)
-                .setCameraButtonColor(R.color.green)
+                .setCameraButtonColor(R.color.orange)
                 .setSelectionLimit(2)    // set photo selection limit. Default unlimited selection.
                 .build();
         ImagePickerActivity.setConfig(config);
