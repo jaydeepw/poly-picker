@@ -48,6 +48,8 @@ repositories {
         url "https://repo.commonsware.com.s3.amazonaws.com"
     }
 
+    // for downloading poly-picker now we are using jitpack.
+    // Goodbye Maven Central
     maven {
         url "https://jitpack.io"
     }
@@ -301,6 +303,10 @@ Alternative projects
 
 Release Notes
 ============
+
+## v1.0.16
+
+* Update appcompat support library to 22.2.1
 
 ## v1.0.14
 

@@ -33,6 +33,8 @@ repositories {
         url "https://repo.commonsware.com.s3.amazonaws.com"
     }
 
+    // for downloading poly-picker now we are using jitpack.
+    // Goodbye Maven Central
     maven {
         url "https://jitpack.io"
     }
@@ -40,10 +42,10 @@ repositories {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.2.1'
-    compile 'com.github.jaydeepw:poly-picker:1.0.15'
+    compile 'com.android.support:appcompat-v7:22.2.0'
+    compile 'com.github.jaydeepw:poly-picker:v1.0.14'
 
-/*    compile project (':pp')
+    /*compile project (':pp')
     compile project (':camera')*/
     
     // Testing-only dependencies
