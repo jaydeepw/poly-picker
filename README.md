@@ -304,10 +304,6 @@ Alternative projects
 Release Notes
 ============
 
-## v1.0.16
-
-* Update appcompat support library to 22.2.1
-
 ## v1.0.14
 
 * Add autofocus feature when taking picture using camera.
