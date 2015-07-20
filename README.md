@@ -43,13 +43,20 @@ dependencies {
 // add external respository url in addition to having
 // your preferred repository.
 repositories {
+    // for downloading polypicker dependency cwac-camera
     maven {
         url "https://repo.commonsware.com.s3.amazonaws.com"
+    }
+
+    maven {
+        url "https://jitpack.io"
     }
 }
 
 dependencies {
-	compile 'net.the4thdimension:poly-picker:1.0.14'
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    // your dependencies
+    compile 'com.github.jaydeepw:poly-picker:v1.0.14'
 }
 
 ```
