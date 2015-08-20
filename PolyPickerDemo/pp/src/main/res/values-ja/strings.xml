@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="done">完了</string>
+    <string name="cancel">キャンセル</string>
+    <string name="take_photo">カメラ</string>
+    <string name="gallery">写真</string>
+    <string name="progress_title">写真を保存中...</string>
+    <string name="no_images_selected">選択中の写真はありません</string>
+    <string name="imageview_content_description">アルバムの写真</string>
+    <string name="imageview_capture_photo_content_description">写真を撮る</string>
+    <string name="n_images_selected">写真は%1$s枚までしか選択できません</string>
+    <string name="photo_save_error_toast">写真を保存できません</string>
+</resources>
