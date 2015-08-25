@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="done">확인</string>
+    <string name="cancel">취소</string>
+    <string name="take_photo">사진 촬영</string>
+    <string name="gallery">사진 선택</string>
+    <string name="progress_title">처리중입니다..</string>
+    <string name="no_images_selected">선택된 이미지가 없습니다.</string>
+    <string name="imageview_content_description">사진보관함 이미지</string>
+    <string name="imageview_capture_photo_content_description">카메라 촬영</string>
+    <string name="n_images_selected">%1$개의 이미지가 이미 선택되었습니다.</string>
+    <string name="photo_save_error_toast">이미지를 저장할 수 없습니다.</string>
+
+</resources>
