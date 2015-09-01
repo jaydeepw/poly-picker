@@ -97,7 +97,7 @@ public class ImageCache {
      * Return an {@link changer.nl.polypicker.utils.ImageCache} instance. A {@link changer.nl.polypicker.utils.ImageCache.RetainFragment} is used to retain the
      * ImageCache object across configuration changes such as a change in device orientation.
      *
-     * @param fragmentManager The fragment_camera_cwac manager to use when dealing with the retained fragment_camera_cwac.
+     * @param fragmentManager The pp__fragment_camera_cwac manager to use when dealing with the retained pp__fragment_camera_cwac.
      * @param cacheParams The cache parameters to use if the ImageCache needs instantiation.
      * @return An existing retained ImageCache object or a new one if one did not exist
      */
@@ -686,7 +686,7 @@ public class ImageCache {
      */
     private static RetainFragment findOrCreateRetainFragment(FragmentManager fm) {
         //BEGIN_INCLUDE(find_create_retain_fragment)
-        // Check to see if we have retained the worker fragment_camera_cwac.
+        // Check to see if we have retained the worker pp__fragment_camera_cwac.
         RetainFragment mRetainFragment = (RetainFragment) fm.findFragmentByTag(TAG);
 
         // If not retained (or first time running), we need to create and add it.

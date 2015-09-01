@@ -6,12 +6,12 @@
     android:orientation="vertical">
 
     <FrameLayout
-        android:id="@+id/camera"
+        android:id="@+id/pp_camera"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <nl.changer.polypicker.FloatingActionButton
-        android:id="@+id/take_picture"
+        android:id="@+id/pp_take_picture"
         style="@style/CameraFABButtonStyle"
         android:stateListAnimator="@animator/fab_anim" >
 

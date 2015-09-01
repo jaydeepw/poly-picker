@@ -30,7 +30,7 @@ public class GalleryFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_gallery, container, false);
+        View rootView = inflater.inflate(R.layout.pp__fragment_gallery, container, false);
 
         mGalleryAdapter = new ImageGalleryAdapter(getActivity());
         GridView galleryGridView = (GridView) rootView.findViewById(R.id.gallery_grid);
@@ -91,7 +91,7 @@ public class GalleryFragment extends Fragment {
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder holder;
             if (convertView == null) {
-                convertView = LayoutInflater.from(getContext()).inflate(R.layout.grid_item_gallery_thumbnail, null);
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.pp__grid_item_gallery_thumbnail, null);
                 holder = new ViewHolder();
                 holder.mThumbnail = (ImageView) convertView.findViewById(R.id.thumbnail_image);
                 convertView.setTag(holder);

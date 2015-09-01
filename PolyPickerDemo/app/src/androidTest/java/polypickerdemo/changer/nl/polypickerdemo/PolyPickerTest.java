@@ -57,7 +57,7 @@ public class PolyPickerTest extends ActivityInstrumentationTestCase2<MainActivit
 
     private void takePicturesFromCameraAndGallery() {
         onView(withId(R.id.get_images)).perform(click());
-        onView(withId(R.id.take_picture)).perform(click());
+        onView(withId(R.id.pp_take_picture)).perform(click());
         waitForSometime(PHOTO_PROCESSING_DELAY);  // picture processing delay
 
         waitForSometime(500);
@@ -74,7 +74,7 @@ public class PolyPickerTest extends ActivityInstrumentationTestCase2<MainActivit
 
     private void takePictureFromCamera() {
         onView(withId(R.id.get_n_images)).perform(click());
-        onView(withId(R.id.take_picture)).perform(click());
+        onView(withId(R.id.pp_take_picture)).perform(click());
         waitForSometime(PHOTO_PROCESSING_DELAY);  // picture processing delay
         onView(withId(R.id.action_btn_done)).perform(click());
     }

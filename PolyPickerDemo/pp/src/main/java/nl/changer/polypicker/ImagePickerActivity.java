@@ -1,12 +1,11 @@
 package nl.changer.polypicker;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +23,7 @@ import java.util.Set;
 import nl.changer.polypicker.model.Image;
 import nl.changer.polypicker.utils.ImageInternalFetcher;
 
-public class ImagePickerActivity extends ActionBarActivity {
+public class ImagePickerActivity extends AppCompatActivity {
 
     /**
      * Key to persist the list when saving the state of the activity.
@@ -66,7 +65,7 @@ public class ImagePickerActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_pp);
+        setContentView(R.layout.pp__activity_main);
 
        /*
        // Dont enable the toolbar.
@@ -108,31 +107,9 @@ public class ImagePickerActivity extends ActionBarActivity {
      * Sets up the action bar, adding view page indicator.
      */
     private void setupActionBar() {
-       /*final ActionBar actionBar = getActionBar();
-
-        if (actionBar == null) {
-            return;
-        }
-
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setDisplayShowTitleEnabled(false);
-
-        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-
-            @Override
-            public void onPageSelected(int position) {
-                actionBar.setSelectedNavigationItem(position);
-            }
-        });
-
-        for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
-            actionBar.addTab(actionBar.newTab().setText(mSectionsPagerAdapter.getPageTitle(i)).setTabListener(this));
-        }*/
-
         mSlidingTabText = (SlidingTabText) findViewById(R.id.sliding_tabs);
         mSlidingTabText.setSelectedIndicatorColors(getResources().getColor(mConfig.getTabSelectionIndicatorColor()));
-        mSlidingTabText.setCustomTabView(R.layout.tab_view_text, R.id.tab_icon);
+        mSlidingTabText.setCustomTabView(R.layout.pp__tab_view_text, R.id.pp_tab_text);
         mSlidingTabText.setTabStripColor(mConfig.getTabBackgroundColor());
         mViewPager.setAdapter(new PagerAdapter2Fragments(getFragmentManager()));
         mSlidingTabText.setTabTitles(getResources().getStringArray(R.array.tab_titles));
@@ -153,7 +130,7 @@ public class ImagePickerActivity extends ActionBarActivity {
             return false;
         } else {
             if (mSelectedImages.add(image)) {
-                View rootView = LayoutInflater.from(ImagePickerActivity.this).inflate(R.layout.list_item_selected_thumbnail, null);
+                View rootView = LayoutInflater.from(ImagePickerActivity.this).inflate(R.layout.pp__list_item_selected_thumbnail, null);
                 ImageView thumbnail = (ImageView) rootView.findViewById(R.id.selected_photo);
                 rootView.setTag(image.mUri);
                 mImageFetcher.loadImage(image.mUri, thumbnail);

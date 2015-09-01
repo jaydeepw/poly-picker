@@ -6,12 +6,12 @@
     android:orientation="vertical">
 
     <FrameLayout
-        android:id="@+id/camera"
+        android:id="@+id/pp_camera"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <ImageButton
-        android:id="@+id/take_picture"
+        android:id="@+id/pp_take_picture"
         style="@style/CameraButtonStyle"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"

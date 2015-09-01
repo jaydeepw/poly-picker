@@ -23,8 +23,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.hardware.Camera;
 import android.hardware.Camera.Face;
 import android.hardware.Camera.Parameters;
@@ -46,7 +44,6 @@ import com.commonsware.cwac.camera.PictureTransaction;
 import com.commonsware.cwac.camera.SimpleCameraHost;
 
 import nl.changer.polypicker.model.Image;
-import nl.changer.polypicker.utils.DebugLog;
 
 public class CwacCameraFragment extends CameraFragment {
 
@@ -82,11 +79,11 @@ public class CwacCameraFragment extends CameraFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View cameraView = super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_camera_cwac, container, false);
+        View view = inflater.inflate(R.layout.pp__fragment_camera_cwac, container, false);
 
-        ((ViewGroup) view.findViewById(R.id.camera)).addView(cameraView);
+        ((ViewGroup) view.findViewById(R.id.pp_camera)).addView(cameraView);
 
-        mTakePictureBtn = view.findViewById(R.id.take_picture);
+        mTakePictureBtn = view.findViewById(R.id.pp_take_picture);
         mTakePictureBtn.setOnClickListener(mOnTakePictureClicked);
 
         if (mConfig != null) {
