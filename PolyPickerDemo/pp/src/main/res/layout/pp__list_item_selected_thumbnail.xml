@@ -7,7 +7,7 @@
     android:paddingRight="0.5dp">
 
     <nl.changer.polypicker.CustomImageView
-        android:id="@+id/selected_photo"
+        android:id="@+id/pp__selected_photo"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:adjustViewBounds="true"

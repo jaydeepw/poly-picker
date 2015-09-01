@@ -5,25 +5,25 @@
     tools:context="nl.changer.changer.nl.polypicker.ImagePickerActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/pp__toolbar"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="?attr/colorPrimaryDark"/>
 
     <nl.changer.polypicker.SlidingTabText
-        android:id="@+id/sliding_tabs"
+        android:id="@+id/pp__sliding_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
+        android:id="@+id/pp__pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/action_btn_contianer"
-        android:layout_below="@+id/toolbar" />
+        android:layout_above="@+id/pp__bottom_bar"
+        android:layout_below="@+id/pp__toolbar" />
 
     <LinearLayout
-        android:id="@+id/action_btn_contianer"
+        android:id="@+id/pp__bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -34,9 +34,8 @@
         android:showDividers="middle">
 
         <FrameLayout
-            android:id="@+id/selected_photos_container_frame"
             android:layout_width="match_parent"
-            android:layout_height="61dp">
+            android:layout_height="62dp">
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
@@ -47,7 +46,7 @@
                 android:paddingTop="1dp">
 
                 <LinearLayout
-                    android:id="@+id/selected_photos_container"
+                    android:id="@+id/pp__selected_photos_container"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="left"
@@ -58,7 +57,7 @@
             </HorizontalScrollView>
 
             <TextView
-                android:id="@+id/selected_photos_empty"
+                android:id="@+id/pp__selected_photos_empty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -67,13 +66,13 @@
         </FrameLayout>
 
         <LinearLayout
-            android:id="@+id/button_bar"
+            android:id="@+id/pp__button_bar"
             style="?android:buttonBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/action_btn_cancel"
+                android:id="@+id/pp__btn_cancel"
                 style="?android:buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -81,7 +80,7 @@
                 android:text="@string/cancel" />
 
             <Button
-                android:id="@+id/action_btn_done"
+                android:id="@+id/pp__btn_done"
                 style="?android:buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

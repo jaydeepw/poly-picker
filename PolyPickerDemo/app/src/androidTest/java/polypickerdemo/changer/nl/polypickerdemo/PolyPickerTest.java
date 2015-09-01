@@ -63,20 +63,20 @@ public class PolyPickerTest extends ActivityInstrumentationTestCase2<MainActivit
         waitForSometime(500);
         onView(withText(R.string.gallery)).perform(click());
 
-        for (int i = 0; i < 3; i++) {
+        for (int position = 0; position < 3; position++) {
             onData(anything())
-                    .inAdapterView(withId(R.id.gallery_grid))
-                    .atPosition(i).perform(click());
+                    .inAdapterView(withId(R.id.pp__gallery_grid))
+                    .atPosition(position).perform(click());
         }
 
-        onView(withId(R.id.action_btn_done)).perform(click());
+        onView(withId(R.id.pp__btn_done)).perform(click());
     }
 
     private void takePictureFromCamera() {
         onView(withId(R.id.get_n_images)).perform(click());
         onView(withId(R.id.pp_take_picture)).perform(click());
         waitForSometime(PHOTO_PROCESSING_DELAY);  // picture processing delay
-        onView(withId(R.id.action_btn_done)).perform(click());
+        onView(withId(R.id.pp__btn_done)).perform(click());
     }
 
     private void waitForSometime(long timeToWaitFor) {

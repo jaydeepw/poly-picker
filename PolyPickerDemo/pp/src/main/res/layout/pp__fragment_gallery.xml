@@ -5,7 +5,7 @@
     tools:context="nl.changer.changer.nl.polypicker.CameraFragment">
 
     <GridView
-        android:id="@+id/gallery_grid"
+        android:id="@+id/pp__gallery_grid"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"

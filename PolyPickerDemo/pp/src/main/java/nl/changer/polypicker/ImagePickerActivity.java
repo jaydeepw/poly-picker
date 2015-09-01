@@ -75,11 +75,11 @@ public class ImagePickerActivity extends AppCompatActivity {
             setSupportActionBar(toolbar);
         }*/
 
-        mSelectedImagesContainer = (LinearLayout) findViewById(R.id.selected_photos_container);
-        mSelectedImageEmptyMessage = (TextView) findViewById(R.id.selected_photos_empty);
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        mCancelButtonView = (Button) findViewById(R.id.action_btn_cancel);
-        mDoneButtonView = (Button) findViewById(R.id.action_btn_done);
+        mSelectedImagesContainer = (LinearLayout) findViewById(R.id.pp__selected_photos_container);
+        mSelectedImageEmptyMessage = (TextView) findViewById(R.id.pp__selected_photos_empty);
+        mViewPager = (ViewPager) findViewById(R.id.pp__pager);
+        mCancelButtonView = (Button) findViewById(R.id.pp__btn_cancel);
+        mDoneButtonView = (Button) findViewById(R.id.pp__btn_done);
 
         mSelectedImages = new HashSet<Image>();
         mImageFetcher = new ImageInternalFetcher(this, 500);
@@ -107,7 +107,7 @@ public class ImagePickerActivity extends AppCompatActivity {
      * Sets up the action bar, adding view page indicator.
      */
     private void setupActionBar() {
-        mSlidingTabText = (SlidingTabText) findViewById(R.id.sliding_tabs);
+        mSlidingTabText = (SlidingTabText) findViewById(R.id.pp__sliding_tabs);
         mSlidingTabText.setSelectedIndicatorColors(getResources().getColor(mConfig.getTabSelectionIndicatorColor()));
         mSlidingTabText.setCustomTabView(R.layout.pp__tab_view_text, R.id.pp_tab_text);
         mSlidingTabText.setTabStripColor(mConfig.getTabBackgroundColor());
@@ -131,7 +131,7 @@ public class ImagePickerActivity extends AppCompatActivity {
         } else {
             if (mSelectedImages.add(image)) {
                 View rootView = LayoutInflater.from(ImagePickerActivity.this).inflate(R.layout.pp__list_item_selected_thumbnail, null);
-                ImageView thumbnail = (ImageView) rootView.findViewById(R.id.selected_photo);
+                ImageView thumbnail = (ImageView) rootView.findViewById(R.id.pp__selected_photo);
                 rootView.setTag(image.mUri);
                 mImageFetcher.loadImage(image.mUri, thumbnail);
                 mSelectedImagesContainer.addView(rootView, 0);
@@ -177,7 +177,7 @@ public class ImagePickerActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View view) {
-            if (view.getId() == R.id.action_btn_done) {
+            if (view.getId() == R.id.pp__btn_done) {
 
                 Uri[] uris = new Uri[mSelectedImages.size()];
                 int i = 0;
@@ -188,7 +188,7 @@ public class ImagePickerActivity extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.putExtra(EXTRA_IMAGE_URIS, uris);
                 setResult(Activity.RESULT_OK, intent);
-            } else if (view.getId() == R.id.action_btn_cancel) {
+            } else if (view.getId() == R.id.pp__btn_cancel) {
                 setResult(Activity.RESULT_CANCELED);
             }
             finish();

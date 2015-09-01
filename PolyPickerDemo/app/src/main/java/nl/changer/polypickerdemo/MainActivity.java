@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     private Context mContext;
 
     private ViewGroup mSelectedImagesContainer;
-    private ViewGroup mSelectedImagesNone;
     HashSet<Uri> mMedia = new HashSet<Uri>();
 
     @Override

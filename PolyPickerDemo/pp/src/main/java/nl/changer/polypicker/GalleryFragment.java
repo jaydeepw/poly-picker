@@ -33,7 +33,7 @@ public class GalleryFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.pp__fragment_gallery, container, false);
 
         mGalleryAdapter = new ImageGalleryAdapter(getActivity());
-        GridView galleryGridView = (GridView) rootView.findViewById(R.id.gallery_grid);
+        GridView galleryGridView = (GridView) rootView.findViewById(R.id.pp__gallery_grid);
         mActivity = ((ImagePickerActivity) getActivity());
 
         Cursor imageCursor = null;
@@ -93,7 +93,7 @@ public class GalleryFragment extends Fragment {
             if (convertView == null) {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.pp__grid_item_gallery_thumbnail, null);
                 holder = new ViewHolder();
-                holder.mThumbnail = (ImageView) convertView.findViewById(R.id.thumbnail_image);
+                holder.mThumbnail = (ImageView) convertView.findViewById(R.id.pp__thumbnail_image);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
