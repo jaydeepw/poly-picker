@@ -58,7 +58,7 @@ repositories {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     // your dependencies
-    compile 'com.github.jaydeepw:poly-picker:1.0.17'
+    compile 'com.github.jaydeepw:poly-picker:v1.0.19'
 }
 
 ```
@@ -303,6 +303,10 @@ Alternative projects
 
 Release Notes
 ============
+
+## v1.0.19
+
+* Add Danish translations
 
 ## v1.0.17
 
