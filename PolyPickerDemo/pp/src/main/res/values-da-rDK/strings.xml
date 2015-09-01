@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">PolyPicker</string>
     <string name="done">Færdig</string>
     <string name="cancel">Fortryd</string>
     <string name="take_photo">Tag et billede</string>
