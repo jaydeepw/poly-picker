@@ -43,8 +43,10 @@ repositories {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.2.0'
-    // compile 'com.github.jaydeepw:poly-picker:v1.0.21'
+    // compile 'com.github.jaydeepw:poly-picker:f6fa883eafee7edba6f66ada842ecfb1e1032904'
 
+    // when publishing, the demo app should always use the local modules
+    // instead of compiled dependencies.
     compile project (':pp')
     compile project (':camera')
     
