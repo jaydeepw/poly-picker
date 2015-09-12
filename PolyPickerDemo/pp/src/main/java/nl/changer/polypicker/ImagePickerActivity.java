@@ -17,8 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedHashSet;
 
 import nl.changer.polypicker.model.Image;
 import nl.changer.polypicker.utils.ImageInternalFetcher;
@@ -35,7 +34,7 @@ public class ImagePickerActivity extends AppCompatActivity {
      */
     public static final String EXTRA_IMAGE_URIS = "nl.changer.changer.nl.polypicker.extra.selected_image_uris";
 
-    private Set<Image> mSelectedImages;
+    private LinkedHashSet<Image> mSelectedImages;
     private LinearLayout mSelectedImagesContainer;
     protected TextView mSelectedImageEmptyMessage;
 
@@ -81,7 +80,7 @@ public class ImagePickerActivity extends AppCompatActivity {
         mCancelButtonView = (Button) findViewById(R.id.pp__btn_cancel);
         mDoneButtonView = (Button) findViewById(R.id.pp__btn_done);
 
-        mSelectedImages = new HashSet<Image>();
+        mSelectedImages = new LinkedHashSet<Image>();
         mImageFetcher = new ImageInternalFetcher(this, 500);
 
         mCancelButtonView.setOnClickListener(mOnFinishGettingImages);
@@ -122,7 +121,7 @@ public class ImagePickerActivity extends AppCompatActivity {
             // this condition may arise when the activity is being
             // restored when sufficient memory is available. onRestoreState()
             // will be called.
-            mSelectedImages = new HashSet<Image>();
+            mSelectedImages = new LinkedHashSet<Image>();
         }
 
         if (mSelectedImages.size() == mConfig.getSelectionLimit()) {

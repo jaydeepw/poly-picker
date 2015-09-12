@@ -16,8 +16,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import java.io.File;
-import java.util.HashSet;
-import java.util.Iterator;
 
 import nl.changer.polypicker.Config;
 import nl.changer.polypicker.ImagePickerActivity;
@@ -33,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private Context mContext;
 
     private ViewGroup mSelectedImagesContainer;
-    HashSet<Uri> mMedia = new HashSet<Uri>();
+    private Uri[] uris;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,15 +91,10 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 // Java doesn't allow array casting, this is a little hack
-                Uri[] uris = new Uri[parcelableUris.length];
+                uris = new Uri[parcelableUris.length];
                 System.arraycopy(parcelableUris, 0, uris, 0, parcelableUris.length);
 
                 if (uris != null) {
-                    for (Uri uri : uris) {
-                        Log.i(TAG, " uri: " + uri);
-                        mMedia.add(uri);
-                    }
-
                     showMedia();
                 }
             }
@@ -113,14 +106,12 @@ public class MainActivity extends AppCompatActivity {
         // adding the new ones.
         mSelectedImagesContainer.removeAllViews();
 
-        Iterator<Uri> iterator = mMedia.iterator();
         ImageInternalFetcher imageFetcher = new ImageInternalFetcher(this, 500);
-        while (iterator.hasNext()) {
-            Uri uri = iterator.next();
+        for (Uri uri : uris) {
 
             // showImage(uri);
             Log.i(TAG, " uri: " + uri);
-            if (mMedia.size() >= 1) {
+            if (uris.length >= 1) {
                 mSelectedImagesContainer.setVisibility(View.VISIBLE);
             }
 
