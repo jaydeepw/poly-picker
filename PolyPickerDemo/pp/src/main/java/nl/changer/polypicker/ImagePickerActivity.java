@@ -81,7 +81,7 @@ public class ImagePickerActivity extends AppCompatActivity {
         mCancelButtonView = (Button) findViewById(R.id.pp__btn_cancel);
         mDoneButtonView = (Button) findViewById(R.id.pp__btn_done);
 
-        mSelectedImages = new HashSet<Image>();
+        mSelectedImages = new HashSet<>();
         mImageFetcher = new ImageInternalFetcher(this, 500);
 
         mCancelButtonView.setOnClickListener(mOnFinishGettingImages);
@@ -93,7 +93,7 @@ public class ImagePickerActivity extends AppCompatActivity {
         }
     }
 
-    private void populateUi(Bundle savedInstanceState) {
+    protected void populateUi(Bundle savedInstanceState) {
         ArrayList<Image> list = savedInstanceState.getParcelableArrayList(KEY_LIST);
 
         if (list != null) {
@@ -106,7 +106,7 @@ public class ImagePickerActivity extends AppCompatActivity {
     /**
      * Sets up the action bar, adding view page indicator.
      */
-    private void setupActionBar() {
+    protected void setupActionBar() {
         mSlidingTabText = (SlidingTabText) findViewById(R.id.pp__sliding_tabs);
         mSlidingTabText.setSelectedIndicatorColors(getResources().getColor(mConfig.getTabSelectionIndicatorColor()));
         mSlidingTabText.setCustomTabView(R.layout.pp__tab_view_text, R.id.pp_tab_text);
