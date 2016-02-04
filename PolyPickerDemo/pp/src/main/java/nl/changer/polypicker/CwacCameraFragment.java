@@ -61,6 +61,9 @@ public class CwacCameraFragment extends CameraFragment {
 
     // initialize with default config.
     private static Config mConfig;
+    
+     String deviceMan = android.os.Build.MANUFACTURER;
+     String deviceName = android.os.Build.MODEL;
 
     @Override
     public void onCreate(Bundle state) {
@@ -137,7 +140,9 @@ public class CwacCameraFragment extends CameraFragment {
 
         PictureTransaction pictureTransaction = new PictureTransaction(getHost());
         pictureTransaction.needBitmap(true);
-        pictureTransaction.flashMode(flashMode);
+        if (!deviceMan.equalsIgnoreCase("samsung")) {
+            pictureTransaction.flashMode(flashMode);
+        }
         super.takePicture(pictureTransaction);
     }
 
