@@ -1,15 +1,15 @@
 /***
- 7  Copyright (c) 2013 CommonsWare, LLC
-
- Licensed under the Apache License, Version 2.0 (the "License"); you may
- not use this file except in compliance with the License. You may obtain
- a copy of the License at
- http://www.apache.org/licenses/LICENSE-2.0
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
+ * 7  Copyright (c) 2013 CommonsWare, LLC
+ * <p/>
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package nl.changer.polypicker;
@@ -61,9 +61,6 @@ public class CwacCameraFragment extends CameraFragment {
 
     // initialize with default config.
     private static Config mConfig;
-    
-     String deviceMan = android.os.Build.MANUFACTURER;
-     String deviceName = android.os.Build.MODEL;
 
     @Override
     public void onCreate(Bundle state) {
@@ -100,6 +97,7 @@ public class CwacCameraFragment extends CameraFragment {
 
     /**
      * Configure {@link CwacCameraFragment} with different parameters.
+     *
      * @param config
      */
     public static void setConfig(@Nullable Config config) {
@@ -140,7 +138,7 @@ public class CwacCameraFragment extends CameraFragment {
 
         PictureTransaction pictureTransaction = new PictureTransaction(getHost());
         pictureTransaction.needBitmap(true);
-        if (!deviceMan.equalsIgnoreCase("samsung")) {
+        if (!Build.MANUFACTURER.equalsIgnoreCase("samsung")) {
             pictureTransaction.flashMode(flashMode);
         }
         super.takePicture(pictureTransaction);
@@ -171,7 +169,7 @@ public class CwacCameraFragment extends CameraFragment {
         public void saveImage(PictureTransaction xact, Bitmap bitmap) {
             String path = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), bitmap, getPhotoFilename(), null);
 
-            if(path == null) {
+            if (path == null) {
                 final Activity activity = getActivity();
 
                 activity.runOnUiThread(new Runnable() {
