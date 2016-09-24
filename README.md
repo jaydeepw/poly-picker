@@ -1,4 +1,4 @@
-poly-picker
+PolyPicker
 ===========
 
 Android library project for selecting/capturing multiple images from the device.
