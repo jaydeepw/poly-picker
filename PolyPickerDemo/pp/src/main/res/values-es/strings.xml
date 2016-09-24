@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name" translatable="false">PolyPicker</string>
+    <string name="done">Hecho</string>
+    <string name="cancel">Cancelar</string>
+    <string name="take_photo">Cámara</string>
+    <string name="gallery">Galería</string>
+    <string name="progress_title">Cargando…</string>
+    <string name="no_images_selected">Ninguna imagen seleccionada</string>
+    <string name="imageview_content_description">Imagen de la galería</string>
+    <string name="imageview_capture_photo_content_description">Usar la cámara</string>
+    <string name="n_images_selected">Ya has seleccionado %1$s imágenes</string>
+    <string name="photo_save_error_toast">Imposible guardar la imagen.</string>
+
+</resources>
