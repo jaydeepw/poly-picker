@@ -1,7 +1,9 @@
 package nl.changer.polypicker;
 
-import android.app.Fragment;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,12 +18,14 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import nl.changer.polypicker.model.Image;
+import nl.changer.polypicker.utils.BroadcastFragment;
+import nl.changer.polypicker.utils.Utils;
 
 
 /**
  * Created by Gil on 04/03/2014.
  */
-public class GalleryFragment extends Fragment {
+public class GalleryFragment extends BroadcastFragment {
 
     private static final String TAG = GalleryFragment.class.getSimpleName();
 
@@ -72,6 +76,30 @@ public class GalleryFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    @Override
+    public String getName() {
+        return TAG;
+    }
+
+    @Override
+    public BroadcastReceiver setupBroadcastReceiver() {
+        return new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (intent.getAction().equals(Utils.Events.SELECTION_CHANGED)){
+                    mGalleryAdapter.notifyDataSetChanged();
+                }
+            }
+        };
+    }
+
+    @Override
+    public IntentFilter setupIntentFilter() {
+        IntentFilter inf = new IntentFilter();
+        inf.addAction(Utils.Events.SELECTION_CHANGED);
+        return inf;
     }
 
     class ViewHolder {
