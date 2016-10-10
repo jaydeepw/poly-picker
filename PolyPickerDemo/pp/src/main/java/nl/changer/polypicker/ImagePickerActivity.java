@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -18,6 +19,7 @@ import java.util.Set;
 
 import nl.changer.polypicker.model.Image;
 import nl.changer.polypicker.utils.ImageInternalFetcher;
+import nl.changer.polypicker.utils.Utils;
 
 public class ImagePickerActivity extends AppCompatActivity {
 
@@ -134,14 +136,6 @@ public class ImagePickerActivity extends AppCompatActivity {
                 });
                 mImageFetcher.loadImage(image.mUri, rootView.getImagePreviewView());
                 mSelectedImagesContainer.addView(rootView, 0);
-//                View rootView = LayoutInflater.from(ImagePickerActivity.this).inflate(R.layout.pp__list_item_selected_thumbnail, null);
-//                ImageView thumbnail = (ImageView) rootView.findViewById(R.id.pp__selected_photo);
-//                rootView.setTag(image.mUri);
-//                mImageFetcher.loadImage(image.mUri, thumbnail);
-//                mSelectedImagesContainer.addView(rootView, 0);
-//
-//                int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, getResources().getDisplayMetrics());
-//                thumbnail.setLayoutParams(new RelativeLayout.LayoutParams(px, px));
 
                 if (mSelectedImages.size() >= 1) {
                     mSelectedImagesContainer.setVisibility(View.VISIBLE);
@@ -168,6 +162,9 @@ public class ImagePickerActivity extends AppCompatActivity {
                 mSelectedImagesContainer.setVisibility(View.GONE);
                 mSelectedImageEmptyMessage.setVisibility(View.VISIBLE);
             }
+            Intent refreshIntent = new Intent();
+            refreshIntent.setAction(Utils.Events.SELECTION_CHANGED);
+            LocalBroadcastManager.getInstance(this).sendBroadcast(refreshIntent);
             return true;
         }
         return false;

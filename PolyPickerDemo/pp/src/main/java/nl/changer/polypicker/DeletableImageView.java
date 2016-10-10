@@ -1,12 +1,10 @@
 package nl.changer.polypicker;
 
 import android.content.Context;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import nl.changer.polypicker.R;
 import nl.changer.polypicker.model.Image;
 
 /**
