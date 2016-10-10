@@ -141,6 +141,7 @@ public class CwacCameraFragment extends CameraFragment {
         if (!Build.MANUFACTURER.equalsIgnoreCase("samsung")) {
             pictureTransaction.flashMode(flashMode);
         }
+        pictureTransaction.needByteArray(false);
         super.takePicture(pictureTransaction);
     }
 
