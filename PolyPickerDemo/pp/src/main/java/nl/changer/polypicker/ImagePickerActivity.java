@@ -34,6 +34,7 @@ public class ImagePickerActivity extends AppCompatActivity {
      * Returns the parcelled image uris in the intent with this extra.
      */
     public static final String EXTRA_IMAGE_URIS = "nl.changer.changer.nl.polypicker.extra.selected_image_uris";
+    public static final String EXTRA_IMAGE_ORIENTATIONS = "nl.changer.changer.nl.polypicker.extra.selected_image_orientations";
 
     private Set<Image> mSelectedImages;
     private LinearLayout mSelectedImagesContainer;
@@ -133,7 +134,7 @@ public class ImagePickerActivity extends AppCompatActivity {
                 View rootView = LayoutInflater.from(ImagePickerActivity.this).inflate(R.layout.pp__list_item_selected_thumbnail, null);
                 ImageView thumbnail = (ImageView) rootView.findViewById(R.id.pp__selected_photo);
                 rootView.setTag(image.mUri);
-                mImageFetcher.loadImage(image.mUri, thumbnail);
+                mImageFetcher.loadImage(image.mUri, thumbnail, image.mOrientation);
                 mSelectedImagesContainer.addView(rootView, 0);
 
                 int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, getResources().getDisplayMetrics());
@@ -180,13 +181,16 @@ public class ImagePickerActivity extends AppCompatActivity {
             if (view.getId() == R.id.pp__btn_done) {
 
                 Uri[] uris = new Uri[mSelectedImages.size()];
+                int[] orientations = new int[mSelectedImages.size()];
                 int i = 0;
                 for (Image img : mSelectedImages) {
-                    uris[i++] = img.mUri;
+                    uris[i] = img.mUri;
+                    orientations[i++] = img.mOrientation;
                 }
 
                 Intent intent = new Intent();
                 intent.putExtra(EXTRA_IMAGE_URIS, uris);
+                intent.putExtra(EXTRA_IMAGE_ORIENTATIONS, orientations);
                 setResult(Activity.RESULT_OK, intent);
             } else if (view.getId() == R.id.pp__btn_cancel) {
                 setResult(Activity.RESULT_CANCELED);

@@ -21,6 +21,7 @@ import java.util.Iterator;
 
 import nl.changer.polypicker.Config;
 import nl.changer.polypicker.ImagePickerActivity;
+import nl.changer.polypicker.model.Image;
 import nl.changer.polypicker.utils.ImageInternalFetcher;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewGroup mSelectedImagesContainer;
     HashSet<Uri> mMedia = new HashSet<Uri>();
+    HashSet<Image> mMediaImages = new HashSet<Image>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,19 +89,26 @@ public class MainActivity extends AppCompatActivity {
         if (resuleCode == Activity.RESULT_OK) {
             if (requestCode == INTENT_REQUEST_GET_IMAGES || requestCode == INTENT_REQUEST_GET_N_IMAGES) {
                 Parcelable[] parcelableUris = intent.getParcelableArrayExtra(ImagePickerActivity.EXTRA_IMAGE_URIS);
-
+                int[] parcelableOrientations = intent.getIntArrayExtra((ImagePickerActivity.EXTRA_IMAGE_ORIENTATIONS));
                 if (parcelableUris == null) {
                     return;
                 }
 
                 // Java doesn't allow array casting, this is a little hack
                 Uri[] uris = new Uri[parcelableUris.length];
+                int[] orientations = new int[parcelableUris.length];
                 System.arraycopy(parcelableUris, 0, uris, 0, parcelableUris.length);
+                System.arraycopy(parcelableOrientations, 0, orientations, 0, parcelableOrientations.length);
 
                 if (uris != null) {
-                    for (Uri uri : uris) {
+                    /*for (Uri uri : uris) {
                         Log.i(TAG, " uri: " + uri);
                         mMedia.add(uri);
+
+                    }*/
+                    for (int i=0; i<orientations.length; i++) {
+                        mMediaImages.add(new Image(uris[i], orientations[i]));
+
                     }
 
                     showMedia();
@@ -113,13 +122,13 @@ public class MainActivity extends AppCompatActivity {
         // adding the new ones.
         mSelectedImagesContainer.removeAllViews();
 
-        Iterator<Uri> iterator = mMedia.iterator();
+        Iterator<Image> iterator = mMediaImages.iterator();
         ImageInternalFetcher imageFetcher = new ImageInternalFetcher(this, 500);
         while (iterator.hasNext()) {
-            Uri uri = iterator.next();
+            Image image = iterator.next();
 
             // showImage(uri);
-            Log.i(TAG, " uri: " + uri);
+            Log.i(TAG, " uri: " + image);
             if (mMedia.size() >= 1) {
                 mSelectedImagesContainer.setVisibility(View.VISIBLE);
             }
@@ -130,12 +139,12 @@ public class MainActivity extends AppCompatActivity {
             // initRemoveBtn(removeBtn, imageHolder, uri);
             ImageView thumbnail = (ImageView) imageHolder.findViewById(R.id.media_image);
 
-            if (!uri.toString().contains("content://")) {
+            if (!image.mUri.toString().contains("content://")) {
                 // probably a relative uri
-                uri = Uri.fromFile(new File(uri.toString()));
+                image.mUri = Uri.fromFile(new File(image.mUri.toString()));
             }
 
-            imageFetcher.loadImage(uri, thumbnail);
+            imageFetcher.loadImage(image.mUri, thumbnail, image.mOrientation);
 
             mSelectedImagesContainer.addView(imageHolder);
 
