@@ -34,9 +34,9 @@ Download
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    // and 
-    // your 
-    // other 
+    // and
+    // your
+    // other
     // dependencies...
 }
 
@@ -58,7 +58,7 @@ repositories {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     // your dependencies
-    compile 'com.github.jaydeepw:poly-picker:v1.0.22'
+    compile 'com.github.jaydeepw:poly-picker:1.0.23'
 }
 
 ```
@@ -304,6 +304,10 @@ Alternative projects
 Release Notes
 ============
 
+## 1.0.23
+
+* [Fix image rotation](https://github.com/jaydeepw/poly-picker/pull/108)
+
 ## v1.0.22
 
 * Add Danish translations
@@ -320,7 +324,7 @@ Release Notes
 
 ## v1.0.11
 
-* Fix leaking progress dialog windown when the device orientation changes
+* Fix leaking progress dialog window when the device orientation changes
 
 ## v1.0.10
 

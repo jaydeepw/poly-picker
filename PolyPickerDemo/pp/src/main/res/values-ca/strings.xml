@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name" translatable="false">PolyPicker</string>
     <string name="done">Fet</string>
     <string name="cancel">Cancel·la</string>
     <string name="take_photo">Càmera</string>
@@ -11,6 +10,6 @@
     <string name="imageview_content_description">Imatge de la galeria</string>
     <string name="imageview_capture_photo_content_description">Utilitza la càmera</string>
     <string name="n_images_selected">Ja has seleccionat %1$s imatges</string>
-    <string name="photo_save_error_toast">No s'ha pogut desar la imatge.</string>
+    <string name="photo_save_error_toast">No s\'ha pogut desar la imatge.</string>
 
 </resources>

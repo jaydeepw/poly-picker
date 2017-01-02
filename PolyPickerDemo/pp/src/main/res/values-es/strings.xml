@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name" translatable="false">PolyPicker</string>
     <string name="done">Hecho</string>
     <string name="cancel">Cancelar</string>
     <string name="take_photo">Cámara</string>
