@@ -47,6 +47,8 @@ public class ImagePickerActivity extends Activity implements ActionBar.TabListen
      */
     public static final String EXTRA_SELECTION_LIMIT = "nl.changer.changer.nl.polypicker.extra.selection_limit";
 
+    public static final String EXTRA_IMAGE_ORIENTATIONS = "nl.changer.changer.nl.polypicker.extra.selected_image_orientations";
+
     private Set<Image> mSelectedImages;
     private LinearLayout mSelectedImagesContainer;
     private TextView mSelectedImageEmptyMessage;
@@ -135,7 +137,8 @@ public class ImagePickerActivity extends Activity implements ActionBar.TabListen
                 View rootView = LayoutInflater.from(ImagePickerActivity.this).inflate(R.layout.list_item_selected_thumbnail, null);
                 ImageView thumbnail = (ImageView) rootView.findViewById(R.id.selected_photo);
                 rootView.setTag(image.mUri);
-                mImageFetcher.loadImage(image.mUri, thumbnail);
+               // mImageFetcher.loadImage(image.mUri, thumbnail);
+                mImageFetcher.loadImage(image.mUri, thumbnail, image.mOrientation);
                 mSelectedImagesContainer.addView(rootView, 0);
 
                 int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, getResources().getDisplayMetrics());
@@ -182,13 +185,18 @@ public class ImagePickerActivity extends Activity implements ActionBar.TabListen
             if (view.getId() == R.id.action_btn_done) {
 
                 Uri[] uris = new Uri[mSelectedImages.size()];
+                int[] orientations = new int[mSelectedImages.size()];
+
                 int i = 0;
                 for (Image img : mSelectedImages) {
-                    uris[i++] = img.mUri;
+                    //uris[i++] = img.mUri;
+                    uris[i] = img.mUri;
+                    orientations[i++] = img.mOrientation;
                 }
 
                 Intent intent = new Intent();
                 intent.putExtra(EXTRA_IMAGE_URIS, uris);
+                intent.putExtra(EXTRA_IMAGE_ORIENTATIONS, orientations);
                 setResult(Activity.RESULT_OK, intent);
             } else if (view.getId() == R.id.action_btn_cancel) {
                 setResult(Activity.RESULT_CANCELED);
