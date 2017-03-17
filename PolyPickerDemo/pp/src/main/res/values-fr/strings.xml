@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="done">Valider</string>
+    <string name="cancel">Annuler</string>
+    <string name="take_photo">Prendre une photo</string>
+    <string name="gallery">Gallery</string>
+    <string name="progress_title">En cours…</string>
+    <string name="no_images_selected">Aucune image sélectionnée</string>
+    <string name="imageview_content_description">Objet gallery images</string>
+    <string name="imageview_capture_photo_content_description">Prendre une photo avec l\'appareil photo</string>
+    <string name="n_images_selected">%1$s images sélectionnées déjà</string>
+    <string name="photo_save_error_toast">Impossible d\'enregistrer l\'image.</string>
+</resources>
