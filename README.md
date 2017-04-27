@@ -45,7 +45,7 @@ dependencies {
 repositories {
     // for downloading polypicker dependency cwac-camera
     maven {
-        url "https://repo.commonsware.com.s3.amazonaws.com"
+        url "https://s3.amazonaws.com/repo.commonsware.com"
     }
 
     // for downloading poly-picker now we are using jitpack.
