@@ -298,6 +298,7 @@ Donations!
 ==========
 * **Using Bitcoins** If this project has helped you understand issues, be productive by using this library in your app or just being nice with me, you can always donate me Bitcoins at this address `3QJEmgqXsT1CFLtURYWxzmww59DdKYVwNk`
 
+<img src="https://github.com/jaydeepw/poly-picker/blob/develop/logo-paypal.png" />
 * **Using Paypal** [Pay Jay](https://www.paypal.me/jaydeepw)
 
 
