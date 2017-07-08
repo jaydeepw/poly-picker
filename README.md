@@ -294,6 +294,11 @@ Credits
  * Dealing with camera on variety of hardware and fragmentation in underlying software is difficult.
 CommonsGuy's library [Cwac Camera](https://github.com/commonsguy/cwac-camera) helped handle it better in this project
 
+Donations!
+==========
+You can donate me Bitcoins at this address
+`3QJEmgqXsT1CFLtURYWxzmww59DdKYVwNk`
+
 
 Alternative projects
 ==========
