@@ -296,8 +296,7 @@ CommonsGuy's library [Cwac Camera](https://github.com/commonsguy/cwac-camera) he
 
 Donations!
 ==========
-You can donate me Bitcoins at this address
-`3QJEmgqXsT1CFLtURYWxzmww59DdKYVwNk`
+If this project has helped you understand issues, be productive by using this library in your app or just being nice with me, you can always donate me Bitcoins at this address `3QJEmgqXsT1CFLtURYWxzmww59DdKYVwNk`
 
 
 Alternative projects
